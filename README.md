@@ -1,2 +1,2 @@
 # octoscorp.github.io
-Repository for own website
+A repository for my own website
