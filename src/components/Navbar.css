@@ -1,0 +1,206 @@
+.navbar {
+    background: linear-gradient(90deg, var(--background-darker) 0%, var(--background) 100%);
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    max-width: 1500px;
+}
+
+.navbar-logo {
+    color: var(--secondary);
+    justify-self: start;
+    margin-left: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    z-index: 5;
+}
+
+.navbar-logo:visited {
+    color: var(--secondary);
+}
+
+.navbar-logo:hover {
+    color: var(--secondary-dark);
+    transition: all 0.5s;
+}
+
+.navbar-logo:hover .navbar-logo-underline {
+    width: 186px;
+    top: 30px;
+    height: 27px;
+    transition: width 0.3s, height 0.5s, top 0.5s;
+}
+
+.navbar-logo-underline {
+    background-color: var(--primary);
+    height: 2px;
+    color: var(--primary);
+    display: flex;
+    position: absolute;
+    top: 55px;
+    left: 112px;
+    pointer-events: none;
+    overflow: hidden;
+    width: 65px;
+    z-index: -1;
+    transition: width 0.5s, height 0.3s, top 0.3s;
+}
+
+.nav-menu {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 0px;
+    list-style: none;
+    text-align: center;
+    width: 60vw;
+    justify-content: end;
+    margin-right: 2rem;
+}
+
+.nav-item {
+    height: 80px;
+}
+
+.nav-links {
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0 1rem;
+    height: 100%;
+    position: relative;
+}
+
+.nav-links:hover {
+    border-bottom: 8px solid var(--secondary);
+    padding-top: 1.2rem;
+    transition: all 0.2s ease-out;
+    background-color: var(--background-lighter);
+}
+
+.nav-links-text {
+    visibility: hidden;
+}
+
+.nav-links:hover .nav-links-text {
+    visibility: visible;
+}
+
+.nav-links-icon {
+    position: absolute;
+    top: 35%;
+    left: 40%;
+    z-index: -1;
+    visibility: visible;
+}
+
+.nav-links:hover .nav-links-icon {
+    visibility: hidden;
+}
+
+.menu-icon {
+    display: none;
+}
+
+@media screen and (max-width: 960px) {
+    .NavbarItems {
+        position: relative;
+    }
+
+    .nav-menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        max-width: 0;
+        width: 0;
+        overflow: hidden;
+        height: 90vh;
+        position: absolute;
+        top: 80px;
+        right: -1.32em;
+        opacity: 1;
+        transition: all 0.5s ease;
+    }
+
+    .nav-menu.active {
+        background: var(--background-darker);
+        max-width: 100%;
+        width: 102%;
+        transition: all 0.5s ease;
+        z-index: 1;
+    }
+
+    .nav-links {
+        text-align: center;
+        padding: 2rem;
+        width: 100%;
+        display: table;
+    }
+
+    .nav-links:hover {
+        background-color: var(--primary);
+        color: var(--background);
+        border-radius: 0;
+    }
+
+    .nav-links-icon {
+        display: none;
+    }
+
+    .nav-links-text {
+        visibility: visible;
+    }
+
+    .navbar-logo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(5%, 15%);
+    }
+
+    .menu-icon {
+        display: block;
+        position: absolute;
+        align-items: center;
+        top: 0;
+        right: 0;
+        transform: translate(-100%, 60%);
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--primary);
+    }
+
+    .nav-links-mobile {
+        display: block;
+        text-align: center;
+        margin: 2rem auto;
+        border-radius: 4px;
+        width: 80%;
+        text-decoration: none;
+        font-size: 1.5rem;
+        background-color: transparent;
+        color: var(--primary);
+        padding: 14px 20px;
+        border: 1px solid var(--primary);
+        transition: all 0.3s ease-out;
+    }
+
+    .nav-links-mobile:hover {
+        background: var(--primary);
+        color: var(--secondary);
+        transition: 250ms;
+    }
+}
