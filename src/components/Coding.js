@@ -29,10 +29,10 @@ function Coding() {
             </details>
             <br />
             <h3 className="font--medium ">Professional Experience</h3>
-            <p>TBC</p>
+            <p>I have completed one internship with Allied Telesis Labs (Nov 2021 - Feb 2022), during the course of which I used the Scrum process in a small team to prototype implementations in line with networking RFC specifications.</p>
             <br />
             <h3 className="font--medium ">Educational Experience</h3>
-            <p>TBC</p>
+            <p>I've been programming since 2016 in some form or another, thanks to taking digital technology in high school. </p>
             <br />
             <h3 className="font--medium ">Personal Experience</h3>
             <p>Game development, personal tools, and of course, this website!</p>

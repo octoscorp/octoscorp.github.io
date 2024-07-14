@@ -21,8 +21,12 @@
 
 body {
 	font-size: 1.1rem;
-	background-color: var(--background);
+	background-color: var(--background-lighter);
 	color: var(--primary);
+}
+
+body, #root {
+	min-height: 100vh;
 }
 
 .logo-font {
@@ -70,10 +74,13 @@ a:visited {
 }
 
 .centre-container {
+	background-color: var(--background);
+	padding: 0px 40px 20px;
 	text-align: center;
 	color: var(--primary);
-	width: 65%;
-	margin: auto;
+	min-height: calc(100vh - 80px);
+	width: 68%;
+	margin: 0px auto;
 }
 
 h2, h3 {

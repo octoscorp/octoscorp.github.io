@@ -91,6 +91,10 @@
     background-color: var(--background-lighter);
 }
 
+.nav-links:visited:hover {
+    border-bottom: 8px solid var(--secondary-dark);
+}
+
 .nav-links-text {
     visibility: hidden;
 }
