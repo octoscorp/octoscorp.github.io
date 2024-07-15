@@ -18,7 +18,7 @@
 }
 
 .navbar-logo {
-    color: var(--secondary);
+    color: var(--primary);
     justify-self: start;
     margin-left: 20px;
     cursor: pointer;
@@ -29,34 +29,34 @@
 }
 
 .navbar-logo:visited {
-    color: var(--secondary);
+    color: var(--primary);
 }
 
 .navbar-logo:hover {
-    color: var(--secondary-dark);
-    transition: all 0.5s;
+    color: var(--primary-darker);
+    transition: all 0.5s ease;
 }
 
 .navbar-logo:hover .navbar-logo-underline {
     width: 186px;
     top: 30px;
     height: 27px;
-    transition: width 0.3s, height 0.5s, top 0.5s;
+    transition: height 0.25s ease, top 0.25s ease, width 0.4s cubic-bezier(.5,0,.5,0);
 }
 
 .navbar-logo-underline {
-    background-color: var(--primary);
+    background-color: var(--bright);
     height: 2px;
-    color: var(--primary);
+    color: var(--bright);
     display: flex;
     position: absolute;
     top: 55px;
-    left: 112px;
+    left: 13.4%;
     pointer-events: none;
     overflow: hidden;
     width: 65px;
     z-index: -1;
-    transition: width 0.5s, height 0.3s, top 0.3s;
+    transition: width 0.3s ease-in-out, height 0.6s cubic-bezier(.5,0,.5,0), top 0.6s cubic-bezier(.5,0,.5,0);
 }
 
 .nav-menu {
@@ -75,7 +75,7 @@
 }
 
 .nav-links {
-    color: var(--secondary);
+    color: var(--primary);
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -85,14 +85,14 @@
 }
 
 .nav-links:hover {
-    border-bottom: 8px solid var(--secondary);
+    border-bottom: 8px solid var(--primary);
     padding-top: 1.2rem;
     transition: all 0.2s ease-out;
     background-color: var(--background-lighter);
 }
 
 .nav-links:visited:hover {
-    border-bottom: 8px solid var(--secondary-dark);
+    border-bottom: 8px solid var(--primary-darker);
 }
 
 .nav-links-text {
@@ -155,7 +155,7 @@
     }
 
     .nav-links:hover {
-        background-color: var(--primary);
+        background-color: var(--bright);
         color: var(--background);
         border-radius: 0;
     }
@@ -175,6 +175,16 @@
         transform: translate(5%, 15%);
     }
 
+    .navbar-logo-underline {
+        position: absolute;
+        top: 75%;
+        left: 17%;
+    }
+
+    .navbar-logo:hover .navbar-logo-underline {
+        top: 31%;
+    }
+
     .menu-icon {
         display: block;
         position: absolute;
@@ -184,7 +194,7 @@
         transform: translate(-100%, 60%);
         font-size: 1.8rem;
         cursor: pointer;
-        color: var(--primary);
+        color: var(--bright);
     }
 
     .nav-links-mobile {
@@ -196,15 +206,15 @@
         text-decoration: none;
         font-size: 1.5rem;
         background-color: transparent;
-        color: var(--primary);
+        color: var(--bright);
         padding: 14px 20px;
-        border: 1px solid var(--primary);
+        border: 1px solid var(--bright);
         transition: all 0.3s ease-out;
     }
 
     .nav-links-mobile:hover {
-        background: var(--primary);
-        color: var(--secondary);
+        background: var(--bright);
+        color: var(--primary);
         transition: 250ms;
     }
 }

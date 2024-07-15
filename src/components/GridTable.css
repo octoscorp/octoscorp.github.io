@@ -1,0 +1,70 @@
+/* Custom table layout using CSS grid framework. This allows more flexibile
+tables, as the HTML table can be restrictive and difficult to work with. */
+
+/* Curve to match the outer table border. The curve amount variable is inherited, set it on the table element.
+NOTE: the top-right and bottom-left elements cannot be curved with this generic configuration, as selecting them requires nth-child/nth-last-child. */
+.grid-item:first-child {
+    border-radius: var(--curve-amount) 0 0;
+}
+.grid-item:last-child {
+    border-radius: 0 0 var(--curve-amount);
+}
+
+/* Specifics begin here */
+
+/* Table format for displaying projects */
+.project-table {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr;
+    --curve-amount: 15px;
+    border-radius: var(--curve-amount);
+    border: 1px solid var(--background-darker);
+}
+.project-table .heading {
+    font-weight: bold;
+    border-bottom: 1px dashed var(--primary);
+}
+.project-table .grid-item {
+    padding: 2px 4px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.project-table .grid-item:not(.heading) {
+    justify-content: center;
+}
+/* Curve elements which require knowing number of columns (top-right and bottom-left) */
+.project-table .heading.grid-item:nth-child(3) {
+    border-radius: 0 var(--curve-amount) 0 0;
+}
+.project-table .grid-item:nth-last-child(3) {
+    border-radius: 0 0 0 var(--curve-amount);
+}
+/* Color odd rows */
+.project-table .grid-item:nth-child(6n+1), .project-table .grid-item:nth-child(6n+2), .project-table .grid-item:nth-child(6n+3) {
+    background-color: var(--background-lighter);
+}
+
+/* Handle tiny screens */
+@media screen and (max-width: 350px) {
+    .heading {
+        display: none !important;
+    }
+    .row-start {
+        font-weight: bold;
+        text-decoration: underline;
+        color: var(--bright-lighter);
+    }
+
+    /* Specifics */
+    
+    .project-table {
+        grid-template-columns: 1fr;
+        border: none;
+        border-top: 1px solid var(--background-darker);
+        border-bottom: 1px solid var(--background-darker);
+        --curve-amount: 0px;
+        border-radius: var(--curve-amount);
+    }
+}

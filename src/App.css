@@ -1,14 +1,21 @@
 /*Filename - App.css*/
 
 :root {
-	--background: #242424;
-	--background-darker: #1C1C1C;
-	--background-lighter: #2F2F2F;
-    --primary: #c0c0c0;
-    --primary-light: #fff;
-	--secondary: #4a4;
-	--secondary-dark: #262;
-	--secondary-light: #6a6;
+	/* Colour definitions */
+	--background: #2F302C;
+	--background-darker: #2A2B27;
+	--background-lighter: #333630;
+
+    --bright: #C0C0C0;
+    --bright-darker: #AEAEAE;
+    --bright-lighter: #FFF;
+
+	--primary: #44AA44;
+	--primary-darker: #3D753D;
+	--primary-lighter: #8CAB44;
+
+	--secondary: #B85A49;
+
     --contrast: #242424;
 }
 
@@ -16,13 +23,13 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-	font-family: 'Helvetica', sans-serif;
+	font-family: 'Verdana', sans-serif;
 }
 
 body {
 	font-size: 1.1rem;
 	background-color: var(--background-lighter);
-	color: var(--primary);
+	color: var(--bright);
 }
 
 body, #root {
@@ -31,6 +38,10 @@ body, #root {
 
 .logo-font {
 	font-family: 'Silkscreen', sans-serif;
+}
+
+.font--tiny {
+	font-size: 0.7rem;
 }
 
 .font--small {
@@ -49,12 +60,20 @@ body, #root {
 	font-size: 3rem;
 }
 
-.secondary-text-color {
-	color: var(--secondary);
+.bright-darker-text-color {
+	color: var(--bright-darker);
 }
 
-.highlight-text {
-	color: var(--secondary-light);
+.bright-lighter-text-color {
+	color: var(--bright-lighter);
+}
+
+.primary-text-color {
+	color: var(--primary);
+}
+
+.secondary-text-color {
+	color: var(--secondary);
 }
 
 .home, .services, .products, .sign-up {
@@ -66,25 +85,31 @@ body, #root {
 }
 
 a {
-	color: var(--secondary);
+	color: var(--primary);
 }
 
 a:visited {
-	color: var(--secondary-dark);
+	color: var(--primary-darker);
+}
+
+a[disabled] {
+	pointer-events: none;
+	color: var(--bright);
+	text-decoration: none;
 }
 
 .centre-container {
 	background-color: var(--background);
 	padding: 0px 40px 20px;
 	text-align: center;
-	color: var(--primary);
+	color: var(--bright);
 	min-height: calc(100vh - 80px);
 	width: 68%;
 	margin: 0px auto;
 }
 
 h2, h3 {
-	color: var(--primary-light);
+	color: var(--bright-lighter);
 }
 
 h2 hr {
@@ -99,4 +124,34 @@ h2 hr {
 
 .plain-list li {
 	margin-top: 3px;
+}
+
+summary {
+	display: block;
+}
+
+summary::after {
+	margin-left: 2.5%;
+	display: inline-block;
+	font-family: 'Courier New', Courier, monospace;
+	content: '>';
+	transition: 0.6s;
+}
+
+details[open] > summary::after {
+	transform: rotate(-270deg);
+}
+
+@media screen and (max-width: 960px) {
+	.centre-container {
+		padding: 0 6% 2%;
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.centre-container {
+		padding: 0;
+		width: 100%;
+	}
 }

@@ -10,7 +10,7 @@ function About() {
             point you to my previous work.</p>
             <br />
             <h3 className="font--medium ">Professional Interests</h3>
-            <p>In the software space, my interests are chiefly in <span className='highlight-text'>security, user experience, and quality assurance</span>. As an end
+            <p>In the software space, my interests are chiefly in <span className='secondary-text-color'>security, user experience, and quality assurance</span>. As an end
             user of software products, I see far too many preventable issues on these fronts. As a software developer myself,
             I see this as an opportunity for improvements in the industry.</p>
             <br />

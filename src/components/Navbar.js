@@ -32,7 +32,7 @@ function Navbar() {
         <nav className="navbar font--medium">
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo logo-font font--large" onClick={closeMobileMenu}>
-                    <span className="logo-font font--extra-large secondary-text-color">O</span>
+                    <span className="logo-font font--extra-large primary-text-color">O</span>
                     ctoscorp<div className="navbar-logo-underline"></div>
                 </Link>
                 <div className="menu-icon" onClick={handleClick}>
@@ -63,13 +63,13 @@ function Navbar() {
                             <i className='nav-links-icon bi bi-brush-fill' />
                         </Link>
                     </li>
-                    {!button && <li className="nav-item">
+                    {/* {!button && <li className="nav-item">
                         <Link to='/sign-up' className='nav-links-mobile' onClick={closeMobileMenu}>
                             Sign Up
                         </Link>
-                    </li>}
+                    </li>} */}
                 </ul>
-                {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>}
+                {/* {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>} */}
             </div>
         </nav>
         </>

@@ -6,16 +6,16 @@
     cursor: pointer;
 }
 
-.btn--primary {
-    background-color: var(--primary);
-    color: var(--contrast);
-    border: 1px solid var(--primary);
+.btn--bright {
+    background-color: var(--bright);
+    color: var(--background);
+    border: 1px solid var(--bright);
 }
 
 .btn--outline {
     background-color: transparent;
-    color: var(--primary);
-    border: 1px solid var(--primary);
+    color: var(--bright);
+    border: 1px solid var(--bright);
     transition: all 0.3s ease-out;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .btn--medium:hover, .btn--large:hover {
-    background: var(--primary);
+    background: var(--bright);
     color: var(--contrast);
     transition: all 0.3s ease-out;
 }
