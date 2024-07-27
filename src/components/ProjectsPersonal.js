@@ -4,7 +4,7 @@ import './GridTable.css';
 function ProjectsPersonal() {
     return (
         <div className="project-table">
-            <div className="row-start heading grid-item">Name</div>
+            <div className="row-start heading grid-item">Project</div>
             <div className="heading grid-item">Platform<br /><span className='bright-darker-text-color font--tiny'>Click for source code</span></div>
             <div className="heading grid-item">Description</div>
 
@@ -22,7 +22,7 @@ function ProjectsPersonal() {
 
             <div className="row-start grid-item">Summoner's Apprentice</div>
             <div className="grid-item"><a href='https://github.com/octoscorp/LD55' target='_blank'>GDScript</a></div>
-            <div className="grid-item">My submission to the Ludum Dare 55 Game Jam. This was the first game I created in an engine, and was made in 48 hours. The <a href='https://antisage.itch.io/summoners-apprentice' target='_blank'>itch page</a> for this will eventually have a version compiled for web.</div>
+            <div className="grid-item"><p>My submission to the Ludum Dare 55 Game Jam. This was the first game I created in an engine, and was made in 48 hours. The <a href='https://antisage.itch.io/summoners-apprentice' target='_blank'>itch page</a> for this will eventually have a version compiled for web.</p></div>
         </div>
     )
 }

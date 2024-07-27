@@ -51,7 +51,7 @@
     display: flex;
     position: absolute;
     top: 55px;
-    left: 13.4%;
+    margin-left: 38px;
     pointer-events: none;
     overflow: hidden;
     width: 65px;
@@ -179,6 +179,7 @@
         position: absolute;
         top: 75%;
         left: 17%;
+        margin-left: 0px;
     }
 
     .navbar-logo:hover .navbar-logo-underline {

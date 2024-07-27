@@ -4,7 +4,7 @@
 	/* Colour definitions */
 	--background: #2F302C;
 	--background-darker: #2A2B27;
-	--background-lighter: #333630;
+	--background-lighter: #41463d;
 
     --bright: #C0C0C0;
     --bright-darker: #AEAEAE;
@@ -28,7 +28,7 @@
 
 body {
 	font-size: 1.1rem;
-	background-color: var(--background-lighter);
+	background: linear-gradient(135deg, var(--background-lighter) 0%, var(--background) 120%);
 	color: var(--bright);
 }
 
