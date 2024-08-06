@@ -28,7 +28,7 @@
 
 body {
 	font-size: 1.1rem;
-	background: linear-gradient(135deg, var(--background-lighter) 0%, var(--background) 120%);
+	background: linear-gradient(135deg, var(--background-lighter) 0%, var(--background) 105%) fixed;
 	color: var(--bright);
 }
 

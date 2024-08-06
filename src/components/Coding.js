@@ -1,5 +1,6 @@
 import React from 'react'
 import ProjectsPersonal from './ProjectsPersonal'
+import ProjectsEducation from './ProjectsEducation'
 
 function Coding() {
     return (
@@ -34,11 +35,12 @@ function Coding() {
             </details>
             <br />
             <details><summary className="bright-lighter-text-color font--medium"><b>Educational Experience</b></summary>
-            <p>I've been programming since 2016 in some form or another, thanks to taking digital technology in high school. </p>
+            <p>I've been programming since 2016 in some form or another, thanks to taking digital technology in high school. The projects I've learnt the most from are shown below.</p>
+            <ProjectsEducation />
             </details>
             <br />
             <details><summary className="bright-lighter-text-color font--medium"><b>Personal Projects</b></summary>
-            <p>My personal experience includes game development, personal tools, and of course, this website!</p>
+            <p>Some of my more significant personal projects in coding are highlighted in the table below.</p>
             <ProjectsPersonal />
             </details>
             <br />

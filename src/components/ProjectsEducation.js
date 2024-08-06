@@ -10,8 +10,8 @@ function ProjectsEducation() {
 
             <div className="row-start grid-item">CodeWOF Extension</div>
             <div className="grid-item">
-                Python (Django framework)<br />
-                JavaScript
+                <p>Python (Django framework)</p>
+                <p>JavaScript</p>
             </div>
             <div className="grid-item">
                 <p>This was my final year project, for which I was working solo with supervision. I extended the existing CodeWOF website with a page for adding questions to the database. This covered the full technology stack, from designing and implementing the frontend page down to changing some aspects of the database structure.</p>
@@ -20,22 +20,24 @@ function ProjectsEducation() {
 
             <div className="row-start grid-item">LensFolio</div>
             <div className="grid-item">
-                Java (Spring Framework)<br />
-                Thymeleaf (an HTML templating framework)<br />
-                JavaScript
+                <p>Java (Spring Framework)</p>
+                <p>Thymeleaf (an HTML templating framework)</p>
+                <p>JavaScript</p>
             </div>
             <div className="grid-item">
                 <p>This was my third-year project, as part of a team of seven. We prototyped a website which would allow Software Engineering students to display how certain commits they had made demonstrated certain programming skills. While working on this, I also covered the entire technology stack (including the test frameworks we were using - JUnit and Cypress).</p>
                 <p>This was our first year-long project with a large team. As such, the team struggled with cohesion and accountability, which (although inconvenient at the time) was a valuable learning experience that has prepared me well for the workplace.</p>
             </div>
 
-            <div className="row-start grid-item">Third Law</div>
-            <div className="grid-item"><a href='undefined' disabled target='_blank'>GDScript</a></div>
-            <div className="grid-item">A larger game which I am working on, revolving around the concept of Newton's third law of motion (regarding equal and opposite reactions). This grew from a friend noticing that many games and engines ignore this. <span className='secondary-text-color'>A demo should be forthcoming soon!</span></div>
-
-            <div className="row-start grid-item">Summoner's Apprentice</div>
-            <div className="grid-item"><a href='https://github.com/octoscorp/LD55' target='_blank'>GDScript</a></div>
-            <div className="grid-item"><p>My submission to the Ludum Dare 55 Game Jam. This was the first game I created in an engine, and was made in 48 hours. The <a href='https://antisage.itch.io/summoners-apprentice' target='_blank'>itch page</a> for this will eventually have a version compiled for web.</p></div>
+            <div className="row-start grid-item">Island Trading Game</div>
+            <div className="grid-item">
+                <a href='https://github.com/jdmccork/deckGame' target='_blank'>Java (using Java Swing for GUI)</a>
+            </div>
+            <div className="grid-item">
+                <p>A small game created as part of a pair for a course in which we learnt Java and common OOP patterns.</p>
+                <p>The course recommended we create a MVP of the game in text-only form, then extend it to add GUI elements. We fell right into the trap of having methods which assumed the text output format instead of being generalised to either option, and learnt valuable lessons about maintainability and foresight from the refactoring this caused.</p>
+                <p>With those lessons of maintainability in mind, I then designed and implemented a modular button system which allowed for all buttons in the game to implement the same class, greatly increasing our development speed.</p>
+            </div>
         </div>
     )
 }

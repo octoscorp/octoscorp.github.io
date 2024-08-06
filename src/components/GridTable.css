@@ -14,12 +14,15 @@ NOTE: the top-right and bottom-left elements cannot be curved with this generic 
 
 /* Table format for displaying projects */
 .project-table {
-    width: 100%;
+    margin: 15px auto 0;
+    width: 90%;
     display: grid;
     grid-template-columns: 1fr 1fr 3fr;
     --curve-amount: 15px;
     border-radius: var(--curve-amount);
     border: 1px solid var(--background-darker);
+    border-left: 2px solid var(--background-darker);
+    border-right: 2px solid var(--background-darker);
 }
 .project-table .heading {
     font-weight: bold;
@@ -44,6 +47,10 @@ NOTE: the top-right and bottom-left elements cannot be curved with this generic 
 /* Color odd rows */
 .project-table .grid-item:nth-child(6n+1), .project-table .grid-item:nth-child(6n+2), .project-table .grid-item:nth-child(6n+3) {
     background-color: var(--background-lighter);
+}
+
+.project-table .grid-item p {
+    margin: 3px 0px;
 }
 
 /* Handle tiny screens */
