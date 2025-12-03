@@ -8,6 +8,7 @@ import About from "./components/About";
 import Coding from "./components/Coding";
 import Games from "./components/Games";
 import Art from "./components/Art";
+import BotC from "./components/botc-customisation/BotC";
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 				<Route path='/coding' exact element={<Coding />}/>
 				<Route path='/games' exact element={<Games />}/>
 				<Route path='/art' exact element={<Art />}/>
+				<Route path='/botc' exact element={<BotC />}/>
 			</Routes>
 		</Router>
 		</>

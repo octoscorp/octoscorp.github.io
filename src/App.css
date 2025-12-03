@@ -126,6 +126,11 @@ h2 hr {
 	margin-top: 3px;
 }
 
+.input-error {
+	color: --secondary;
+	visibility: hidden;
+}
+
 summary {
 	display: block;
 }
