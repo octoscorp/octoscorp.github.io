@@ -34,8 +34,10 @@ bundle exec jekyll serve
 ## Project
 - [ ] Improve on React
     - [x] Convert to Jekyll
+    - [x] Configure deployment action
     - [ ] Remove Jekyll defaults
     - [ ] Cleanup old CSS
+    - [ ] Configure linting actions
 - [ ] Add BotC tool
     - [x] JSON script import
     - [ ] Additional character data fetching (scripts have default assumptions)
