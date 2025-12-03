@@ -1,0 +1,17 @@
+---
+layout: js-enabled
+title: "Script Tool 2: Electric Boogaloo"
+---
+<div id="JSON-loader">
+    <label for="file-input">Load script JSON (will overwrite text area): </label>
+    <input type="file" id="file-input" accept=".json" />
+    <br />
+    <span class="input-error" data-input-error-for="file-input">Bestie, one JSON file at a time please. I'm not exactly making this fancy</span>
+    <br />
+    <span class="input-error" data-input-error-for="json-input"></span>
+    <br />
+    <textarea id="json-input" rows="20" cols="50" placeholder="Or paste JSON here"></textarea>
+    <br />
+    <button id="json-submit" onClick='show_JSON_loader'>Load JSON</button>
+</div>
+<script src="./script_customiser.js"></script>
