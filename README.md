@@ -37,7 +37,7 @@ bundle exec jekyll serve
     - [ ] Remove Jekyll defaults
     - [ ] Cleanup old CSS
 - [ ] Add BotC tool
-    - [ ] JSON script import
+    - [x] JSON script import
     - [ ] Additional character data fetching (scripts have default assumptions)
     - [ ] Script result display
         - [ ] Night order

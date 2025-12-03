@@ -1,0 +1,26 @@
+---
+layout: js-enabled
+title: "Script Tool 2: Electric Boogaloo"
+include_scripts: [
+    "./character-data.js",
+    "./script-customiser.js",
+]
+---
+<div id="JSON-loader">
+    <label for="file-input">Load script JSON (will overwrite text area): </label>
+    <input type="file" id="file-input" accept=".json" />
+    <br />
+    <span class="input-error hidden" data-input-error-for="file-input">Bestie, one JSON file at a time please. I'm not exactly making this fancy</span>
+    <br />
+    <span class="input-error hidden" data-input-error-for="json-input"></span>
+    <br />
+    <textarea id="json-input" rows="20" cols="50" placeholder="Or paste JSON here"></textarea>
+    <br />
+    <button id="json-submit">Load JSON</button>
+</div>
+<div id="script-customiser" class="hidden">
+    IDK what goes in here by default yet. Probs just sections for character types and night order
+</div>
+<div id="homebrew-char-modal" class="hidden">
+    Modal for editing homebrew char attributes
+</div>

@@ -1,0 +1,15 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+$error-color: #cc4831;
+
+.input-error {
+	color: $error-color;
+}
+
+.hidden {
+    visibility: collapse;
+    max-height: 0;
+}
