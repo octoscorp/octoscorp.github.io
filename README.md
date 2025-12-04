@@ -35,8 +35,8 @@ bundle exec jekyll serve
 - [ ] Improve on React
     - [x] Convert to Jekyll
     - [x] Configure deployment action
-    - [ ] Remove Jekyll defaults
-    - [ ] Improve default layout (allow wider central column)
+    - [x] Remove Jekyll defaults
+    - [x] Improve default layout (allow wider central column)
     - [ ] Cleanup old CSS
     - [ ] Configure linting actions
 - [ ] Add BotC tool
@@ -48,6 +48,7 @@ bundle exec jekyll serve
     - [ ] Script result display
         - [x] Night order
         - [x] Playable Characters
+        - [ ] MVP CSS (i.e. boxes instead of paragraphs)
     - [ ] Allow click-and-drag reordering of night order
       - [ ] Create drag-and-drop utils library
         - [ ] Working on CSS classes
@@ -63,3 +64,4 @@ bundle exec jekyll serve
 - [ ] BotC improvements
     - [ ] Loric/Fabled
     - [ ] Recommended travellers
+    - [ ] Improve CSS

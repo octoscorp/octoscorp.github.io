@@ -5,6 +5,41 @@
 
 $error-color: #cc4831;
 
+$subtle-content: #c7c0b5;
+
+// Fixes to the defaults to allow a wider central column
+
+.shell-wide {
+    $shell-width: 1050px;
+
+    @extend .shell;
+    min-width: $shell-width;
+
+    header{
+        max-width: calc(#{$shell-width} - 70px);
+    }
+
+    #no-downloads {
+        width: calc(#{$shell-width} - 120px);
+        background-size: 100% 44%;
+
+        .inner {
+            width: calc(#{$shell-width} - 120px);
+            background: transparent url(../images/download-sprite-wide.png) 0 0 no-repeat;
+        }
+    }
+
+    .banner-fix {
+        width: $shell-width;
+    }
+
+    footer {
+        max-width: calc(#{$shell-width} - 120px);
+        background: transparent url(../images/footer-ramp.jpg) center 18px no-repeat;
+        background-size: 100% 44%;
+    }
+}
+
 .input-error {
 	color: $error-color;
 }
@@ -12,4 +47,19 @@ $error-color: #cc4831;
 .hidden {
     visibility: collapse;
     max-height: 0;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    box-shadow: none;
+    border: none;
+}
+
+hr.subtle {
+    border: 2px dotted $subtle-content;
+    height: 0px;
+    margin: 5px auto;
+    width: 70%;
+    background: none;
 }
