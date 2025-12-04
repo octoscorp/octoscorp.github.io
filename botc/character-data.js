@@ -1,5 +1,8 @@
 // OK so I'm lazy, conveniently I know a programmer who left this data lying in a YAML file somewhere...
 
+// Requires:
+//  + utils: api.js
+
 // Including whether the category shows on the default script page
 const char_types = {
     "townsfolk": true,
@@ -10,6 +13,8 @@ const char_types = {
     "fabled": false,
     "loric": false,
 };
+
+const char_data_URL = "https://raw.githubusercontent.com/octoscorp/ProjectsMisc/refs/heads/master/BotC/data/characters.yaml";
 
 class Character {
     // Required fields
@@ -124,6 +129,13 @@ let official_characters = {
         otherNight: 44,
     },
 };
+
+// Load data on official characters
+window.addEventListener("load", async (event) => {
+    let data = await getURL(char_data_URL, api.YAML);
+    console.log(data);
+    // Add to official characters data
+});
 
 // Gets updated to include homebrews
 let loaded_characters = official_characters;

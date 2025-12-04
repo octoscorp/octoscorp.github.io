@@ -66,7 +66,6 @@ function make_children_draggable(parent, set_id=null, callback=null) {
 }
 
 window.addEventListener("load", (event) => {
-    console.log("Onload");
     // Import the drag-and-drop CSS
     let link = document.createElement('link');
     link.rel = 'stylesheet';

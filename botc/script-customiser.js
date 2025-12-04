@@ -1,7 +1,7 @@
 // File: script_customiser.js
 
-// TODO: use import syntax if Jekyll supports not changing the MIME type
-// Requires: ./character-data.js, /utils/drag-and-drop.js
+// Requires: ./character-data.js
+//  + utils: drag-and-drop.js
 
 // Could be abstracted to another file
 function assert(bool, message) {

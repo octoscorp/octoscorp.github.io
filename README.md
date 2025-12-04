@@ -42,7 +42,7 @@ bundle exec jekyll serve
 - [ ] Add BotC tool
     - [x] JSON script import
     - [ ] Additional character data fetching (scripts have default assumptions)
-        - [ ] Create API utils
+        - [x] Create API utils
         - [ ] Add data to ProjectsMisc repo: Night prio, image URLs
         - [ ] Fetch from repo
     - [ ] Script result display
