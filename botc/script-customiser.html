@@ -17,10 +17,34 @@ include_scripts: [
     <textarea id="json-input" rows="20" cols="50" placeholder="Or paste JSON here"></textarea>
     <br />
     <button id="json-submit">Load JSON</button>
-</div>
+</div> <!-- JSON-loader -->
 <div id="script-customiser" class="hidden">
-    IDK what goes in here by default yet. Probs just sections for character types and night order
-</div>
+    <div id="meta-details">
+        <span id="script-name">Script Name</span>
+        <span id="script-author">Author</span>
+    </div>
+    <div id="playable-char-container">
+        <span class="playable-char-category-label">Townsfolk</span>
+        <div id="townsfolk-char-container"></div>
+        <hr class="subtle" />
+        <span class="playable-char-category-label">Outsiders</span>
+        <div id="outsider-char-container"></div>
+        <hr class="subtle" />
+        <span class="playable-char-category-label">Minions</span>
+        <div id="minion-char-container"></div>
+        <hr class="subtle" />
+        <span class="playable-char-category-label">Demon(s)</span>
+        <div id="demon-char-container"></div>
+    </div> <!-- playable-char-container -->
+    <hr />
+    <div id="footnote-char-container">
+    </div> <!-- footnote-char-container -->
+    <hr />
+    <div id="night-order-container">
+        <div id="first-night-container"></div>
+        <div id="other-night-container"></div>
+    </div> <!-- night-order-container -->
+</div> <!-- script-customiser -->
 <div id="homebrew-char-modal" class="hidden">
     Modal for editing homebrew char attributes
-</div>
+</div> <!-- homebrew-char-modal -->
