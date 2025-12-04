@@ -1,7 +1,7 @@
 // File: script_customiser.js
 
 // TODO: use import syntax if Jekyll supports not changing the MIME type
-// Requires: ./character-data.js
+// Requires: ./character-data.js, /utils/drag-and-drop.js
 
 // Could be abstracted to another file
 function assert(bool, message) {
@@ -260,6 +260,10 @@ function fill_night_order(night) {
     order.forEach((night_id) => {
         add_night_reminder_to_page(night, night_id);
     });
+
+    // Enable drag-and-drop
+    let container = document.getElementById(night + "-container");
+    make_children_draggable(container, night, night_order_modified);
 }
 
 function load_script(script) {
@@ -324,4 +328,15 @@ function register_default_callbacks() {
     });
 }
 
-window.onload = () => {register_default_callbacks()};
+window.addEventListener("load", (event) => {
+    register_default_callbacks();
+});
+
+// Callbacks
+function night_order_modified(event) {
+    let element = event.target;
+    let night = event.detail.set;
+    let new_index = event.detail.index;
+    console.log("called back with: " + element + ", " + night + ", " + new_index);
+    return;
+}

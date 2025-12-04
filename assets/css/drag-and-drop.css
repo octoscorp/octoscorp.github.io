@@ -1,0 +1,13 @@
+.draggable {
+    cursor: move;
+    background-color: var(--default-color);
+}
+
+.draggable:hover {
+    background-color: var(--subtle-color);
+}
+
+.droppable {
+    background-color: var(--default-color);
+    border-top: 2px solid var(--subtle-color);
+}
