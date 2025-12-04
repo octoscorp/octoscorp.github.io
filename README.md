@@ -49,12 +49,14 @@ bundle exec jekyll serve
         - [x] Night order
         - [x] Playable Characters
         - [ ] MVP CSS (i.e. boxes instead of paragraphs)
+            - [x] Night order
+            - [ ] Characters
     - [ ] Allow click-and-drag reordering of night order
-      - [ ] Create drag-and-drop utils library
-        - [ ] Working on CSS classes
-        - [ ] Should handle visual elements, then hand off to a callback function with the moved element and new index
-        - [ ] Export night order as valid script JSON
-    - [ ] JSON script exporting
+      - [x] Create drag-and-drop utils library
+        - [x] Working on CSS classes
+        - [x] Should handle visual elements, then hand off to a callback function with the moved element and new index
+    - [ ] Full JSON script exporting
+    - [ ] Export night order as valid script JSON
     - [ ] Custom character creation modal
         - [ ] Required fields: ID, Name, Team, Ability
         - [ ] Optional fields:
