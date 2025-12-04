@@ -40,68 +40,93 @@ let official_characters = {
         name: "Librarian",
         team: "townsfolk",
         ability: "Ability",
+        firstNight: 44,
+        otherNight: 0,
     },
     "sailor":{
         id: "sailor",
         name: "Sailor",
         team: "townsfolk",
         ability: "Ability",
+        firstNight: 17,
+        otherNight: 5,
     },
     "villageidiot":{
         id: "villageidiot",
         name: "Village Idiot",
         team: "townsfolk",
         ability: "Ability",
+        firstNight: 59,
+        otherNight: 76,
     },
     "nightwatchman":{
         id: "nightwatchman",
         name: "Nightwatchman",
         team: "townsfolk",
         ability: "Ability",
+        firstNight: 61,
+        otherNight: 79,
     },
     "seamstress":{
         id: "seamstress",
         name: "Seamstress",
         team: "townsfolk",
         ability: "Ability",
+        firstNight: 53,
+        otherNight: 73,
     },
     "huntsman":{
         id: "huntsman",
         name: "Huntsman",
         team: "townsfolk",
         ability: "Ability",
+        firstNight: 40,
+        otherNight: 59,
     },
     "ogre":{
         id: "ogre",
         name: "Ogre",
         team: "outsider",
         ability: "Ability",
+        firstNight: 64,
+        otherNight: 0,
     },
     "damsel":{
         id: "damsel",
         name: "Damsel",
         team: "outsider",
         ability: "Ability",
+        firstNight: 41,
+        otherNight: 0,
     },
     "marionette":{
         id: "marionette",
         name: "Marionette",
         team: "minion",
         ability: "Ability",
+        firstNight: 18,
+        otherNight: 0,
     },
     "eviltwin":{
         id: "eviltwin",
         name: "Evil Twin",
         team: "minion",
         ability: "Ability",
+        firstNight: 32,
+        otherNight: 0,
     },
     "lleech":{
         id: "lleech",
         name: "Lleech",
         team: "demon",
         ability: "Ability",
+        firstNight: 22,
+        otherNight: 44,
     },
 };
+
+// Gets updated to include homebrews
+let loaded_characters = official_characters;
 
 // More accurately, whether they show on the default script page
 function is_playable_character(char_obj) {
@@ -115,4 +140,39 @@ function is_official_character(char_id) {
 function get_official_character_object(char_id) {
     // TODO: similar behaviour for homebrew chars
     return official_characters[char_id];
+}
+
+function load_homebrew_character(char_obj) {
+    loaded_characters[char_obj.id] = char_obj;
+}
+
+function get_night_priority(char_id, night) {
+    // Dusk comes first so can be ignored
+    switch (char_id) {
+        case "minioninfo":
+            return night == "firstNight" ? 11 : 0;
+        case "demoninfo":
+            return night == "firstNight" ? 15 : 0;
+        case "dawn":
+            return night == "firstNight" ? 69 : 87;
+        default:
+            let prio = loaded_characters[char_id][night];
+            return prio !== null ? prio : 0;
+    }
+}
+
+function get_display_name(char_id) {
+    switch (char_id) {
+        case "dusk":
+            return "Dusk";
+        case "dawn":
+            return "Dawn";
+        case "minioninfo":
+            return "Minion Info";
+        case "demoninfo":
+            return "Demon Info";
+        default:
+            console.debug("Searching for display name for " + char_id);
+            return loaded_characters[char_id].name;
+    }
 }

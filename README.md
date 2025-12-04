@@ -36,21 +36,30 @@ bundle exec jekyll serve
     - [x] Convert to Jekyll
     - [x] Configure deployment action
     - [ ] Remove Jekyll defaults
+    - [ ] Improve default layout (allow wider central column)
     - [ ] Cleanup old CSS
     - [ ] Configure linting actions
 - [ ] Add BotC tool
     - [x] JSON script import
     - [ ] Additional character data fetching (scripts have default assumptions)
+        - [ ] Create API utils
+        - [ ] Add data to ProjectsMisc repo: Night prio, image URLs
+        - [ ] Fetch from repo
     - [ ] Script result display
-        - [ ] Night order
+        - [x] Night order
         - [x] Playable Characters
-        - [ ] Loric/Fabled
-        - [ ] Recommended travellers
     - [ ] Allow click-and-drag reordering of night order
-    - [ ] Export night order as valid script JSON
+      - [ ] Create drag-and-drop utils library
+        - [ ] Working on CSS classes
+        - [ ] Should handle visual elements, then hand off to a callback function with the moved element and new index
+        - [ ] Export night order as valid script JSON
+    - [ ] JSON script exporting
     - [ ] Custom character creation modal
         - [ ] Required fields: ID, Name, Team, Ability
         - [ ] Optional fields:
             - [ ] Images (lock down to prevent CSRF - maybe only imgur support?)
             - [ ] Other (edition, flavor, firstNight, firstNightReminder, otherNight, otherNightReminder, reminders, remindersGlobal, setup, jinxes, special)
         - [ ] Other script metadata (author, logo, hideTitle, background, almanac, bootlegger)
+- [ ] BotC improvements
+    - [ ] Loric/Fabled
+    - [ ] Recommended travellers

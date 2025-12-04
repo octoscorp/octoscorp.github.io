@@ -184,6 +184,7 @@ function add_char_to_page(char) {
         char_name.innerText = char.name;
 
         char_box.appendChild(char_name);
+        // TODO: add image, ability text
 
         // Add to page
         container.appendChild(char_box);
@@ -192,6 +193,58 @@ function add_char_to_page(char) {
         console.error("Sorry, " + char.name + " is not playable so development hasn't caught up yet.");
         return;
     }
+}
+
+function add_night_reminder_to_page(night, night_id) {
+    let container = document.getElementById(night + "-container");
+    console.debug("container " + container + " was chosen for " + night);
+
+    // Create display
+    let reminder_box = document.createElement("div");
+    // TODO: Add draggable class
+    reminder_box.classList.add("night-reminder-box");
+    let char_name = document.createElement("span");
+    char_name.classList.add("character-name");
+    char_name.innerText = get_display_name(night_id);
+
+    reminder_box.appendChild(char_name);
+    // TODO: Add image, reminder text
+
+    // Add to page
+    container.appendChild(reminder_box);
+}
+
+function fill_night_order(night) {
+    let order = loaded_script._meta[night];
+    if (order === null) {
+        order = new Array();
+        // Determine from character priorities
+        for (const char of loaded_script.official_chars) {
+            if (char[night] !== 0 && char[night] !== null) {
+                order.push(char.id);
+            }
+        }
+        for (const char of loaded_script.homebrew_chars) {
+            if (char[night] !== 0 && char[night] !== null) {
+                order.push(char.id);
+            }
+        }
+        order.push("dawn");
+        if (night === "firstNight") {
+            order.push("minioninfo", "demoninfo");
+        }
+        order.sort((a, b) => {
+            // Return negative to indicate that a goes before b
+            return get_night_priority(a, night) - get_night_priority(b, night);
+        });
+        // Always goes at the front
+        order.unshift("dusk");
+    }
+
+    // Fill the page
+    order.forEach((night_id) => {
+        add_night_reminder_to_page(night, night_id);
+    });
 }
 
 function load_script(script) {
@@ -208,7 +261,14 @@ function load_script(script) {
 
     // Fill in chars
     script.official_chars.forEach(add_char_to_page);
-    script.homebrew_chars.forEach(add_char_to_page);
+    script.homebrew_chars.forEach((char) => {
+        add_char_to_page(char);
+        load_homebrew_character(char);
+    });
+
+    // Fill in night order
+    let nights = ["firstNight", "otherNight"];
+    nights.forEach(fill_night_order);
 }
 
 function submit_json() {
