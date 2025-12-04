@@ -203,6 +203,7 @@ function add_night_reminder_to_page(night, night_id) {
     let reminder_box = document.createElement("div");
     // TODO: Add draggable class
     reminder_box.classList.add("night-reminder-box");
+    reminder_box.setAttribute("data-botc-script-char-id", night_id);
 
     let reminder_icon = document.createElement("img");
     reminder_icon.classList.add("icon", "night-reminder-icon")
@@ -254,6 +255,9 @@ function fill_night_order(night) {
         });
         // Always goes at the front
         order.unshift("dusk");
+
+        // Add to meta object
+        loaded_script._meta[night] = order;
     }
 
     // Fill the page
@@ -308,6 +312,47 @@ function submit_json() {
     }
 }
 
+function export_JSON() {
+    let output = [];
+
+    // Compile _meta
+    let meta_obj = {"id": "_meta"};
+    for(let key of Object.keys(loaded_script._meta)) {
+        if (loaded_script._meta[key] !== null) {
+            // Handle script_name variable (thanks JS)
+            let saved_key = key == "script_name" ? "name" : key;
+            meta_obj[saved_key] = loaded_script._meta[key];
+        }
+    }
+    // TODO: remove night order if it matches default
+    output.push(meta_obj);
+
+    // Add official char IDs
+    for(let char of loaded_script.official_chars) {
+        output.push(char.id);
+    }
+
+    // Add homebrew characters
+    for(let char of loaded_script.homebrew_chars) {
+        output.push(char);
+    }
+
+    // Convert to downloadable file
+    const blob = new Blob([JSON.stringify(output, null, 2)], { type: "application/json" });
+
+    // Download - we do this by creating a link and clicking it
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = loaded_script._meta.script_name + ".json";
+    document.body.appendChild(a);
+    a.click();
+
+    // Cleanup
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
 function toggle_show_element(elementID, hide=false) {
     let element = document.getElementById(elementID);
     element.classList.remove("hidden");
@@ -316,7 +361,7 @@ function toggle_show_element(elementID, hide=false) {
     }
 }
 
-function register_default_callbacks() {
+function register_input_callbacks() {
     // File loading changes
     document.getElementById("file-input").addEventListener("change", (event) => {
         load_JSON_to_textarea(event.target);
@@ -326,17 +371,31 @@ function register_default_callbacks() {
     document.getElementById("json-submit").addEventListener("click", (event) => {
         submit_json();
     });
+
+    document.getElementById("export-JSON").addEventListener("click", (event) => {
+        export_JSON();
+    });
 }
 
 window.addEventListener("load", (event) => {
-    register_default_callbacks();
+    register_input_callbacks();
 });
 
 // Callbacks
 function night_order_modified(event) {
-    let element = event.target;
-    let night = event.detail.set;
-    let new_index = event.detail.index;
-    console.log("called back with: " + element + ", " + night + ", " + new_index);
-    return;
+    const char_id = event.target.getAttribute("data-botc-script-char-id");
+    const night = event.detail.set;
+    const new_index = event.detail.index;
+    console.debug("night_order_modified called back with: " + char_id + ", " + night + ", " + new_index);
+
+    const old_index = loaded_script._meta[night].indexOf(char_id);
+    if (old_index == -1) {
+        // TODO: Raise error!
+        return;
+    }
+    // Delete
+    loaded_script._meta[night].splice(old_index, 1);
+    // Add (why are these the same function, JS?)
+    loaded_script._meta[night].splice(new_index, 0, char_id);
+    console.debug("New order for " + night + " : " + loaded_script._meta[night]);
 }

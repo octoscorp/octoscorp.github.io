@@ -51,19 +51,20 @@ bundle exec jekyll serve
         - [ ] MVP CSS (i.e. boxes instead of paragraphs)
             - [x] Night order
             - [ ] Characters
-    - [ ] Allow click-and-drag reordering of night order
+    - [x] Allow click-and-drag reordering of night order
       - [x] Create drag-and-drop utils library
         - [x] Working on CSS classes
         - [x] Should handle visual elements, then hand off to a callback function with the moved element and new index
-    - [ ] Full JSON script exporting
-    - [ ] Export night order as valid script JSON
+    - [x] Full JSON script exporting
+        - [x] Export night order as valid script JSON
     - [ ] Custom character creation modal
         - [ ] Required fields: ID, Name, Team, Ability
         - [ ] Optional fields:
-            - [ ] Images (lock down to prevent CSRF - maybe only imgur support?)
+            - [ ] Images (locking down is unnecessary, if they load dumb JSON it's their own fault)
             - [ ] Other (edition, flavor, firstNight, firstNightReminder, otherNight, otherNightReminder, reminders, remindersGlobal, setup, jinxes, special)
         - [ ] Other script metadata (author, logo, hideTitle, background, almanac, bootlegger)
 - [ ] BotC improvements
     - [ ] Loric/Fabled
     - [ ] Recommended travellers
     - [ ] Improve CSS
+    - [ ] Export: don't include night orders if they are default
