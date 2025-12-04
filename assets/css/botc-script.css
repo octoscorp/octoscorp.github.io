@@ -1,0 +1,72 @@
+.script-customiser {
+    --serif-font: SortsMillGoudy,Georgia,Times,serif;
+}
+
+.meta-details {
+    font-family: var(--serif-font);
+}
+
+#script-name {
+    font-size: x-large;
+}
+
+#script-author {
+    font-size: large;
+}
+
+.playable-char-container {
+
+}
+
+.divider {
+    display: flex;
+    margin: auto;
+    width: 80%;
+}
+
+.divider .hr-container {
+    width: 80%;
+}
+
+.divider .hr-container hr {
+    width: 85%;
+    margin: 8px auto;
+}
+
+.playable-char-category-label {
+    color: var(--less-subtle-color);
+    font-family: var(--serif-font);
+    width: 20%;
+    text-align: right;
+}
+
+#night-order-container .night-label{
+    color: var(--less-subtle-color);
+    font-family: var(--serif-font);
+    font-size: large;
+}
+
+#night-order-container .night-reminder-box {
+    width: 80%;
+    margin: 12px auto;
+    display: flex;
+}
+
+.night-reminder-icon {
+    width: 30px !important;
+    height: 30px !important;
+    margin: 3px 5px 0 0;
+}
+
+.night-reminder-text {
+    text-align: left;
+}
+
+.night-reminder-message {
+    margin: -3px 0px;
+}
+
+.character-name {
+    font-family: var(--serif-font);
+    font-weight: bold;
+}

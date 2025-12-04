@@ -176,3 +176,12 @@ function get_display_name(char_id) {
             return loaded_characters[char_id].name;
     }
 }
+
+// TODO both
+function get_image_URL(char_id) {
+    return "/assets/icons/rss.svg"
+}
+
+function get_night_reminder(night_id, night) {
+    return night_id + " reminder for: " + night;
+}

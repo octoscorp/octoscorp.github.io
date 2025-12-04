@@ -3,9 +3,11 @@
 
 @import "{{ site.theme }}";
 
-$error-color: #cc4831;
-
-$subtle-content: #c7c0b5;
+:root {
+    --error-color: #cc4831;
+    --subtle-color: #c7c0b5;
+    --less-subtle-color: #a89d8b;
+}
 
 // Fixes to the defaults to allow a wider central column
 
@@ -14,6 +16,7 @@ $subtle-content: #c7c0b5;
 
     @extend .shell;
     min-width: $shell-width;
+    text-align: center;
 
     header{
         max-width: calc(#{$shell-width} - 70px);
@@ -41,7 +44,7 @@ $subtle-content: #c7c0b5;
 }
 
 .input-error {
-	color: $error-color;
+	color: var(--error-color);
 }
 
 .hidden {
@@ -57,7 +60,7 @@ $subtle-content: #c7c0b5;
 }
 
 hr.subtle {
-    border: 2px dotted $subtle-content;
+    border: 2px dotted var(--subtle-color);
     height: 0px;
     margin: 5px auto;
     width: 70%;

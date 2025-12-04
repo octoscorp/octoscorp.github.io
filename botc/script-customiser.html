@@ -5,6 +5,9 @@ include_scripts: [
     "./character-data.js",
     "./script-customiser.js",
 ]
+include_styles: [
+    "botc-script.css",
+]
 ---
 <div id="JSON-loader">
     <label for="file-input">Load script JSON (will overwrite text area): </label>
@@ -21,19 +24,16 @@ include_scripts: [
 <div id="script-customiser" class="hidden">
     <div id="meta-details">
         <span id="script-name">Script Name</span><br />
-        <span id="script-author">Author</span>
+        by: <span id="script-author">Author</span>
     </div>
     <div id="playable-char-container">
-        <span class="playable-char-category-label">Townsfolk</span>
+        <div class="divider"><span class="playable-char-category-label">Townsfolk</span><div class="hr-container"><hr class="subtle" /></div></div>
         <div id="townsfolk-char-container"></div>
-        <hr class="subtle" />
-        <span class="playable-char-category-label">Outsiders</span>
+        <div class="divider"><span class="playable-char-category-label">Outsiders</span><div class="hr-container"><hr class="subtle" /></div></div>
         <div id="outsider-char-container"></div>
-        <hr class="subtle" />
-        <span class="playable-char-category-label">Minions</span>
+        <div class="divider"><span class="playable-char-category-label">Minions</span><div class="hr-container"><hr class="subtle" /></div></div>
         <div id="minion-char-container"></div>
-        <hr class="subtle" />
-        <span class="playable-char-category-label">Demon(s)</span>
+        <div class="divider"><span class="playable-char-category-label">Demon(s)</span><div class="hr-container"><hr class="subtle" /></div></div>
         <div id="demon-char-container"></div>
     </div> <!-- playable-char-container -->
     <hr />

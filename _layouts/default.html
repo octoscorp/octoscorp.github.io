@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=640">
 
-{% if page.include_styles %}
-  {% for include_style in page.include_styles %}
-    <link rel="stylesheet" href='{{ include_style }}' media="screen">
-  {% endfor %}
-{% endif %}
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}" media="screen">
     <link rel="stylesheet" href="{{ '/assets/css/mobile.css' | relative_url }}" media="only screen and (max-width:640px)">
     <link rel="stylesheet" href="{{ '/assets/css/non-screen.css' | relative_url }}" media="only screen and (max-width:640px)">
+{% if page.include_styles %}
+  {% for include_style in page.include_styles %}
+    <link rel="stylesheet" href='/assets/css/{{ include_style }}' media="screen">
+  {% endfor %}
+{% endif %}
 
     <script src="{{ '/assets/js/modernizr.js' | relative_url }}"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>

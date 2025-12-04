@@ -203,12 +203,27 @@ function add_night_reminder_to_page(night, night_id) {
     let reminder_box = document.createElement("div");
     // TODO: Add draggable class
     reminder_box.classList.add("night-reminder-box");
+
+    let reminder_icon = document.createElement("img");
+    reminder_icon.classList.add("icon", "night-reminder-icon")
+    reminder_icon.src = get_image_URL(night_id);
+    reminder_box.appendChild(reminder_icon);
+
+    // Wrap name and message together
+    let reminder_text = document.createElement("div");
+    reminder_text.classList.add("night-reminder-text");
+
     let char_name = document.createElement("span");
     char_name.classList.add("character-name");
     char_name.innerText = get_display_name(night_id);
+    reminder_text.appendChild(char_name);
 
-    reminder_box.appendChild(char_name);
-    // TODO: Add image, reminder text
+    let char_message = document.createElement("p");
+    char_message.classList.add("night-reminder-message");
+    char_message.innerText = get_night_reminder(night_id, night);
+    reminder_text.appendChild(char_message);
+
+    reminder_box.appendChild(reminder_text);
 
     // Add to page
     container.appendChild(reminder_box);
@@ -256,7 +271,7 @@ function load_script(script) {
     // Fill in meta details
     document.getElementById("script-name").innerText = script._meta.script_name;
     if (script._meta.author !== null) {
-        document.getElementById("script-author").innerText = "by: " + script._meta.author;
+        document.getElementById("script-author").innerText = script._meta.author;
     }
 
     // Fill in chars
