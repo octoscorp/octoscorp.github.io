@@ -71,7 +71,7 @@ function validate_meta_object(meta) {
     let nights = ["firstNight", "otherNight"];
     nights.forEach((night) => {
         if (meta.hasOwnProperty(night)) {
-            assert(typeof meta[night] === "array", night + "order must be specified as an array of ids (including dusk and dawn)");
+            assert(Array.isArray(meta[night]), night + " order must be specified as an array of ids (including dusk and dawn)");
             // TODO check for dusk/dawn
             assert(meta[night].length <= 30, "Customised night order cannot exceed 30 entries :shrug:.");
             meta_obj[night] = meta[night];
