@@ -25,7 +25,7 @@ async function _import_YAML_parser() {
     YAML_parser_loaded = true;
     // Need to delay to allow it to load
     // TODO: add loaded event to yaml parser
-    await delay(100);
+    await delay(150);
 }
 
 async function _process_YAML(text) {

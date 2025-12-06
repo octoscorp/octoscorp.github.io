@@ -116,11 +116,32 @@ function get_display_name(char_id) {
     }
 }
 
-// TODO both
 function get_image_URL(char_id) {
-    return "/assets/icons/rss.svg"
+    let image = null;
+
+    // TODO: replace with switch for dusk/dawn etc
+    if (loaded_characters.hasOwnProperty(char_id)) {
+        image = loaded_characters[char_id].image;
+    }
+
+    if (image == null) {
+        return "/assets/icons/rss.svg";
+    }
+    return image;
 }
 
 function get_night_reminder(night_id, night) {
-    return night_id + " reminder for: " + night;
+    switch (night_id) {
+        case "dusk":
+            return "Start the Night Phase.";
+        case "dawn":
+            return "Wait for a few seconds. End the Night Phase.";
+        case "minioninfo":
+            return "If there are 7 or more players, wake all Minions: Show the {THIS IS THE DEMON} token. Point to the Demon. Show the {THESE ARE YOUR MINIONS} token. Point to the other Minions.";
+        case "demoninfo":
+            return "If there are 7 or more players, wake the Demon: Show the {THESE ARE YOUR MINIONS} token. Point to all Minions. Show the {THESE CHARACTERS ARE NOT IN PLAY} token. Show 3 not-in-play good character tokens.";
+        default:
+            console.debug("Searching for display name for " + night_id);
+            return loaded_characters[night_id][night + "Reminder"];
+    }
 }

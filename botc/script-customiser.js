@@ -93,7 +93,7 @@ function validate_homebrew_character(char) {
     assert(char["name"].length <= 30, "HB char name cannot exceed 30 chars.");
 
     assert(char.hasOwnProperty("team"), "Homebrew characters must have a \"team\" field.");
-    assert(char_types.hasOwnProperty(char["team"]), "Homebrew char team must be one of: " + char_types.keys());
+    assert(char_types.hasOwnProperty(char["team"]), "Homebrew char team must be one of: " + Object.keys(char_types));
 
     assert(char.hasOwnProperty("ability"), "Homebrew characters must have an \"ability\" field.");
     assert(char["ability"].length > 0, "HB char ability cannot be empty.");
@@ -108,7 +108,7 @@ function validate_homebrew_character(char) {
     let nightReminders = ["firstNight", "otherNight"];
     nightReminders.forEach((night) => {
         if (char.hasOwnProperty(night)) {
-            assert(typeof char[night] === "int", "HB char " + night + " field must be integer");
+            assert(typeof char[night] === "number", "HB char " + night + " field must be integer");
             char_obj[night] = char[night];
             if (char[night] !== 0) {
                 // Wakes on this night - must have reminder!
