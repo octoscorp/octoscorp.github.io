@@ -36,105 +36,32 @@ class Character {
     setup = null;
     jinxes = null;
     special = null;
+
+    static from(obj) {
+        let output = new Character();
+        for (let key of Object.keys(obj)) {
+            output[key] = obj[key];
+        }
+        return output;
+    }
 }
 
 // TODO: read char data from Projects repo; for the moment just use buddy up
-let official_characters = {
-    "librarian":{
-        id: "librarian",
-        name: "Librarian",
-        team: "townsfolk",
-        ability: "Ability",
-        firstNight: 44,
-        otherNight: 0,
-    },
-    "sailor":{
-        id: "sailor",
-        name: "Sailor",
-        team: "townsfolk",
-        ability: "Ability",
-        firstNight: 17,
-        otherNight: 5,
-    },
-    "villageidiot":{
-        id: "villageidiot",
-        name: "Village Idiot",
-        team: "townsfolk",
-        ability: "Ability",
-        firstNight: 59,
-        otherNight: 76,
-    },
-    "nightwatchman":{
-        id: "nightwatchman",
-        name: "Nightwatchman",
-        team: "townsfolk",
-        ability: "Ability",
-        firstNight: 61,
-        otherNight: 79,
-    },
-    "seamstress":{
-        id: "seamstress",
-        name: "Seamstress",
-        team: "townsfolk",
-        ability: "Ability",
-        firstNight: 53,
-        otherNight: 73,
-    },
-    "huntsman":{
-        id: "huntsman",
-        name: "Huntsman",
-        team: "townsfolk",
-        ability: "Ability",
-        firstNight: 40,
-        otherNight: 59,
-    },
-    "ogre":{
-        id: "ogre",
-        name: "Ogre",
-        team: "outsider",
-        ability: "Ability",
-        firstNight: 64,
-        otherNight: 0,
-    },
-    "damsel":{
-        id: "damsel",
-        name: "Damsel",
-        team: "outsider",
-        ability: "Ability",
-        firstNight: 41,
-        otherNight: 0,
-    },
-    "marionette":{
-        id: "marionette",
-        name: "Marionette",
-        team: "minion",
-        ability: "Ability",
-        firstNight: 18,
-        otherNight: 0,
-    },
-    "eviltwin":{
-        id: "eviltwin",
-        name: "Evil Twin",
-        team: "minion",
-        ability: "Ability",
-        firstNight: 32,
-        otherNight: 0,
-    },
-    "lleech":{
-        id: "lleech",
-        name: "Lleech",
-        team: "demon",
-        ability: "Ability",
-        firstNight: 22,
-        otherNight: 44,
-    },
-};
+let official_characters = {};
 
 // Load data on official characters
 window.addEventListener("load", async (event) => {
     let data = await getURL(char_data_URL, api.YAML);
-    console.log(data);
     // Add to official characters data
+    for (let data_team of Object.keys(data)) {
+        for (let data_id of Object.keys(data[data_team])) {
+            official_characters[data_id] = Character.from(data[data_team][data_id]);
+            official_characters[data_id].id = data_id;
+            official_characters[data_id].team = data_team;
+        }
+    }
+
+    console.debug("Official characters loaded!");
 });
 
 // Gets updated to include homebrews

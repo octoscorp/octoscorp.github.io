@@ -37,14 +37,14 @@ bundle exec jekyll serve
     - [x] Configure deployment action
     - [x] Remove Jekyll defaults
     - [x] Improve default layout (allow wider central column)
-    - [ ] Cleanup old CSS
+    - [ ] Cleanup old CSS (styles/defaults.css)
     - [ ] Configure linting actions
 - [ ] Add BotC tool
     - [x] JSON script import
-    - [ ] Additional character data fetching (scripts have default assumptions)
+    - [x] Additional character data fetching (scripts have default assumptions)
         - [x] Create API utils
-        - [ ] Add data to ProjectsMisc repo: Night prio, image URLs
-        - [ ] Fetch from repo
+        - [x] Add data to ProjectsMisc repo: Night prio
+        - [x] Fetch from repo
     - [ ] Script result display
         - [x] Night order
         - [x] Playable Characters
@@ -68,3 +68,4 @@ bundle exec jekyll serve
     - [ ] Recommended travellers
     - [ ] Improve CSS
     - [ ] Export: don't include night orders if they are default
+    - [ ] Data: include default image URLs

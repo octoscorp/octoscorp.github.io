@@ -151,7 +151,7 @@ function validate_script(script) {
     script.forEach((element) => {
         switch (typeof element) {
             case "string":
-                assert(is_official_character(element), "Top-level string entries must be an official character ID");
+                assert(is_official_character(element), "Did not recognise " + element + " as an official character ID");
                 script_object.official_chars.push(get_official_character_object(element));
                 break;
             case "object":

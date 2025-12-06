@@ -11,6 +11,7 @@ TODO: Imagine that it's a nice-looking feed!
   {% for post in site.posts %}
     <li>
       <a href="{{ post.url }}">{{ post.title }}</a>
+      {{ post.excerpt }}
     </li>
   {% endfor %}
 </ul>

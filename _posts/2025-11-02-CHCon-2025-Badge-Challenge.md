@@ -2,7 +2,7 @@
 layout: post
 title:  CHCon 2025 Badge Challenge
 date:   2025-11-02 22:57:39 +1300
-categories: conference technical
+tags: conference technical hacking
 ---
 About the badge challenge for Christchurch Hacker Con (CHCon) 2025 [1].
 
