@@ -4,3 +4,7 @@ _site
 .jekyll-metadata
 vendor
 Gemfile.lock
+# Get rid of node rubbish
+node_modules/**
+package-lock.json
+package.json

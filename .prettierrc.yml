@@ -1,0 +1,12 @@
+arrowParens: always
+bracketSpacing: true
+checkIgnorePragma: true
+proseWrap: never
+quoteProps: as-needed
+tabWidth: 4
+useTabs: false
+
+overrides:
+- files: ["*.html", "*.yml", "*.yaml"]
+  options:
+    tabWidth: 2
