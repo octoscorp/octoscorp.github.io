@@ -4,6 +4,7 @@ title: "Script Tool 2: Electric Boogaloo"
 include_scripts: [
     "/utils/api.js",
     "/utils/drag-and-drop.js",
+    "/utils/flex-grid.js",
     "./character-data.js",
     "./script-customiser.js",
 ]
@@ -33,13 +34,13 @@ include_styles: [
     </div>
     <div id="playable-char-container">
         <div class="divider"><span class="playable-char-category-label">Townsfolk</span><div class="hr-container"><hr class="subtle" /></div></div>
-        <div id="townsfolk-char-container"></div>
+        <div id="townsfolk-char-container" class="flexgrid-column-container"></div>
         <div class="divider"><span class="playable-char-category-label">Outsiders</span><div class="hr-container"><hr class="subtle" /></div></div>
-        <div id="outsider-char-container"></div>
+        <div id="outsider-char-container" class="flexgrid-column-container"></div>
         <div class="divider"><span class="playable-char-category-label">Minions</span><div class="hr-container"><hr class="subtle" /></div></div>
-        <div id="minion-char-container"></div>
+        <div id="minion-char-container" class="flexgrid-column-container"></div>
         <div class="divider"><span class="playable-char-category-label">Demon(s)</span><div class="hr-container"><hr class="subtle" /></div></div>
-        <div id="demon-char-container"></div>
+        <div id="demon-char-container" class="flexgrid-column-container"></div>
     </div> <!-- playable-char-container -->
     <hr />
     <div id="footnote-char-container">

@@ -45,12 +45,12 @@ bundle exec jekyll serve
         - [x] Create API utils
         - [x] Add data to ProjectsMisc repo: Night prio
         - [x] Fetch from repo
-    - [ ] Script result display
+    - [x] Script result display
         - [x] Night order
         - [x] Playable Characters
-        - [ ] MVP CSS (i.e. boxes instead of paragraphs)
+        - [x] MVP CSS (i.e. boxes instead of paragraphs)
             - [x] Night order
-            - [ ] Characters
+            - [x] Characters
     - [x] Allow click-and-drag reordering of night order
       - [x] Create drag-and-drop utils library
         - [x] Working on CSS classes
@@ -64,7 +64,7 @@ bundle exec jekyll serve
             - [ ] Other (edition, flavor, firstNight, firstNightReminder, otherNight, otherNightReminder, reminders, remindersGlobal, setup, jinxes, special)
         - [ ] Other script metadata (author, logo, hideTitle, background, almanac, bootlegger)
 - [ ] BotC improvements
-    - [ ] Loric/Fabled
+    - [ ] Loric/Fabled support
     - [ ] Recommended travellers
     - [ ] Improve CSS
     - [ ] Export: don't include night orders if they are default

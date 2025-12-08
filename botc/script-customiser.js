@@ -171,6 +171,13 @@ function validate_script(script) {
     return script_object;
 }
 
+function format_ability_text(original_text) {
+    // Also including night reminders
+    // TODO: format for {TOKEN}
+    // TODO: format for [SETUP]
+    return original_text;
+}
+
 function add_char_to_page(char) {
     console.debug("Examining " + char.name);
 
@@ -178,16 +185,32 @@ function add_char_to_page(char) {
         let container = document.getElementById(char.team + "-char-container");
         // Create character display
         let char_box = document.createElement("div");
-        char_box.classList.add("character-box");
+        char_box.classList.add("character-box", "click-to-homebrew");
+        char_box.setAttribute("data-char-id", char.id);
+
+        let char_icon = document.createElement("img");
+        char_icon.classList.add("icon", "character-icon")
+        char_icon.src = get_image_URL(char.id);
+        char_box.appendChild(char_icon);
+
+        // Wraps name and ability text together
+        let char_text = document.createElement("div");
+        char_text.classList.add("character-text");
+
         let char_name = document.createElement("span");
         char_name.classList.add("character-name");
         char_name.innerText = char.name;
+        char_text.appendChild(char_name);
 
-        char_box.appendChild(char_name);
-        // TODO: add image, ability text
+        let char_ability = document.createElement("p");
+        char_ability.classList.add("character-ability");
+        char_ability.innerText = format_ability_text(char.ability);
+        char_text.appendChild(char_ability);
+
+        char_box.appendChild(char_text);
 
         // Add to page
-        container.appendChild(char_box);
+        add_to_flexgrid_container(char_box, container, prevent_update=true);
     } else {
         // TODO: handle loric/fabled/travellers
         console.error("Sorry, " + char.name + " is not playable so development hasn't caught up yet.");
@@ -201,7 +224,6 @@ function add_night_reminder_to_page(night, night_id) {
 
     // Create display
     let reminder_box = document.createElement("div");
-    // TODO: Add draggable class
     reminder_box.classList.add("night-reminder-box");
     reminder_box.setAttribute("data-botc-script-char-id", night_id);
 
@@ -221,7 +243,7 @@ function add_night_reminder_to_page(night, night_id) {
 
     let char_message = document.createElement("p");
     char_message.classList.add("night-reminder-message");
-    char_message.innerText = get_night_reminder(night_id, night);
+    char_message.innerText = format_ability_text(get_night_reminder(night_id, night));
     reminder_text.appendChild(char_message);
 
     reminder_box.appendChild(reminder_text);
@@ -288,6 +310,12 @@ function load_script(script) {
         add_char_to_page(char);
         load_homebrew_character(char);
     });
+
+    // Update char display
+    for (team of ["townsfolk", "outsider", "minion", "demon"]) {
+        let container = document.getElementById(team + "-char-container");
+        update_flexgrid_styling(container);
+    }
 
     // Fill in night order
     let nights = ["firstNight", "otherNight"];

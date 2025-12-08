@@ -1,0 +1,44 @@
+/*
+Specify this for JS-integrated use.
+
+Accepts an integer of the number of rows/columns to divide child items into.
+Child elements must have a max-height value.
+*/
+@property --flexgrid-num-lines {
+    syntax: "<integer>";
+    inherits: false;
+}
+
+/*
+Specify this for CSS-only use. Will be overridden if used with --flexgrid-num-lines.
+
+Accepts length values to set as a limit on the size of the dynamic direction.
+*/
+@property --flexgrid-wrap-at {
+    syntax: "<length-percentage>";
+    inherits: true;
+    initial-value: 80%;
+}
+
+/* Columns that dynamically add rows */
+.flexgrid-column-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    max-height: var(--flexgrid-wrap-at);
+}
+
+/* Rows that dynamically add columns */
+.flexgrid-row-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 100%;
+    max-width: var(--flexgrid-wrap-at);
+}
+
+.flexgrid-row-container > *, .flexgrid-column-container > * {
+    flex-basis: 100%;
+    flex: 1;
+}
