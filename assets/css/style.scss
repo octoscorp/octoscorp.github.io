@@ -14,34 +14,38 @@
 
 // Fixes to the defaults to allow a wider central column
 
+.shell {
+    --shell-width: 670px;
+}
+
 .shell-wide {
-    $shell-width: 1050px;
+    --shell-width: 1050px;
 
     @extend .shell;
-    min-width: $shell-width;
+    min-width: var(--shell-width);
     text-align: center;
 
     header {
-        max-width: calc(#{$shell-width} - 70px);
+        max-width: calc(var(--shell-width) - 70px);
     }
 
     #no-downloads {
-        width: calc(#{$shell-width} - 120px);
+        width: calc(var(--shell-width) - 120px);
         background-size: 100% 44%;
 
         .inner {
-            width: calc(#{$shell-width} - 120px);
+            width: calc(var(--shell-width) - 120px);
             background: transparent url(../images/download-sprite-wide.png) 0 0
                 no-repeat;
         }
     }
 
     .banner-fix {
-        width: $shell-width;
+        width: var(--shell-width);
     }
 
     footer {
-        max-width: calc(#{$shell-width} - 120px);
+        max-width: calc(var(--shell-width) - 120px);
         background: transparent url(../images/footer-ramp.jpg) center 18px
             no-repeat;
         background-size: 100% 44%;
@@ -74,7 +78,7 @@ hr.subtle {
 
 .modal-overlay {
     // Positioning
-    display: none;
+    // display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -93,15 +97,16 @@ hr.subtle {
 }
 
 .modal {
-    display: none;
+    // display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: var(--default-color);
-    padding: 20px;
-    border-radius: 2px;
+    padding: 7px 10px 10px;
+    border-radius: 5px;
     z-index: 1001;
+    width: calc(var(--shell-width) - 120px - 360px);
 }
 
 .modal-active {

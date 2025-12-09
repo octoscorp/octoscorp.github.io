@@ -42,7 +42,7 @@ bundle exec jekyll serve
     - [x] Remove Jekyll defaults
     - [x] Improve default layout (allow wider central column)
     - [ ] Cleanup old CSS (styles/defaults.css)
-    - [ ] Configure linting actions
+    - [x] Configure linting actions
 - [ ] Add BotC tool
     - [x] JSON script import
     - [x] Additional character data fetching (scripts have default assumptions)
@@ -62,11 +62,12 @@ bundle exec jekyll serve
     - [x] Full JSON script exporting
         - [x] Export night order as valid script JSON
     - [ ] Custom character creation modal
-        - [ ] Required fields: ID, Name, Team, Ability
+        - [x] Required fields: ID, Name, Team, Ability
         - [ ] Optional fields:
             - [ ] Images (locking down is unnecessary, if they load dumb JSON it's their own fault)
             - [ ] Other (edition, flavor, firstNight, firstNightReminder, otherNight, otherNightReminder, reminders, remindersGlobal, setup, jinxes, special)
         - [ ] Other script metadata (author, logo, hideTitle, background, almanac, bootlegger)
+        - [ ] Import fields into JS
 - [ ] BotC improvements
     - [ ] Loric/Fabled support
     - [ ] Recommended travellers

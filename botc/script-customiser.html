@@ -16,10 +16,9 @@ include_styles: ["botc-script.css"]
   <label for="file-input">Load script JSON (will overwrite text area): </label>
   <input type="file" id="file-input" accept=".json" />
   <br />
-  <span class="input-error hidden" data-input-error-for="file-input"
-    >Bestie, one JSON file at a time please. I'm not exactly making this
-    fancy</span
-  >
+  <span class="input-error hidden" data-input-error-for="file-input">
+    Bestie, one JSON file at a time please. I'm not exactly making this fancy
+  </span>
   <br />
   <span class="input-error hidden" data-input-error-for="json-input"></span>
   <br />
@@ -84,7 +83,52 @@ include_styles: ["botc-script.css"]
 <div id="homebrew-char-modal" class="">
   <div class="modal-overlay" />
   <div class="modal character-editor">
-    <div class="modal-content">Modal and stuff</div>
+    <div class="modal-content">
+      <h2>Create/Edit Character</h2>
+      <form id="character-editor-form">
+        <label for="name-input">Name:</label>
+        <input
+          type="text"
+          id="name-input"
+          placeholder="Name"
+          required
+          maxlength="30"
+          minlength="1"
+        />
+        <label for="id-name-check">Auto ID:</label>
+        <input type="checkbox" id="id-name-check" value="auto-id" checked />
+        <label for="id-input">Id:</label>
+        <input
+          type="text"
+          id="id-input"
+          placeholder="id"
+          disabled
+          required
+          maxlength="50"
+          minlength="1"
+        />
+        <label for="team-input">Team:</label>
+        <select id="team-input" required>
+          <option value="townsfolk" selected>Townsfolk</option>
+          <option value="outsider">Outsider</option>
+          <option value="minion">Minion</option>
+          <option value="demon">Demon</option>
+          <option value="traveller">Traveller</option>
+          <option value="fabled">Fabled</option>
+          <option value="loric">Loric</option>
+        </select>
+        <label for="ability-input">Ability:</label>
+        <textarea
+          id="ability-input"
+          placeholder="Ability"
+          required
+          cols="60"
+          rows="3"
+          maxlength="250"
+          minlength="1"
+        ></textarea>
+      </form>
+    </div>
     <!-- modal-content -->
   </div>
   <!-- modal -->

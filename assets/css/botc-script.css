@@ -100,3 +100,27 @@
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
 }
+
+#homebrew-char-modal .modal {
+    text-align: left;
+}
+
+#homebrew-char-modal h2 {
+    font-size: 120%;
+}
+
+#character-editor-form {
+    text-align: right;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    column-gap: 5px;
+    row-gap: 2px;
+}
+
+#character-editor-form input[type="checkbox"] {
+    justify-self: left;
+}
+
+#character-editor-form textarea {
+    resize: none;
+}
