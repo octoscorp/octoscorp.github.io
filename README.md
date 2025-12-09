@@ -1,16 +1,18 @@
 Page for my own website, using the Jekyll framework.
 
-## Running
+## Running Locally
 
 ### Setup
 
 Check both ruby and gem are present:
+
 ```
 ruby -v
 gem -v
 ```
 
 Prevent gem installation as root:
+
 ```
 echo '# Install Ruby Gems to ~/gems' >> ~/.bashrc
 echo 'export GEM_HOME="$HOME/gems"' >> ~/.bashrc
@@ -19,6 +21,7 @@ source ~/.bashrc
 ```
 
 Install essentials:
+
 ```
 sudo apt-get install ruby-full build-essential zlib1g-dev
 gem install jekyll bundler
@@ -32,6 +35,7 @@ bundle exec jekyll serve
 ```
 
 ## Project
+
 - [ ] Improve on React
     - [x] Convert to Jekyll
     - [x] Configure deployment action
@@ -52,9 +56,9 @@ bundle exec jekyll serve
             - [x] Night order
             - [x] Characters
     - [x] Allow click-and-drag reordering of night order
-      - [x] Create drag-and-drop utils library
-        - [x] Working on CSS classes
-        - [x] Should handle visual elements, then hand off to a callback function with the moved element and new index
+        - [x] Create drag-and-drop utils library
+            - [x] Working on CSS classes
+            - [x] Should handle visual elements, then hand off to a callback function with the moved element and new index
     - [x] Full JSON script exporting
         - [x] Export night order as valid script JSON
     - [ ] Custom character creation modal
@@ -69,3 +73,4 @@ bundle exec jekyll serve
     - [ ] Improve CSS
     - [ ] Export: don't include night orders if they are default
     - [ ] Data: include default image URLs
+    - [ ] Night Order: re-add characters if not present in the \_meta lists

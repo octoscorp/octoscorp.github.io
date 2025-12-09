@@ -1,9 +1,10 @@
 ---
 layout: post
-title:  CHCon 2025 Badge Challenge
-date:   2025-11-02 22:57:39 +1300
+title: CHCon 2025 Badge Challenge
+date: 2025-11-02 22:57:39 +1300
 tags: conference technical hacking
 ---
+
 About the badge challenge for Christchurch Hacker Con (CHCon) 2025 [1].
 
 Big shout out to NZ courier systems for holding the badge components until the day of the conference, causing everyone to end up with a blank badge for the first day.
@@ -15,6 +16,7 @@ Much more serious thanks to Jeremy and all the others who worked frantically to 
 <h4> What can we see? </h4>
 
 Visual inspection of the badge reveals a limited amount to my untrained eye:
+
 - A USB-C port
 - Some rows of pretty lights that turn on when plugged in to USB-C
 - 2 tactile switches, hidden between the PCB and the main badge
@@ -48,11 +50,12 @@ Using a trusty butter knife, I discovered what the buttons do: one button restar
 This can go one of two ways - we configure the JTAG header and do special JTAG communication using a tool called OpenOCD, or it's already happy for us to connect directly to it.
 
 My preferred tool for serial connections is Minicom, so let's see what happens when we try and connect to the new device:
+
 ```
 $ minicom -D /dev/ttyACM0
 Welcome to minicom 2.8
 
-OPTIONS: I18n 
+OPTIONS: I18n
 Port /dev/ttyACM0, 16:07:17
 
 Press CTRL-A Z for help on special keys
@@ -60,10 +63,12 @@ Press CTRL-A Z for help on special keys
 I (456) esp_image: segment 4: paddr=0019dba0 vaddr=40382214 size
                                                                 Incorrect! Try again.
 
-Enter passwordle: 
+Enter passwordle:
                   Incorrect! Try again.
 ```
+
 Well that was easy. Restarting the connection to see what's going on, we don't get much other than the prompt `Enter passwordle:`. A little spamming later, we can identify the following:
+
 - No failed-login timeout
 - No obvious difference in console output between any basic response (including `passwordle`)
 
@@ -86,16 +91,18 @@ Passwordle is an odd prompt to receive - I was expecting this prompt to behave l
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
  5 @ B K A ) H 8 B 5 + X
 ```
-So, we take our answer over to the device, and naturally we get: `Incorrect! Try again.` 
+
+So, we take our answer over to the device, and naturally we get: `Incorrect! Try again.`
 
 Did I put this in wrong? Clearly it's not accessing this site for a value. Thankfully, I quickly worked out what was going on:
 
 <h4> Turn it over, dummy! </h4>
-Something possessed me to flip the badge from its face-down position. Grinning back at me was something I should have expected: 
+Something possessed me to flip the badge from its face-down position. Grinning back at me was something I should have expected:
 
 ⬜⬜⬜⬜⬜⬜🟧⬜⬜⬜⬜⬜
 
 With 12 lights along the top - one orange, and 11 white - we're back on the right track. We've demonstrated I have a rough understanding of wordle - time to do it again.
+
 ```
 ⬜🟧⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 ⬜⬜⬜⬜🟧⬜⬜⬜⬜⬜⬜⬜
@@ -143,6 +150,7 @@ You solved the passwordle in 32 attempts, a new personal best!
 
 Type 'help' for available commands
 ```
+
 Well, lesson learnt - we'll keep the LEDs face-up from now on.
 
 <h3> Using the terminal </h3>
@@ -172,7 +180,7 @@ Available commands:
   logout                    - Return to login screen
   reboot                    - Restart the device
 
-$ whoami 
+$ whoami
 user
 
 $ su
@@ -180,6 +188,7 @@ Password: ************
 ✗ Error: Authentication failed
 ✗ Error: Incorrect password
 ```
+
 The login password isn't the su password (it was worth a shot), and we're not currently root. Despite that, we have a bit of leeway - we can start a Wifi AP, a Minecraft server, and mess with the LEDs (which I am absolutely going to do later).
 
 I don't imagine minecraft supports connection via JTAG (much as that would be funny), so presumably the next steps here are to start the server and AP to connect to it. We can see that both are currently stopped:
@@ -197,19 +206,23 @@ WiFi Status:  State               : Stopped
 ```
 
 However, to start these we either need root access or to trick a root process into running these:
+
 ```
-$ minecraft start 
+$ minecraft start
 ✗ Error: WiFi must be running first. Use 'wifi start <name> <password>'
 
-$ wifi start 
+$ wifi start
 ✗ Error: Permission denied: wifi start requires root access. Use 'su' to become root.
 ```
+
 This leaves LED control as one of our only abilities - time to see how we can abuse that.
 
 #### LEDs
+
 Firstly, we're told that there's a handful of pre-programmed modes:
+
 ```
-$ led 
+$ led
 Usage: led <mode>
 Available modes:
   rainbow   - Cycling rainbow colors
@@ -227,6 +240,7 @@ Available modes:
   lever     - Minecraft lever control
   wordle    - Password game feedback
 ```
+
 Of these, we'll note the minecraft tie-in for later - but the rest are less exciting than the ability to program our own.
 
 <details><summary>Click here for pattern help description</summary>
@@ -394,6 +408,7 @@ And this succeeds. Watching the LEDs, we cycle through the below patterns at 1/s
 01110100
 01010011
 ```
+
 The more astute among you may notice that this I've reversed the binary - this is because we can expect to look for ASCII, in which characters primarily start with 011 or 010.
 
 This translates to a reasonable string, but reversed. We know that we're reading from the top of the stack (the last thing added) first, so we should be trying this backwards from how it was output - the way that reads as a normal string. Sure enough:
@@ -419,7 +434,7 @@ Starting WiFi access point...
 
 INFO - DHCP server started - assigning IPs from pool
 
-$ minecraft start 
+$ minecraft start
 Starting Minecraft server...
 INFO - Saving storage to flash at 0x3F0000
                                           INFO - Storage saved successfully
@@ -473,7 +488,6 @@ The remainder of the challenge is just a matter of running around the map, flick
 <img src='../media/chcon25_end_screenshot.png' alt='An image showing a minecraft sign which reads: "Congratulations on finishing the ChCon 2025 Badge Challenge!"' />
 
 </details>
-
 
 ## References and Spooky (External) Links
 

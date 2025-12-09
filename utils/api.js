@@ -8,7 +8,7 @@ const script_location = document.currentScript;
 let YAML_parser_loaded = false;
 
 function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function _import_YAML_parser() {
@@ -34,12 +34,14 @@ async function _process_YAML(text) {
     return YAML.parse(text);
 }
 
-async function getURL(apiURL, process_as=api.UNDEFINED) {
+async function getURL(apiURL, process_as = api.UNDEFINED) {
     try {
         let response = await fetch(apiURL);
         // Sometimes fetch spits errors, sometimes not
         if (!response.ok) {
-            throw new Error(`Not-OK response trying to reach ${apiURL}\n Status: ${response.status} ${response.statusText}\n URL: ${response.url}\n Headers: ${response.headers}\n Body: ${response.body}`);
+            throw new Error(
+                `Not-OK response trying to reach ${apiURL}\n Status: ${response.status} ${response.statusText}\n URL: ${response.url}\n Headers: ${response.headers}\n Body: ${response.body}`,
+            );
         }
 
         switch (process_as) {
@@ -47,7 +49,7 @@ async function getURL(apiURL, process_as=api.UNDEFINED) {
                 return await response.json();
             case api.YAML:
                 return await _process_YAML(await response.text());
-            case api.UNDEFINED:     // Fallthrough - weeeee!
+            case api.UNDEFINED: // Fallthrough - weeeee!
             default:
                 return await response.text();
         }

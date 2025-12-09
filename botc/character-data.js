@@ -5,16 +5,17 @@
 
 // Including whether the category shows on the default script page
 const char_types = {
-    "townsfolk": true,
-    "outsider": true,
-    "minion": true,
-    "demon": true,
-    "traveller": false,
-    "fabled": false,
-    "loric": false,
+    townsfolk: true,
+    outsider: true,
+    minion: true,
+    demon: true,
+    traveller: false,
+    fabled: false,
+    loric: false,
 };
 
-const char_data_URL = "https://raw.githubusercontent.com/octoscorp/ProjectsMisc/refs/heads/master/BotC/data/characters.yaml";
+const char_data_URL =
+    "https://raw.githubusercontent.com/octoscorp/ProjectsMisc/refs/heads/master/BotC/data/characters.yaml";
 
 class Character {
     // Required fields
@@ -55,7 +56,9 @@ window.addEventListener("load", async (event) => {
     // Add to official characters data
     for (let data_team of Object.keys(data)) {
         for (let data_id of Object.keys(data[data_team])) {
-            official_characters[data_id] = Character.from(data[data_team][data_id]);
+            official_characters[data_id] = Character.from(
+                data[data_team][data_id],
+            );
             official_characters[data_id].id = data_id;
             official_characters[data_id].team = data_team;
         }

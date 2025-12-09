@@ -21,7 +21,7 @@
     min-width: $shell-width;
     text-align: center;
 
-    header{
+    header {
         max-width: calc(#{$shell-width} - 70px);
     }
 
@@ -31,7 +31,8 @@
 
         .inner {
             width: calc(#{$shell-width} - 120px);
-            background: transparent url(../images/download-sprite-wide.png) 0 0 no-repeat;
+            background: transparent url(../images/download-sprite-wide.png) 0 0
+                no-repeat;
         }
     }
 
@@ -41,13 +42,14 @@
 
     footer {
         max-width: calc(#{$shell-width} - 120px);
-        background: transparent url(../images/footer-ramp.jpg) center 18px no-repeat;
+        background: transparent url(../images/footer-ramp.jpg) center 18px
+            no-repeat;
         background-size: 100% 44%;
     }
 }
 
 .input-error {
-	color: var(--error-color);
+    color: var(--error-color);
 }
 
 .hidden {
@@ -83,9 +85,11 @@ hr.subtle {
     // Colouring - we use RGBA in caps to avoid SCSS interpreting the functions
     --overlay-opacity: 0.15;
     background: RGBA(from var(--theme-blue) r g b / var(--overlay-opacity));
-    background-image: radial-gradient(circle,
+    background-image: radial-gradient(
+        circle,
         RGBA(from var(--theme-red) r g b / var(--overlay-opacity)) 30%,
-        RGBA(from var(--theme-blue) r g b / var(--overlay-opacity)) 100%);
+        RGBA(from var(--theme-blue) r g b / var(--overlay-opacity)) 100%
+    );
 }
 
 .modal {

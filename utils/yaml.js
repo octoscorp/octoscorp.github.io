@@ -1,6 +1,3 @@
-/**
- * @noformat
- */
 /*
 Copyright (c) 2010 Jeremy Faivre
 

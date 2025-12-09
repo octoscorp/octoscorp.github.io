@@ -1,5 +1,5 @@
 .script-customiser {
-    --serif-font: SortsMillGoudy,Georgia,Times,serif;
+    --serif-font: SortsMillGoudy, Georgia, Times, serif;
 }
 
 .meta-details {
@@ -40,7 +40,7 @@
     text-align: right;
 }
 
-#night-order-container .night-label{
+#night-order-container .night-label {
     color: var(--less-subtle-color);
     font-family: var(--serif-font);
     font-size: large;
@@ -58,7 +58,7 @@
     margin: 5px;
 }
 
-.night-reminder-text{
+.night-reminder-text {
     text-align: left;
 }
 

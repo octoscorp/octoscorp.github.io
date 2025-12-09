@@ -1,65 +1,92 @@
 ---
 layout: js-enabled
 title: "Script Tool 2: Electric Boogaloo"
-include_scripts: [
+include_scripts:
+  [
     "/utils/api.js",
     "/utils/drag-and-drop.js",
     "/utils/flex-grid.js",
     "./character-data.js",
     "./script-customiser.js",
-]
-include_styles: [
-    "botc-script.css",
-]
+  ]
+include_styles: ["botc-script.css"]
 ---
+
 <div id="JSON-loader">
-    <label for="file-input">Load script JSON (will overwrite text area): </label>
-    <input type="file" id="file-input" accept=".json" />
-    <br />
-    <span class="input-error hidden" data-input-error-for="file-input">Bestie, one JSON file at a time please. I'm not exactly making this fancy</span>
-    <br />
-    <span class="input-error hidden" data-input-error-for="json-input"></span>
-    <br />
-    <textarea id="json-input" rows="20" cols="50" placeholder="Or paste JSON here"></textarea>
-    <br />
-    <button id="json-submit">Load JSON</button>
-</div> <!-- JSON-loader -->
+  <label for="file-input">Load script JSON (will overwrite text area): </label>
+  <input type="file" id="file-input" accept=".json" />
+  <br />
+  <span class="input-error hidden" data-input-error-for="file-input"
+    >Bestie, one JSON file at a time please. I'm not exactly making this
+    fancy</span
+  >
+  <br />
+  <span class="input-error hidden" data-input-error-for="json-input"></span>
+  <br />
+  <textarea
+    id="json-input"
+    rows="20"
+    cols="50"
+    placeholder="Or paste JSON here"
+  ></textarea>
+  <br />
+  <button id="json-submit">Load JSON</button>
+</div>
+<!-- JSON-loader -->
 <div id="script-customiser" class="hidden">
-    <div class="actions-panel">
-        <button id="export-JSON">Export as JSON</button>
-    </div> <!-- actions-panel -->
-    <div id="meta-details">
-        <span id="script-name">Script Name</span><br />
-        by: <span id="script-author">Author</span>
+  <div class="actions-panel">
+    <button id="export-JSON">Export as JSON</button>
+  </div>
+  <!-- actions-panel -->
+  <div id="meta-details">
+    <span id="script-name">Script Name</span><br />
+    by: <span id="script-author">Author</span>
+  </div>
+  <div id="playable-char-container">
+    <div class="divider">
+      <span class="playable-char-category-label">Townsfolk</span>
+      <div class="hr-container"><hr class="subtle" /></div>
     </div>
-    <div id="playable-char-container">
-        <div class="divider"><span class="playable-char-category-label">Townsfolk</span><div class="hr-container"><hr class="subtle" /></div></div>
-        <div id="townsfolk-char-container" class="flexgrid-column-container"></div>
-        <div class="divider"><span class="playable-char-category-label">Outsiders</span><div class="hr-container"><hr class="subtle" /></div></div>
-        <div id="outsider-char-container" class="flexgrid-column-container"></div>
-        <div class="divider"><span class="playable-char-category-label">Minions</span><div class="hr-container"><hr class="subtle" /></div></div>
-        <div id="minion-char-container" class="flexgrid-column-container"></div>
-        <div class="divider"><span class="playable-char-category-label">Demon(s)</span><div class="hr-container"><hr class="subtle" /></div></div>
-        <div id="demon-char-container" class="flexgrid-column-container"></div>
-    </div> <!-- playable-char-container -->
-    <hr />
-    <div id="footnote-char-container">
-        TODO: Loric/Fabled/Traveller/Jinx support
-    </div> <!-- footnote-char-container -->
-    <hr />
-    <div id="night-order-container">
-        <span class="night-label">First Night</span>
-        <div id="firstNight-container"></div>
-        <hr class="subtle" />
-        <span class="night-label">Other Nights</span>
-        <div id="otherNight-container"></div>
-    </div> <!-- night-order-container -->
-</div> <!-- script-customiser -->
+    <div id="townsfolk-char-container" class="flexgrid-column-container"></div>
+    <div class="divider">
+      <span class="playable-char-category-label">Outsiders</span>
+      <div class="hr-container"><hr class="subtle" /></div>
+    </div>
+    <div id="outsider-char-container" class="flexgrid-column-container"></div>
+    <div class="divider">
+      <span class="playable-char-category-label">Minions</span>
+      <div class="hr-container"><hr class="subtle" /></div>
+    </div>
+    <div id="minion-char-container" class="flexgrid-column-container"></div>
+    <div class="divider">
+      <span class="playable-char-category-label">Demon(s)</span>
+      <div class="hr-container"><hr class="subtle" /></div>
+    </div>
+    <div id="demon-char-container" class="flexgrid-column-container"></div>
+  </div>
+  <!-- playable-char-container -->
+  <hr />
+  <div id="footnote-char-container">
+    TODO: Loric/Fabled/Traveller/Jinx support
+  </div>
+  <!-- footnote-char-container -->
+  <hr />
+  <div id="night-order-container">
+    <span class="night-label">First Night</span>
+    <div id="firstNight-container"></div>
+    <hr class="subtle" />
+    <span class="night-label">Other Nights</span>
+    <div id="otherNight-container"></div>
+  </div>
+  <!-- night-order-container -->
+</div>
+<!-- script-customiser -->
 <div id="homebrew-char-modal" class="">
-    <div class="modal-overlay" />
-    <div class="modal character-editor">
-        <div class="modal-content">
-            Modal and stuff
-        </div> <!-- modal-content -->
-    </div> <!-- modal -->
-</div> <!-- homebrew-char-modal -->
+  <div class="modal-overlay" />
+  <div class="modal character-editor">
+    <div class="modal-content">Modal and stuff</div>
+    <!-- modal-content -->
+  </div>
+  <!-- modal -->
+</div>
+<!-- homebrew-char-modal -->

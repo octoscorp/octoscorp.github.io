@@ -1,12 +1,13 @@
 ---
 layout: wide
 ---
+
 <noscript>This page requires JavaScript to be enabled.</noscript>
 
 {{ content }}
 
 {% if page.include_scripts %}
   {% for include_script in page.include_scripts %}
-    <script type='text/javascript' src='{{ include_script }}'></script>
+    <script type="text/javascript" src="{{ include_script }}"></script>
   {% endfor %}
 {% endif %}

@@ -38,7 +38,8 @@ Accepts length values to set as a limit on the size of the dynamic direction.
     max-width: var(--flexgrid-wrap-at);
 }
 
-.flexgrid-row-container > *, .flexgrid-column-container > * {
+.flexgrid-row-container > *,
+.flexgrid-column-container > * {
     flex-basis: 100%;
     flex: 1;
 }
