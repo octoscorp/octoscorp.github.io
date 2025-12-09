@@ -83,53 +83,100 @@ include_styles: ["botc-script.css"]
 <div id="homebrew-char-modal" class="">
   <div class="modal-overlay" />
   <div class="modal character-editor">
+    <h2 class="modal-header">Create/Edit Character</h2>
+    <button class="modal-close-button"><img class="icon" src="/assets/icons/close.svg"></button>
     <div class="modal-content">
-      <h2>Create/Edit Character</h2>
       <form id="character-editor-form">
-        <label for="name-input">Name:</label>
-        <input
-          type="text"
-          id="name-input"
-          placeholder="Name"
-          required
-          maxlength="30"
-          minlength="1"
-        />
-        <label for="id-name-check">Auto ID:</label>
-        <input type="checkbox" id="id-name-check" value="auto-id" checked />
-        <label for="id-input">Id:</label>
-        <input
-          type="text"
-          id="id-input"
-          placeholder="id"
-          disabled
-          required
-          maxlength="50"
-          minlength="1"
-        />
-        <label for="team-input">Team:</label>
-        <select id="team-input" required>
-          <option value="townsfolk" selected>Townsfolk</option>
-          <option value="outsider">Outsider</option>
-          <option value="minion">Minion</option>
-          <option value="demon">Demon</option>
-          <option value="traveller">Traveller</option>
-          <option value="fabled">Fabled</option>
-          <option value="loric">Loric</option>
-        </select>
-        <label for="ability-input">Ability:</label>
-        <textarea
-          id="ability-input"
-          placeholder="Ability"
-          required
-          cols="60"
-          rows="3"
-          maxlength="250"
-          minlength="1"
-        ></textarea>
+        <div id="required-char-attributes" class="form-group">
+          <label for="name-input">Name:</label>
+          <input
+            type="text"
+            id="name-input"
+            placeholder="Name"
+            required
+            maxlength="30"
+            minlength="1"
+          />
+          <label for="id-input">Id:</label>
+          <div id="id-input-container">
+            <label for="id-name-check" class="label-small">Auto:</label>
+            <input type="checkbox" id="id-name-check" value="auto-id" checked />
+            <input
+              type="text"
+              id="id-input"
+              placeholder="id"
+              disabled
+              required
+              maxlength="50"
+              minlength="1"
+            />
+          </div>
+          <!-- id-input-container -->
+          <label for="team-input">Team:</label>
+          <select id="team-input" required>
+            <option value="townsfolk" selected>Townsfolk</option>
+            <option value="outsider">Outsider</option>
+            <option value="minion">Minion</option>
+            <option value="demon">Demon</option>
+            <option value="traveller">Traveller</option>
+            <option value="fabled">Fabled</option>
+            <option value="loric">Loric</option>
+          </select>
+          <label for="ability-input" class="textarea-label">Ability:</label>
+          <textarea
+            id="ability-input"
+            placeholder="Ability"
+            required
+            cols="60"
+            rows="3"
+            maxlength="250"
+            minlength="1"
+          ></textarea>
+          </div>
+        <!-- required-char-attributes -->
+
+        <div id="optional-char-attributes" class="form-group">
+          <label for="edition-input">Edition:</label>
+          <input type="text" id="edition-input" placeholder="edition" list="editions" />
+          <datalist id="editions">
+            <option>Trouble Brewing</option>
+            <option>Sects & Violets</option>
+            <option>Bad Moon Rising</option>
+          </datalist>
+          <label for="flavor-input">Flavour Text:</label>
+          <input type="text" id="flavor-input" placeholder="Flavourtext" />
+          <label for="setup-input">Affects Setup:</label>
+          <input type="checkbox" id="setup-input" value="affects-setup" />
+          <label for="firstNightReminder-input">First Night:</label>
+          <input type="text" id="firstNightReminder-input" placeholder="First Night reminder" maxlength="500" minlength="0" />
+          <label for="firstNight-input" class="label-small">Priority:</label>
+          <input type="number" id="firstNight-input" value="0" min="0"/>
+          <label for="otherNightReminder-input">Other Nights:</label>
+          <input type="text" id="otherNightReminder-input" placeholder="Other Night reminder" maxlength="500" minlength="0" />
+          <label for="otherNight-input" class="label-small">Priority:</label>
+          <input type="number" id="otherNight-input" value="0" min="0"/>
+          <label for="reminders-input-container">Reminders:</label>
+          <div id="reminders-input-container" class="multiple-input-column">
+            <input type="text" name="reminders[]" maxlength="500" minlength="0" />
+            <input type="text" name="reminders[]" maxlength="500" minlength="0" />
+          </div>
+          <label for="remindersGlobal-input-container">Global Reminders:</label>
+          <div id="remindersGlobal-input-container" class="multiple-input-column">
+            <input type="text" name="remindersGlobal[]" maxlength="500" minlength="0" />
+            <input type="text" name="remindersGlobal[]" maxlength="500" minlength="0" />
+          </div>
+        </div>
+        <!-- optional-char-attributes -->
+
+        <div id="special-char-attributes" class="form-group">
+          <!-- I know inline styling is hacky, but this is effectively a TODO and will be removed -->
+          <span style="grid-column: span 3; text-align: center">Special attributes and jinxes will be supported in a later release.</span>
+        </div>
+        <!-- special-char-attributes -->
       </form>
     </div>
     <!-- modal-content -->
+    <button class="modal-submit-button">Save</button>
   </div>
   <!-- modal -->
 </div>

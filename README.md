@@ -63,11 +63,10 @@ bundle exec jekyll serve
         - [x] Export night order as valid script JSON
     - [ ] Custom character creation modal
         - [x] Required fields: ID, Name, Team, Ability
-        - [ ] Optional fields:
-            - [ ] Images (locking down is unnecessary, if they load dumb JSON it's their own fault)
-            - [ ] Other (edition, flavor, firstNight, firstNightReminder, otherNight, otherNightReminder, reminders, remindersGlobal, setup, jinxes, special)
+        - [x] Optional fields: edition, flavor, firstNight, firstNightReminder, otherNight, otherNightReminder, reminders, remindersGlobal, setup
         - [ ] Other script metadata (author, logo, hideTitle, background, almanac, bootlegger)
         - [ ] Import fields into JS
+    - [ ] Image display from URL (and IP track warning)
 - [ ] BotC improvements
     - [ ] Loric/Fabled support
     - [ ] Recommended travellers
@@ -75,3 +74,4 @@ bundle exec jekyll serve
     - [ ] Export: don't include night orders if they are default
     - [ ] Data: include default image URLs
     - [ ] Night Order: re-add characters if not present in the \_meta lists
+    - [ ] Homebrew: support `jinx` and `special` attributes
