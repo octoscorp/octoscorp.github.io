@@ -8,6 +8,8 @@
     --default-color: #ece4d8;
     --subtle-color: #c7c0b5;
     --less-subtle-color: #a89d8b;
+    --theme-blue: #5b7f98;
+    --theme-red: #7c334f;
 }
 
 // Fixes to the defaults to allow a wider central column
@@ -66,4 +68,38 @@ hr.subtle {
     margin: 5px auto;
     width: 70%;
     background: none;
+}
+
+.modal-overlay {
+    // Positioning
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+
+    // Colouring - we use RGBA in caps to avoid SCSS interpreting the functions
+    --overlay-opacity: 0.15;
+    background: RGBA(from var(--theme-blue) r g b / var(--overlay-opacity));
+    background-image: radial-gradient(circle,
+        RGBA(from var(--theme-red) r g b / var(--overlay-opacity)) 30%,
+        RGBA(from var(--theme-blue) r g b / var(--overlay-opacity)) 100%);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--default-color);
+    padding: 20px;
+    border-radius: 2px;
+    z-index: 1001;
+}
+
+.modal-active {
+    display: block;
 }
