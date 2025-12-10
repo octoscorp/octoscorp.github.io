@@ -20,8 +20,8 @@ plugins:
   - jekyll-remote-theme
 
 exclude:
-  # This one is just for the GitHub, not the page
-  - README.md
+  # These are just for the GitHub, not the page
+  - "**/README.md"
   # Reading default templates causes havoc on the GitHub build server
   - vendor/bundle/
   - vendor/gems/

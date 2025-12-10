@@ -36,7 +36,8 @@ Finishing up the conversion from React to Jekyll. I had some interesting CSS tra
     - [x] Required fields: ID, Name, Team, Ability
     - [x] Optional fields: edition, flavor, firstNight, firstNightReminder, otherNight, otherNightReminder, reminders, remindersGlobal, setup
     - [ ] Import fields into JS
-- [ ] Image display from URL (and IP track warning)
+    - [ ] Image field and IP track warning (show status code)
+- [ ] Image display from URL
 - [ ] Other script metadata (author, logo, hideTitle, background, almanac, bootlegger)
 - [ ] Stretch goals / "later me" problems
     - [ ] Loric/Fabled support

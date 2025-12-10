@@ -506,7 +506,7 @@ function register_input_callbacks() {
             load_JSON_to_textarea(event.target);
         });
 
-    // Submit pressed
+    // JSON manipulation
     document
         .getElementById("json-submit")
         .addEventListener("click", (event) => {
