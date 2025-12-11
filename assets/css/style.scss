@@ -59,8 +59,11 @@
 }
 
 .hidden {
+    display: none;
     visibility: collapse;
     max-height: 0;
+    // Don't mess with grids
+    position: absolute;
 }
 
 .icon {

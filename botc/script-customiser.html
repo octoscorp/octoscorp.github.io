@@ -93,6 +93,7 @@ include_styles: ["botc-script.css"]
           <input
             type="text"
             id="name-input"
+            name="name"
             placeholder="Name"
             required
             maxlength="30"
@@ -105,6 +106,7 @@ include_styles: ["botc-script.css"]
             <input
               type="text"
               id="id-input"
+              name="id"
               placeholder="id"
               disabled
               required
@@ -114,7 +116,7 @@ include_styles: ["botc-script.css"]
           </div>
           <!-- id-input-container -->
           <label for="team-input">Team:</label>
-          <select id="team-input" required>
+          <select id="team-input" name="team" required>
             <option value="townsfolk" selected>Townsfolk</option>
             <option value="outsider">Outsider</option>
             <option value="minion">Minion</option>
@@ -126,6 +128,7 @@ include_styles: ["botc-script.css"]
           <label for="ability-input" class="textarea-label">Ability:</label>
           <textarea
             id="ability-input"
+            name="ability"
             placeholder="Ability"
             required
             cols="60"
@@ -138,33 +141,31 @@ include_styles: ["botc-script.css"]
 
         <div id="optional-char-attributes" class="form-group">
           <label for="edition-input">Edition:</label>
-          <input type="text" id="edition-input" placeholder="edition" list="editions" />
+          <input type="text" id="edition-input" name="edition" placeholder="edition" list="editions" />
           <datalist id="editions">
             <option>Trouble Brewing</option>
             <option>Sects & Violets</option>
             <option>Bad Moon Rising</option>
           </datalist>
           <label for="flavor-input">Flavour Text:</label>
-          <input type="text" id="flavor-input" placeholder="Flavourtext" />
+          <input type="text" id="flavor-input" name="flavor" placeholder="Flavourtext" />
           <label for="setup-input">Affects Setup:</label>
-          <input type="checkbox" id="setup-input" value="affects-setup" />
+          <input type="checkbox" id="setup-input" name="setup" value="affects-setup" />
           <label for="firstNightReminder-input">First Night:</label>
-          <input type="text" id="firstNightReminder-input" placeholder="First Night reminder" maxlength="500" minlength="0" />
-          <label for="firstNight-input" class="label-small">Priority:</label>
-          <input type="number" id="firstNight-input" value="0" min="0"/>
+          <input type="text" id="firstNightReminder-input" name="firstNightReminder" placeholder="First Night reminder" maxlength="500" minlength="0" />
+          <label for="firstNight-input" class="label-small hidden">Priority:</label>
+          <input type="number" id="firstNight-input" name="firstNight" class="hidden" value="0" min="0"/>
           <label for="otherNightReminder-input">Other Nights:</label>
-          <input type="text" id="otherNightReminder-input" placeholder="Other Night reminder" maxlength="500" minlength="0" />
-          <label for="otherNight-input" class="label-small">Priority:</label>
-          <input type="number" id="otherNight-input" value="0" min="0"/>
+          <input type="text" id="otherNightReminder-input" name="otherNightReminder" placeholder="Other Night reminder" maxlength="500" minlength="0" />
+          <label for="otherNight-input" class="label-small hidden">Priority:</label>
+          <input type="number" id="otherNight-input" name="otherNight" class="hidden" value="0" min="0"/>
           <label for="reminders-input-container">Reminders:</label>
           <div id="reminders-input-container" class="multiple-input-column">
-            <input type="text" name="reminders[]" maxlength="500" minlength="0" />
-            <input type="text" name="reminders[]" maxlength="500" minlength="0" />
+            <input id="reminders-input-first" type="text" name="reminders[]" maxlength="500" minlength="0" />
           </div>
           <label for="remindersGlobal-input-container">Global Reminders:</label>
           <div id="remindersGlobal-input-container" class="multiple-input-column">
-            <input type="text" name="remindersGlobal[]" maxlength="500" minlength="0" />
-            <input type="text" name="remindersGlobal[]" maxlength="500" minlength="0" />
+            <input id="remindersGlobal-input-first" type="text" name="remindersGlobal[]" maxlength="500" minlength="0" />
           </div>
         </div>
         <!-- optional-char-attributes -->
@@ -177,7 +178,7 @@ include_styles: ["botc-script.css"]
       </form>
     </div>
     <!-- modal-content -->
-    <button class="modal-submit-button">Save</button>
+    <button id="character-submit" class="modal-submit-button">Save</button>
   </div>
   <!-- modal -->
 </div>

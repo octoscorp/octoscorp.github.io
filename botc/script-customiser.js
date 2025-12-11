@@ -12,6 +12,7 @@ function assert(bool, message) {
 
 // Globals
 let loaded_script = null;
+const nights = ["firstNight", "otherNight"];
 
 class ScriptMetaData {
     // Doesn't like being called name
@@ -103,25 +104,43 @@ function validate_meta_object(meta) {
     return meta_obj;
 }
 
-function validate_homebrew_character(char) {
-    // Already checked for existence of id and name, check for the other requirements
+function convert_to_char_object(data_obj, data_type="JSON") {
     let char_obj = new Character();
+    switch (data_type) {
+        case "JSON":
+            // Expect compliant object
+            for(key of Object.keys(char_obj)) {
+                if (data_obj.hasOwnProperty(key)) {
+                    char_obj[key] = data_obj[key];
+                }
+            }
+            break;
+        case "FORM":
+            break;
+        default:
+            throw new Error(data_type + " is not a known datatype value");
+    }
+    return char_obj;
+}
 
-    assert(char["id"].length > 0, "Homebrew character ID cannot be empty.");
+function validate_homebrew_character(char) {
+    // Check required fields are non-null
+    const required = ["id", "name", "team", "ability"];
+    for (field of required) {
+        assert(char[field] !== null, `Character ${field} cannot be empty.`)
+    }
+
+    assert(char.id.length > 0, "Homebrew character ID cannot be empty.");
     assert(
-        char["id"].length <= 50,
+        char.id.length <= 50,
         "Homebrew character ID cannot exceed 50 characters.",
     );
 
-    assert(char["name"].length > 0, "HB char name cannot be empty.");
-    assert(char["name"].length <= 30, "HB char name cannot exceed 30 chars.");
+    assert(char.name.length > 0, "HB char name cannot be empty.");
+    assert(char.name.length <= 30, "HB char name cannot exceed 30 chars.");
 
     assert(
-        char.hasOwnProperty("team"),
-        'Homebrew characters must have a "team" field.',
-    );
-    assert(
-        char_types.hasOwnProperty(char["team"]),
+        char_types.hasOwnProperty(char.team),
         "Homebrew char team must be one of: " + Object.keys(char_types),
     );
 
@@ -129,35 +148,23 @@ function validate_homebrew_character(char) {
         char.hasOwnProperty("ability"),
         'Homebrew characters must have an "ability" field.',
     );
-    assert(char["ability"].length > 0, "HB char ability cannot be empty.");
+    assert(char.ability.length > 0, "HB char ability cannot be empty.");
     assert(
-        char["ability"].length <= 250,
+        char.ability.length <= 250,
         "HB char name cannot exceed 250 chars.",
     );
 
-    // Fill in char essentials
-    char_obj.id = char["id"];
-    char_obj.name = char["name"];
-    char_obj.team = char["team"];
-    char_obj.ability = char["ability"];
-
-    let nightReminders = ["firstNight", "otherNight"];
-    nightReminders.forEach((night) => {
-        if (char.hasOwnProperty(night)) {
+    nights.forEach((night) => {
+        if (char[night] !== null) {
             assert(
                 typeof char[night] === "number",
                 "HB char " + night + " field must be integer",
             );
-            char_obj[night] = char[night];
             if (char[night] !== 0) {
                 // Wakes on this night - must have reminder!
                 assert(
-                    char.hasOwnProperty(night + "Reminder"),
-                    "HB char with " +
-                        night +
-                        " value > 0 wakes so must have " +
-                        night +
-                        "Reminder.",
+                    char[night + "Reminder"] !== null,
+                    `HB char with ${night} value > 0 wakes so must have ${night}Reminder.`,
                 );
                 assert(
                     typeof char[night + "Reminder"] === "string",
@@ -165,50 +172,47 @@ function validate_homebrew_character(char) {
                 );
                 assert(
                     char[night + "Reminder"].length > 0,
-                    "HB char " +
-                        night +
-                        "Reminder cannot be empty while " +
-                        night +
-                        " is > 0.",
+                    `HB char ${night}Reminder cannot be empty while ${night} is > 0.`,
                 );
                 assert(
                     char[night + "Reminder"].length <= 500,
                     "HB char " + night + "Reminder cannot exceed 500 chars.",
                 );
-                char_obj[night + "Reminder"] = char[night + "Reminder"];
             }
+        } else {
+            assert(
+                char[night + "Reminder"] === null || char[night + "Reminder"] === "",
+                `Character does not wake on ${night} so cannot have ${night}Reminder`
+            );
         }
     });
 
-    if (char.hasOwnProperty("reminders")) {
+    if (char.reminders !== null) {
         assert(
-            Array.isArray(char["reminders"]),
+            Array.isArray(char.reminders),
             "HB char reminders must be an array.",
         );
-        char["reminders"].forEach((reminder) => {
+        char.reminders.forEach((reminder) => {
             assert(
                 reminder.length <= 30,
                 "HB character reminder token cannot exceed 30 chars.",
             );
         });
-        char_obj.reminders = char["reminders"];
     }
-    if (char.hasOwnProperty("globalReminders")) {
+    if (char.globalReminders !== null) {
         assert(
-            Array.isArray(char["globalReminders"]),
+            Array.isArray(char.globalReminders),
             "HB char globalReminders must be an array.",
         );
-        char["globalReminders"].forEach((reminder) => {
+        char.globalReminders.forEach((reminder) => {
             assert(
                 reminder.length <= 25,
                 "HB character global reminder token cannot exceed 25 chars.",
             );
         });
-        char_obj.globalReminders = char["globalReminders"];
     }
 
     // TODO: Check flavor, edition, setup, jinxes, special
-    return char_obj;
 }
 
 function validate_script(script) {
@@ -254,9 +258,9 @@ function validate_script(script) {
                 if (element["id"] == "_meta") {
                     script_object._meta = validate_meta_object(element);
                 } else {
-                    script_object.homebrew_chars.push(
-                        validate_homebrew_character(element),
-                    );
+                    let char = convert_to_char_object(element, data_type="JSON");
+                    validate_homebrew_character(char);
+                    script_object.homebrew_chars.push(char);
                 }
                 break;
             default:
@@ -491,10 +495,94 @@ function export_JSON() {
 }
 
 function toggle_show_element(elementID, hide = false) {
-    let element = document.getElementById(elementID);
+    let element = elementID;
+    if (typeof element === "string") {
+        element = document.getElementById(elementID);
+    }
     element.classList.remove("hidden");
     if (hide) {
         element.classList.add("hidden");
+    }
+}
+
+function submit_character(event) {
+    const char_form = document.getElementById("character-editor-form");
+    const char_data = new FormData(char_form);
+
+    // Validity checks
+    if (!char_form.reportValidity()) {
+        return;
+    }
+    try {
+        let char = convert_to_char_object(char_data, data_type = "FORM");
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function update_auto_id() {
+    const char_name = document.getElementById("name-input").value;
+    const id_input = document.getElementById("id-input");
+
+    // Guard clauses
+    if (!document.getElementById("id-name-check").checked) {
+        return;
+    }
+    if (char_name === null || char_name === "") {
+        id_input.value = "";
+        return;
+    }
+
+    // Convert to id
+    let generated_id = "";
+    const alpha_num = /^[A-Za-z0-9]$/i
+    for (let char of char_name) {
+        if (alpha_num.test(char)) {
+            generated_id += char;
+        }
+    }
+    generated_id = generated_id.toLowerCase();
+
+    // Apply
+    id_input.value = generated_id;
+}
+
+function match_night_priority_to_reminder(event) {
+    const night_reminder = event.target;
+    const night = night_reminder.id.substring(0, 10);
+    const night_prio = document.getElementById(night + "-input");
+    const prio_label = document.querySelector(`[for="${night}-input"]`);
+
+    if (night_reminder.value === null || night_reminder.value === "") {
+        toggle_show_element(night_prio, hide = true);
+        toggle_show_element(prio_label, hide = true);
+        night_prio.value = 0;
+    } else {
+        toggle_show_element(night_prio, hide = false);
+        toggle_show_element(prio_label, hide = false);
+        night_prio.value = 1;
+    }
+}
+
+function update_number_reminders(event) {
+    const reminder_input = event.target;
+    const container = reminder_input.parentElement;
+    const type = container.id.split('-', 2)[0];
+
+    if (reminder_input.value === null || reminder_input.value === "") {
+        // Don't remove last item
+        if (reminder_input.id !== null) {
+            return;
+        }
+        reminder_input.remove();
+    } else {
+        let new_input = document.createElement("input");
+        new_input.type = "text";
+        new_input.name = type + "[]";
+        new_input.maxlength = "500";
+        new_input.minlength = "0";
+        container.appendChild(new_input);
+        new_input.addEventListener("change", update_number_reminders);
     }
 }
 
@@ -518,6 +606,38 @@ function register_input_callbacks() {
         .addEventListener("click", (event) => {
             export_JSON();
         });
+
+    // Character editor modal
+    document
+        .getElementById("name-input")
+        .addEventListener("input", (event) => {
+            update_auto_id();
+        });
+
+    document
+        .getElementById("id-name-check")
+        .addEventListener("change", (event) => {
+            document.getElementById("id-input").disabled = event.target.checked;
+            update_auto_id();
+        });
+
+    document
+        .getElementById("firstNightReminder-input")
+        .addEventListener("change", match_night_priority_to_reminder);
+    document
+        .getElementById("otherNightReminder-input")
+        .addEventListener("change", match_night_priority_to_reminder);
+
+    document
+        .getElementById("reminders-input-first")
+        .addEventListener("change", update_number_reminders);
+    document
+        .getElementById("remindersGlobal-input-first")
+        .addEventListener("change", update_number_reminders);
+
+    document
+        .getElementById("character-submit")
+        .addEventListener("click", submit_character);
 }
 
 window.addEventListener("load", (event) => {
