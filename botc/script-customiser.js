@@ -4,9 +4,9 @@
 //  + utils: drag-and-drop.js
 
 // Could be abstracted to another file
-function assert(bool, message, err_cause=null) {
+function assert(bool, message, err_cause = null) {
     if (bool === false) {
-        throw Error(message, {cause: err_cause});
+        throw Error(message, { cause: err_cause });
     }
 }
 
@@ -105,7 +105,7 @@ function validate_meta_object(meta) {
     return meta_obj;
 }
 
-function convert_to_char_object(data_obj, data_type="JSON") {
+function convert_to_char_object(data_obj, data_type = "JSON") {
     let char_obj = new Character();
     switch (data_type) {
         case "JSON":
@@ -141,7 +141,7 @@ function convert_to_char_object(data_obj, data_type="JSON") {
                     if (int_keys.includes(key)) {
                         val = parseInt(val);
                     } else if (bool_keys.includes(key)) {
-                        val = (val === "true");
+                        val = val === "true";
                     }
                     char_obj[key] = val;
                 }
@@ -159,37 +159,60 @@ function validate_homebrew_character(char) {
     console.debug(char);
 
     for (field of required) {
-        assert(char[field] !== null, `Character ${field} cannot be empty.`,
-            err_cause = { name: field })
+        assert(
+            char[field] !== null,
+            `Character ${field} cannot be empty.`,
+            (err_cause = { name: field }),
+        );
     }
 
-    assert(char.id.length > 0, "Character ID cannot be empty.", err_cause = { name: "id" });
+    assert(
+        char.id.length > 0,
+        "Character ID cannot be empty.",
+        (err_cause = { name: "id" }),
+    );
     assert(
         char.id.length <= 50,
         "Character ID cannot exceed 50 characters.",
-        err_cause = "id",
+        (err_cause = "id"),
     );
-    assert(alpha_num.test(char.id), "ID may only include alphanumeric characters.", err_cause = { name: "id" });
+    assert(
+        alpha_num.test(char.id),
+        "ID may only include alphanumeric characters.",
+        (err_cause = { name: "id" }),
+    );
 
-    assert(char.name.length > 0, "Char name cannot be empty.", err_cause = { name: "name" });
-    assert(char.name.length <= 30, "Char name cannot exceed 30 chars.", err_cause = { name: "name" });
+    assert(
+        char.name.length > 0,
+        "Char name cannot be empty.",
+        (err_cause = { name: "name" }),
+    );
+    assert(
+        char.name.length <= 30,
+        "Char name cannot exceed 30 chars.",
+        (err_cause = { name: "name" }),
+    );
 
     assert(
         char_types.hasOwnProperty(char.team),
         "Char team must be one of: " + Object.keys(char_types),
-        err_cause = { name: "team" },
+        (err_cause = { name: "team" }),
     );
 
     assert(
         char.hasOwnProperty("ability"),
         'Characters must have an "ability" field.',
-        err_cause = { name: "ability" },
+        (err_cause = { name: "ability" }),
     );
-    assert(char.ability.length > 0, "Char ability cannot be empty.", err_cause = { name: "ability" });
+    assert(
+        char.ability.length > 0,
+        "Char ability cannot be empty.",
+        (err_cause = { name: "ability" }),
+    );
     assert(
         char.ability.length <= 250,
         "Char name cannot exceed 250 chars.",
-        err_cause = { name: "ability" },
+        (err_cause = { name: "ability" }),
     );
 
     nights.forEach((night) => {
@@ -197,35 +220,36 @@ function validate_homebrew_character(char) {
             assert(
                 typeof char[night] === "number",
                 "Char " + night + " field must be integer",
-                err_cause = { name: night },
+                (err_cause = { name: night }),
             );
             if (char[night] !== 0) {
                 // Wakes on this night - must have reminder!
                 assert(
                     char[night + "Reminder"] !== null,
                     `Char with ${night} value > 0 wakes so must have ${night}Reminder.`,
-                    err_cause = { name: `${night}Reminder` },
+                    (err_cause = { name: `${night}Reminder` }),
                 );
                 assert(
                     typeof char[night + "Reminder"] === "string",
                     "Char " + night + "Reminder must be a string.",
-                    err_cause = { name: `${night}Reminder` },
+                    (err_cause = { name: `${night}Reminder` }),
                 );
                 assert(
                     char[night + "Reminder"].length > 0,
                     `${night}Reminder cannot be empty while ${night} is > 0.`,
-                    err_cause = { name: `${night}Reminder` },
+                    (err_cause = { name: `${night}Reminder` }),
                 );
                 assert(
                     char[night + "Reminder"].length <= 500,
                     "Char " + night + "Reminder cannot exceed 500 chars.",
-                    err_cause = { name: `${night}Reminder` },
+                    (err_cause = { name: `${night}Reminder` }),
                 );
             } else {
                 assert(
-                    char[night + "Reminder"] === null || char[night + "Reminder"] === "",
+                    char[night + "Reminder"] === null ||
+                        char[night + "Reminder"] === "",
                     `Character does not wake on ${night} (priority 0) so cannot have ${night}Reminder`,
-                    err_cause = { name: `${night}Reminder` },
+                    (err_cause = { name: `${night}Reminder` }),
                 );
             }
         }
@@ -235,14 +259,14 @@ function validate_homebrew_character(char) {
         assert(
             Array.isArray(char.reminders),
             "Char reminders must be an array.",
-            err_cause = { name: "reminders" },
+            (err_cause = { name: "reminders" }),
         );
 
         for (let i = 0; i < char.reminders.length; i++) {
             assert(
                 char.reminders[i].length <= 30,
                 "Character reminder token cannot exceed 30 chars.",
-                err_cause = { name: "reminders", index: i },
+                (err_cause = { name: "reminders", index: i }),
             );
         }
     }
@@ -250,14 +274,14 @@ function validate_homebrew_character(char) {
         assert(
             Array.isArray(char.globalReminders),
             "Char globalReminders must be an array.",
-            err_cause = { name: "globalReminders" },
+            (err_cause = { name: "globalReminders" }),
         );
 
         for (let i = 0; i < char.globalReminders.length; i++) {
             assert(
                 char.globalReminders[i].length <= 25,
                 "Character global reminder token cannot exceed 25 chars.",
-                err_cause = { name: "globalReminders", index: i },
+                (err_cause = { name: "globalReminders", index: i }),
             );
         }
     }
@@ -308,7 +332,10 @@ function validate_script(script) {
                 if (element["id"] == "_meta") {
                     script_object._meta = validate_meta_object(element);
                 } else {
-                    let char = convert_to_char_object(element, data_type="JSON");
+                    let char = convert_to_char_object(
+                        element,
+                        (data_type = "JSON"),
+                    );
                     validate_homebrew_character(char);
                     script_object.homebrew_chars.push(char);
                 }
@@ -566,7 +593,7 @@ function submit_character(event) {
     const id_input = document.getElementById("id-input");
 
     // Enable the field so we can access the value
-    const id_input_original_state = id_input.disabled
+    const id_input_original_state = id_input.disabled;
     id_input.disabled = false;
     const char_data = new FormData(char_form);
 
@@ -576,7 +603,7 @@ function submit_character(event) {
         return;
     }
     try {
-        let char = convert_to_char_object(char_data, data_type = "FORM");
+        let char = convert_to_char_object(char_data, (data_type = "FORM"));
         validate_homebrew_character(char);
         id_input.disabled = id_input_original_state;
 
@@ -590,7 +617,9 @@ function submit_character(event) {
         let input = document.getElementById(`${field_id}-input`);
         if (input === null) {
             // The reminders and globalReminders fields don't have this ID format
-            input = document.querySelectorAll(`input[name="${field_id}"]`)[error.cause["index"]];
+            input = document.querySelectorAll(`input[name="${field_id}"]`)[
+                error.cause["index"]
+            ];
         }
 
         // Show the error message
@@ -634,12 +663,12 @@ function match_night_priority_to_reminder(event) {
     const prio_label = document.querySelector(`[for="${night}-input"]`);
 
     if (night_reminder.value === null || night_reminder.value === "") {
-        toggle_show_element(night_prio, hide = true);
-        toggle_show_element(prio_label, hide = true);
+        toggle_show_element(night_prio, (hide = true));
+        toggle_show_element(prio_label, (hide = true));
         night_prio.value = 0;
     } else {
-        toggle_show_element(night_prio, hide = false);
-        toggle_show_element(prio_label, hide = false);
+        toggle_show_element(night_prio, (hide = false));
+        toggle_show_element(prio_label, (hide = false));
         night_prio.value = 1;
     }
 }
@@ -647,7 +676,7 @@ function match_night_priority_to_reminder(event) {
 function update_number_reminders(event) {
     const reminder_input = event.target;
     const container = reminder_input.parentElement;
-    const type = container.id.split('-', 2)[0];
+    const type = container.id.split("-", 2)[0];
 
     if (reminder_input.value === null || reminder_input.value === "") {
         // Don't remove last item
@@ -688,11 +717,9 @@ function register_input_callbacks() {
         });
 
     // Character editor modal
-    document
-        .getElementById("name-input")
-        .addEventListener("input", (event) => {
-            update_auto_id();
-        });
+    document.getElementById("name-input").addEventListener("input", (event) => {
+        update_auto_id();
+    });
 
     document
         .getElementById("id-name-check")

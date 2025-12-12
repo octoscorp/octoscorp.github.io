@@ -27,8 +27,7 @@ include_styles: ["botc-script.css"]
     id="json-input"
     rows="20"
     cols="50"
-    placeholder="Or paste JSON here"
-  ></textarea>
+    placeholder="Or paste JSON here"></textarea>
   <br />
   <button id="json-submit">Load JSON</button>
 </div>
@@ -36,7 +35,9 @@ include_styles: ["botc-script.css"]
 <div id="script-customiser" class="hidden">
   <div class="actions-panel">
     <button id="export-JSON">Export as JSON</button>
-    <button onclick="showModal('homebrew-char-modal')">Add (custom) character</button>
+    <button onclick="showModal('homebrew-char-modal')">
+      Add (custom) character
+    </button>
   </div>
   <!-- actions-panel -->
   <div id="meta-details">
@@ -86,7 +87,9 @@ include_styles: ["botc-script.css"]
   <div class="modal-overlay" data-modal-overlay-for="homebrew-char-modal" />
   <div id="homebrew-char-modal" class="modal character-editor">
     <h2 class="modal-header">Create/Edit Character</h2>
-    <button class="modal-close-button" onclick="closeModal()"><img class="icon" src="/assets/icons/close.svg"></button>
+    <button class="modal-close-button" onclick="closeModal()">
+      <img class="icon" src="/assets/icons/close.svg" />
+    </button>
     <div class="modal-content">
       <form id="character-editor-form">
         <div id="required-char-attributes" class="form-group">
@@ -97,8 +100,7 @@ include_styles: ["botc-script.css"]
             name="name"
             placeholder="Name"
             maxlength="30"
-            minlength="1"
-          />
+            minlength="1" />
           <label for="id-input">Id:</label>
           <div id="id-input-container">
             <label for="id-name-check" class="label-small">Auto:</label>
@@ -111,8 +113,7 @@ include_styles: ["botc-script.css"]
               disabled
               required
               maxlength="50"
-              minlength="1"
-            />
+              minlength="1" />
           </div>
           <!-- id-input-container -->
           <label for="team-input">Team:</label>
@@ -133,45 +134,96 @@ include_styles: ["botc-script.css"]
             cols="60"
             rows="3"
             maxlength="250"
-            minlength="1"
-          ></textarea>
-          </div>
+            minlength="1"></textarea>
+        </div>
         <!-- required-char-attributes -->
 
         <div id="optional-char-attributes" class="form-group">
           <label for="edition-input">Edition:</label>
-          <input type="text" id="edition-input" name="edition" placeholder="edition" list="editions" />
+          <input
+            type="text"
+            id="edition-input"
+            name="edition"
+            placeholder="edition"
+            list="editions" />
           <datalist id="editions">
             <option>Trouble Brewing</option>
             <option>Sects & Violets</option>
             <option>Bad Moon Rising</option>
           </datalist>
           <label for="flavor-input">Flavour Text:</label>
-          <input type="text" id="flavor-input" name="flavor" placeholder="Flavourtext" />
+          <input
+            type="text"
+            id="flavor-input"
+            name="flavor"
+            placeholder="Flavourtext" />
           <label for="setup-input">Affects Setup:</label>
           <input type="checkbox" id="setup-input" name="setup" value="true" />
           <label for="firstNightReminder-input">First Night:</label>
-          <input type="text" id="firstNightReminder-input" name="firstNightReminder" placeholder="First Night reminder" maxlength="500" minlength="0" />
-          <label for="firstNight-input" class="label-small hidden">Priority:</label>
-          <input type="number" id="firstNight-input" name="firstNight" class="hidden" value="0" min="0"/>
+          <input
+            type="text"
+            id="firstNightReminder-input"
+            name="firstNightReminder"
+            placeholder="First Night reminder"
+            maxlength="500"
+            minlength="0" />
+          <label for="firstNight-input" class="label-small hidden"
+            >Priority:</label
+          >
+          <input
+            type="number"
+            id="firstNight-input"
+            name="firstNight"
+            class="hidden"
+            value="0"
+            min="0" />
           <label for="otherNightReminder-input">Other Nights:</label>
-          <input type="text" id="otherNightReminder-input" name="otherNightReminder" placeholder="Other Night reminder" maxlength="500" minlength="0" />
-          <label for="otherNight-input" class="label-small hidden">Priority:</label>
-          <input type="number" id="otherNight-input" name="otherNight" class="hidden" value="0" min="0"/>
+          <input
+            type="text"
+            id="otherNightReminder-input"
+            name="otherNightReminder"
+            placeholder="Other Night reminder"
+            maxlength="500"
+            minlength="0" />
+          <label for="otherNight-input" class="label-small hidden"
+            >Priority:</label
+          >
+          <input
+            type="number"
+            id="otherNight-input"
+            name="otherNight"
+            class="hidden"
+            value="0"
+            min="0" />
           <label for="reminders-input-container">Reminders:</label>
           <div id="reminders-input-container" class="multiple-input-column">
-            <input id="reminders-input-first" type="text" name="reminders" maxlength="500" minlength="0" />
+            <input
+              id="reminders-input-first"
+              type="text"
+              name="reminders"
+              maxlength="500"
+              minlength="0" />
           </div>
           <label for="globalReminders-input-container">Global Reminders:</label>
-          <div id="globalReminders-input-container" class="multiple-input-column">
-            <input id="globalReminders-input-first" type="text" name="globalReminders" maxlength="500" minlength="0" />
+          <div
+            id="globalReminders-input-container"
+            class="multiple-input-column">
+            <input
+              id="globalReminders-input-first"
+              type="text"
+              name="globalReminders"
+              maxlength="500"
+              minlength="0" />
           </div>
         </div>
         <!-- optional-char-attributes -->
 
         <div id="special-char-attributes" class="form-group">
           <!-- I know inline styling is hacky, but this is effectively a TODO and will be removed -->
-          <span style="grid-column: span 3; text-align: center">Special attributes and jinxes will be supported in a later release.</span>
+          <span style="grid-column: span 3; text-align: center"
+            >Special attributes and jinxes will be supported in a later
+            release.</span
+          >
         </div>
         <!-- special-char-attributes -->
       </form>

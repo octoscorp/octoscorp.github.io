@@ -61,6 +61,7 @@ The official script tool at script.bloodontheclocktower.com has (as far as I'm c
 The logical next step of the script tool is to maintain an almanac of the non-joke characters put together using it. Unfortunately, this is quite difficult in the context of a GitHub pages site - I cannot host a backend for storing the almanac contents, so without some degree of shenanigans users can only see their own homebrews.
 
 One potential workaround for this is to store data in a GitHub repository. Notes:
+
 - Will need to be a public repository for API fetching
 - Limited number of contributing users
     - Personal repositories only have admin, collaborator, and public permission levels
@@ -76,6 +77,7 @@ One potential workaround for this is to store data in a GitHub repository. Notes
     - While only trusted collaborators should be able to add to this repo, mitigate XSS risk in case of token compromise.
 
 Informative links:
+
 - GitHub REST API https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api?apiVersion=2022-11-28&tool=javascript
 - Octokit (interaction tool) https://github.com/octokit/authentication-strategies.js/#readme
 

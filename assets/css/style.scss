@@ -123,17 +123,21 @@ hr.subtle {
     display: block;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
     border-width: 0px;
     border-bottom: 2px solid var(--subtle-darker-color);
     background-color: var(--subtle-lighter-color);
 
-    &:focus, &:hover {
+    &:focus,
+    &:hover {
         border-bottom: 2px solid var(--moderate-darker-color);
         background-color: var(--moderate-lighter-color);
     }
 
-    &:disabled, &:read-only {
+    &:disabled,
+    &:read-only {
         border-bottom: 2px solid var(--subtle-lighter-color);
         background-color: var(--default-color);
     }
@@ -147,7 +151,8 @@ label {
 textarea {
     border-top: 2px solid var(--subtle-darker-color);
 
-    &:focus, &:hover {
+    &:focus,
+    &:hover {
         border-top: 2px solid var(--moderate-darker-color);
     }
 }

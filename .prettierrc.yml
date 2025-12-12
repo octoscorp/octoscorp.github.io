@@ -1,4 +1,5 @@
 arrowParens: always
+bracketSameLine: true
 bracketSpacing: true
 proseWrap: never
 quoteProps: as-needed

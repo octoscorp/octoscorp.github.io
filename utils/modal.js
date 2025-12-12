@@ -13,7 +13,9 @@ function modalClicked(event) {
 
 function showModal(modal_id) {
     let modal = document.getElementById(modal_id);
-    let overlay = document.querySelector(`[data-modal-overlay-for="${modal_id}"]`);
+    let overlay = document.querySelector(
+        `[data-modal-overlay-for="${modal_id}"]`,
+    );
     let body = document.querySelector("body");
 
     modal.classList.add("modal-active");
@@ -36,7 +38,9 @@ function closeModal() {
     }
 
     let modal = document.getElementById(currently_active_modal);
-    let overlay = document.querySelector(`[data-modal-overlay-for="${currently_active_modal}"]`);
+    let overlay = document.querySelector(
+        `[data-modal-overlay-for="${currently_active_modal}"]`,
+    );
     let body = document.querySelector("body");
 
     modal.classList.remove("modal-active");

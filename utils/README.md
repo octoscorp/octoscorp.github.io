@@ -11,11 +11,13 @@ This also has built-in processing to convert responses into native JS objects wh
 ### Usage
 
 Invoke the async function `getURL` with arguments `<URL>` and optionally `<process_as>`:
+
 ```
 const data = await getURL(myURL, api.YAML);
 ```
 
 `<process_as>` may be any of:
+
 - api.UNDEFINED (default) - return resultant data as plaintext
 - api.JSON - parse JSON into native JS object
 - api.YAML - parse YAML into native JS object
@@ -26,10 +28,10 @@ A simple drag-and-drop implementation.
 
 ### Usage
 
-Include `/utils/drag-and-drop.js`.
-Invoke `make_children_draggable()` with arguments `parent` (an HTMLElement) and optionally `set_id` (a name to identify the drag-and-drop collection) and `callback` (a function called when the drag is completed).
+Include `/utils/drag-and-drop.js`. Invoke `make_children_draggable()` with arguments `parent` (an HTMLElement) and optionally `set_id` (a name to identify the drag-and-drop collection) and `callback` (a function called when the drag is completed).
 
 The callback function can access (via event.details) the following attributes:
+
 - `set` (set id)
 - `index` for the new index within the order
 
@@ -40,6 +42,7 @@ A flexbox-based alternative to CSS grids. This is to allow filling items in the 
 ### Background
 
 In CSS, `grid` displays can only fill in the direction that they will not be growing (see [this StackOverflow thread](https://stackoverflow.com/questions/44092529/make-grid-container-fill-columns-not-rows) for another explanation). Essentially, if we define a grid with 2 columns and an arbitrary number of rows, it will only be filled like this:
+
 ```
 1  2
 3  4
