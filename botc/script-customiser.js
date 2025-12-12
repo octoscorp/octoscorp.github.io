@@ -4,15 +4,16 @@
 //  + utils: drag-and-drop.js
 
 // Could be abstracted to another file
-function assert(bool, message) {
+function assert(bool, message, err_cause=null) {
     if (bool === false) {
-        throw Error(message);
+        throw Error(message, {cause: err_cause});
     }
 }
 
 // Globals
 let loaded_script = null;
 const nights = ["firstNight", "otherNight"];
+const alpha_num = /^[A-Za-z0-9]*$/i;
 
 class ScriptMetaData {
     // Doesn't like being called name
@@ -109,13 +110,42 @@ function convert_to_char_object(data_obj, data_type="JSON") {
     switch (data_type) {
         case "JSON":
             // Expect compliant object
-            for(key of Object.keys(char_obj)) {
+            for (key of Object.keys(char_obj)) {
                 if (data_obj.hasOwnProperty(key)) {
                     char_obj[key] = data_obj[key];
                 }
             }
             break;
         case "FORM":
+            // Assumes name="key" is set on the form
+            const array_keys = ["reminders", "globalReminders"];
+            const int_keys = ["firstNight", "otherNight"];
+            const bool_keys = ["setup"];
+            for (key of Object.keys(char_obj)) {
+                let values = data_obj.getAll(key);
+                if (values.length === 0) {
+                    continue;
+                }
+                if (array_keys.includes(key)) {
+                    // Last item is always an empty value
+                    values.pop();
+                    if (values.length > 0) {
+                        char_obj[key] = values;
+                    }
+                } else {
+                    let val = values[0];
+                    if (val === "") {
+                        // Leave it as null
+                        continue;
+                    }
+                    if (int_keys.includes(key)) {
+                        val = parseInt(val);
+                    } else if (bool_keys.includes(key)) {
+                        val = (val === "true");
+                    }
+                    char_obj[key] = val;
+                }
+            }
             break;
         default:
             throw new Error(data_type + " is not a known datatype value");
@@ -126,90 +156,110 @@ function convert_to_char_object(data_obj, data_type="JSON") {
 function validate_homebrew_character(char) {
     // Check required fields are non-null
     const required = ["id", "name", "team", "ability"];
+    console.debug(char);
+
     for (field of required) {
-        assert(char[field] !== null, `Character ${field} cannot be empty.`)
+        assert(char[field] !== null, `Character ${field} cannot be empty.`,
+            err_cause = { name: field })
     }
 
-    assert(char.id.length > 0, "Homebrew character ID cannot be empty.");
+    assert(char.id.length > 0, "Character ID cannot be empty.", err_cause = { name: "id" });
     assert(
         char.id.length <= 50,
-        "Homebrew character ID cannot exceed 50 characters.",
+        "Character ID cannot exceed 50 characters.",
+        err_cause = "id",
     );
+    assert(alpha_num.test(char.id), "ID may only include alphanumeric characters.", err_cause = { name: "id" });
 
-    assert(char.name.length > 0, "HB char name cannot be empty.");
-    assert(char.name.length <= 30, "HB char name cannot exceed 30 chars.");
+    assert(char.name.length > 0, "Char name cannot be empty.", err_cause = { name: "name" });
+    assert(char.name.length <= 30, "Char name cannot exceed 30 chars.", err_cause = { name: "name" });
 
     assert(
         char_types.hasOwnProperty(char.team),
-        "Homebrew char team must be one of: " + Object.keys(char_types),
+        "Char team must be one of: " + Object.keys(char_types),
+        err_cause = { name: "team" },
     );
 
     assert(
         char.hasOwnProperty("ability"),
-        'Homebrew characters must have an "ability" field.',
+        'Characters must have an "ability" field.',
+        err_cause = { name: "ability" },
     );
-    assert(char.ability.length > 0, "HB char ability cannot be empty.");
+    assert(char.ability.length > 0, "Char ability cannot be empty.", err_cause = { name: "ability" });
     assert(
         char.ability.length <= 250,
-        "HB char name cannot exceed 250 chars.",
+        "Char name cannot exceed 250 chars.",
+        err_cause = { name: "ability" },
     );
 
     nights.forEach((night) => {
         if (char[night] !== null) {
             assert(
                 typeof char[night] === "number",
-                "HB char " + night + " field must be integer",
+                "Char " + night + " field must be integer",
+                err_cause = { name: night },
             );
             if (char[night] !== 0) {
                 // Wakes on this night - must have reminder!
                 assert(
                     char[night + "Reminder"] !== null,
-                    `HB char with ${night} value > 0 wakes so must have ${night}Reminder.`,
+                    `Char with ${night} value > 0 wakes so must have ${night}Reminder.`,
+                    err_cause = { name: `${night}Reminder` },
                 );
                 assert(
                     typeof char[night + "Reminder"] === "string",
-                    "HB char " + night + "Reminder must be a string.",
+                    "Char " + night + "Reminder must be a string.",
+                    err_cause = { name: `${night}Reminder` },
                 );
                 assert(
                     char[night + "Reminder"].length > 0,
-                    `HB char ${night}Reminder cannot be empty while ${night} is > 0.`,
+                    `${night}Reminder cannot be empty while ${night} is > 0.`,
+                    err_cause = { name: `${night}Reminder` },
                 );
                 assert(
                     char[night + "Reminder"].length <= 500,
-                    "HB char " + night + "Reminder cannot exceed 500 chars.",
+                    "Char " + night + "Reminder cannot exceed 500 chars.",
+                    err_cause = { name: `${night}Reminder` },
+                );
+            } else {
+                assert(
+                    char[night + "Reminder"] === null || char[night + "Reminder"] === "",
+                    `Character does not wake on ${night} (priority 0) so cannot have ${night}Reminder`,
+                    err_cause = { name: `${night}Reminder` },
                 );
             }
-        } else {
-            assert(
-                char[night + "Reminder"] === null || char[night + "Reminder"] === "",
-                `Character does not wake on ${night} so cannot have ${night}Reminder`
-            );
         }
     });
 
     if (char.reminders !== null) {
         assert(
             Array.isArray(char.reminders),
-            "HB char reminders must be an array.",
+            "Char reminders must be an array.",
+            err_cause = { name: "reminders" },
         );
-        char.reminders.forEach((reminder) => {
+
+        for (let i = 0; i < char.reminders.length; i++) {
             assert(
-                reminder.length <= 30,
-                "HB character reminder token cannot exceed 30 chars.",
+                char.reminders[i].length <= 30,
+                "Character reminder token cannot exceed 30 chars.",
+                err_cause = { name: "reminders", index: i },
             );
-        });
+        }
     }
     if (char.globalReminders !== null) {
         assert(
             Array.isArray(char.globalReminders),
-            "HB char globalReminders must be an array.",
+            "Char globalReminders must be an array.",
+            err_cause = { name: "globalReminders" },
         );
-        char.globalReminders.forEach((reminder) => {
+
+        for (let i = 0; i < char.globalReminders.length; i++) {
             assert(
-                reminder.length <= 25,
-                "HB character global reminder token cannot exceed 25 chars.",
+                char.globalReminders[i].length <= 25,
+                "Character global reminder token cannot exceed 25 chars.",
+                err_cause = { name: "globalReminders", index: i },
             );
-        });
+        }
     }
 
     // TODO: Check flavor, edition, setup, jinxes, special
@@ -505,18 +555,49 @@ function toggle_show_element(elementID, hide = false) {
     }
 }
 
+// Functions with type as one of [homebrew, official]
+function add_to_script(char, type) {
+    // TODO: Handle duplicates (discard/overwrite options)
+    loaded_script[`${type}_chars`].push(char);
+}
+
 function submit_character(event) {
     const char_form = document.getElementById("character-editor-form");
+    const id_input = document.getElementById("id-input");
+
+    // Enable the field so we can access the value
+    const id_input_original_state = id_input.disabled
+    id_input.disabled = false;
     const char_data = new FormData(char_form);
 
     // Validity checks
     if (!char_form.reportValidity()) {
+        id_input.disabled = id_input_original_state;
         return;
     }
     try {
         let char = convert_to_char_object(char_data, data_type = "FORM");
+        validate_homebrew_character(char);
+        id_input.disabled = id_input_original_state;
+
+        // Load into script and update page
+        add_to_script(char, "homebrew");
+        load_script(loaded_script);
+        closeModal("homebrew-char-modal");
     } catch (error) {
-        console.error(error);
+        console.log("Validation error: " + error);
+        let field_id = error.cause["name"];
+        let input = document.getElementById(`${field_id}-input`);
+        if (input === null) {
+            // The reminders and globalReminders fields don't have this ID format
+            input = document.querySelectorAll(`input[name="${field_id}"]`)[error.cause["index"]];
+        }
+
+        // Show the error message
+        input.setCustomValidity(error.message);
+        char_form.reportValidity();
+        id_input.disabled = id_input_original_state;
+        return;
     }
 }
 
@@ -535,7 +616,6 @@ function update_auto_id() {
 
     // Convert to id
     let generated_id = "";
-    const alpha_num = /^[A-Za-z0-9]$/i
     for (let char of char_name) {
         if (alpha_num.test(char)) {
             generated_id += char;
@@ -632,7 +712,7 @@ function register_input_callbacks() {
         .getElementById("reminders-input-first")
         .addEventListener("change", update_number_reminders);
     document
-        .getElementById("remindersGlobal-input-first")
+        .getElementById("globalReminders-input-first")
         .addEventListener("change", update_number_reminders);
 
     document

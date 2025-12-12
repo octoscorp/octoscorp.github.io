@@ -133,7 +133,7 @@ input, select, textarea {
         background-color: var(--moderate-lighter-color);
     }
 
-    &:disabled {
+    &:disabled, &:read-only {
         border-bottom: 2px solid var(--subtle-lighter-color);
         background-color: var(--default-color);
     }

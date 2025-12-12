@@ -25,9 +25,6 @@ function update_flexgrid_styling(container) {
         return;
     }
 
-    console.log(
-        `About to set - ${num_items}, ${num_lines}, ${container_type}, ${Math.ceil(num_items / num_lines)}`,
-    );
     const wrap_at = Math.ceil(num_items / num_lines);
     const child_style = window.getComputedStyle(first_child);
     if (container_type == "column") {

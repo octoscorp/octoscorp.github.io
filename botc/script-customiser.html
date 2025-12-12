@@ -36,6 +36,7 @@ include_styles: ["botc-script.css"]
 <div id="script-customiser" class="hidden">
   <div class="actions-panel">
     <button id="export-JSON">Export as JSON</button>
+    <button onclick="showModal('homebrew-char-modal')">Add (custom) character</button>
   </div>
   <!-- actions-panel -->
   <div id="meta-details">
@@ -81,7 +82,7 @@ include_styles: ["botc-script.css"]
   <!-- night-order-container -->
 </div>
 <!-- script-customiser -->
-<div id="homebrew-char-editor" class="">
+<div id="homebrew-char-editor">
   <div class="modal-overlay" data-modal-overlay-for="homebrew-char-modal" />
   <div id="homebrew-char-modal" class="modal character-editor">
     <h2 class="modal-header">Create/Edit Character</h2>
@@ -95,7 +96,6 @@ include_styles: ["botc-script.css"]
             id="name-input"
             name="name"
             placeholder="Name"
-            required
             maxlength="30"
             minlength="1"
           />
@@ -116,7 +116,7 @@ include_styles: ["botc-script.css"]
           </div>
           <!-- id-input-container -->
           <label for="team-input">Team:</label>
-          <select id="team-input" name="team" required>
+          <select id="team-input" name="team">
             <option value="townsfolk" selected>Townsfolk</option>
             <option value="outsider">Outsider</option>
             <option value="minion">Minion</option>
@@ -130,7 +130,6 @@ include_styles: ["botc-script.css"]
             id="ability-input"
             name="ability"
             placeholder="Ability"
-            required
             cols="60"
             rows="3"
             maxlength="250"
@@ -150,7 +149,7 @@ include_styles: ["botc-script.css"]
           <label for="flavor-input">Flavour Text:</label>
           <input type="text" id="flavor-input" name="flavor" placeholder="Flavourtext" />
           <label for="setup-input">Affects Setup:</label>
-          <input type="checkbox" id="setup-input" name="setup" value="affects-setup" />
+          <input type="checkbox" id="setup-input" name="setup" value="true" />
           <label for="firstNightReminder-input">First Night:</label>
           <input type="text" id="firstNightReminder-input" name="firstNightReminder" placeholder="First Night reminder" maxlength="500" minlength="0" />
           <label for="firstNight-input" class="label-small hidden">Priority:</label>
@@ -161,11 +160,11 @@ include_styles: ["botc-script.css"]
           <input type="number" id="otherNight-input" name="otherNight" class="hidden" value="0" min="0"/>
           <label for="reminders-input-container">Reminders:</label>
           <div id="reminders-input-container" class="multiple-input-column">
-            <input id="reminders-input-first" type="text" name="reminders[]" maxlength="500" minlength="0" />
+            <input id="reminders-input-first" type="text" name="reminders" maxlength="500" minlength="0" />
           </div>
-          <label for="remindersGlobal-input-container">Global Reminders:</label>
-          <div id="remindersGlobal-input-container" class="multiple-input-column">
-            <input id="remindersGlobal-input-first" type="text" name="remindersGlobal[]" maxlength="500" minlength="0" />
+          <label for="globalReminders-input-container">Global Reminders:</label>
+          <div id="globalReminders-input-container" class="multiple-input-column">
+            <input id="globalReminders-input-first" type="text" name="globalReminders" maxlength="500" minlength="0" />
           </div>
         </div>
         <!-- optional-char-attributes -->
