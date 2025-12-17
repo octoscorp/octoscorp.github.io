@@ -477,11 +477,28 @@ function fill_night_order(night) {
     make_children_draggable(container, night, night_order_modified);
 }
 
+function clear_script_from_page() {
+    Object.keys(char_types).forEach((category) => {
+        let container = document.getElementById(`${category}-char-container`);
+        if (container !== null) {
+            container.textContent = "";
+        }
+    });
+
+    nights.forEach((night) => {
+        let container = document.getElementById(`${night}-container`);
+        if (container !== null) {
+            container.textContent = "";
+        }
+    });
+}
+
 function load_script(script) {
     // Load it in and change page display to suit
     loaded_script = script;
     toggle_show_element("JSON-loader", (hide = true));
     toggle_show_element("script-customiser", (hide = false));
+    clear_script_from_page();
 
     // Fill in meta details
     document.getElementById("script-name").innerText = script._meta.script_name;
@@ -586,6 +603,20 @@ function toggle_show_element(elementID, hide = false) {
 function add_to_script(char, type) {
     // TODO: Handle duplicates (discard/overwrite options)
     loaded_script[`${type}_chars`].push(char);
+}
+
+function remove_from_script(char_id) {
+    ["homebrew_chars", "official_chars"].forEach((char_type) => {
+        for (let i = 0; i < loaded_script[char_type].length; i++) {
+            let found_char = loaded_script[char_type][i];
+            if (found_char.id === char_id) {
+                loaded_script[char_type].splice(i, 1);
+                return true;
+            }
+        }
+    });
+    // Could not find
+    return false;
 }
 
 function submit_character(event) {
@@ -731,6 +762,19 @@ async function check_image_URL_status() {
     outputDisplay.classList.add(`${status}-bg`);
 }
 
+function delete_character() {
+    const char_id = document.getElementById("id-input").value;
+    const char_name = document.getElementById("name-input").value;
+
+    if (char_id === null || char_id === "" || !confirm(`Are you sure you wish to delete "${char_name}"? This cannot be undone.`)) {
+        return;
+    }
+
+    remove_from_script(char_id);
+    load_script(loaded_script);
+    closeModal("homebrew-char-modal");
+}
+
 function register_input_callbacks() {
     // File loading changes
     document
@@ -790,6 +834,10 @@ function register_input_callbacks() {
     document
         .getElementById("globalReminders-input-first")
         .addEventListener("change", update_number_reminders);
+
+    document
+        .getElementById("character-delete-button")
+        .addEventListener("click", delete_character);
 
     document
         .getElementById("character-submit")

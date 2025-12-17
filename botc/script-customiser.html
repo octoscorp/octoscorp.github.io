@@ -159,7 +159,7 @@ include_styles: ["botc-script.css"]
             placeholder="Flavourtext" />
           <label for="image-input">Image:</label>
           <div id="image-input-container">
-            <img class="icon" src="/assets/icons/rss.svg" title="A malicious URL could track your IP address via this"/>
+            <img class="icon" src="/assets/icons/warning.svg" title="A malicious URL could track your IP address via this"/>
             <input
               type="text"
               id="image-input"
@@ -239,7 +239,13 @@ include_styles: ["botc-script.css"]
       </form>
     </div>
     <!-- modal-content -->
-    <button id="character-submit" class="modal-submit-button">Save</button>
+    <div class="actions-panel">
+      <button id="character-delete-button" class="delete-button">
+        <img class="icon" src="/assets/icons/delete.svg" /> Delete Character
+      </button>
+      <button id="character-submit" class="modal-submit-button">Save</button>
+    </div>
+    <!-- actions-panel -->
   </div>
   <!-- modal -->
 </div>

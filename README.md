@@ -38,10 +38,10 @@ Finishing up the conversion from React to Jekyll. I had some interesting CSS tra
     - [x] Import fields into JS
     - [ ] Click-to-edit
     - [x] Image field and IP track warning (show status code)
-    - [ ] "Remove character" button
+    - [x] "Remove character" button
 - [x] "Add character" button
 - [ ] Fixes
-    - [ ] Night order misbehaving on custom character add
+    - [x] Night order misbehaving on custom character add
     - [ ] Night Order: re-add characters if not present in the \_meta lists
     - [ ] Image display from URL (shows on characters after some time?)
     - [ ] Clean up TODOs
