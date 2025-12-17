@@ -52,7 +52,7 @@ let official_characters = {};
 
 // Load data on official characters
 window.addEventListener("load", async (event) => {
-    let data = await getURL(char_data_URL, api.YAML);
+    let data = await getURL(char_data_URL, follow_redirects = true, api.YAML);
     // Add to official characters data
     for (let data_team of Object.keys(data)) {
         for (let data_id of Object.keys(data[data_team])) {
@@ -64,7 +64,7 @@ window.addEventListener("load", async (event) => {
         }
     }
 
-    console.debug("Official characters loaded!");
+    console.debug("Official characters loaded!\n", official_characters);
 });
 
 // Gets updated to include homebrews

@@ -695,6 +695,42 @@ function update_number_reminders(event) {
     }
 }
 
+async function check_image_URL_status() {
+    const requestURL = document.getElementById("image-input").value;
+    const outputDisplay = document.getElementById("image-input-response-label")
+
+    if (requestURL === null || requestURL === "" || !confirmRequestsAllowed()) {
+        outputDisplay.classList.add("hidden");
+        return;
+    }
+
+    let response = await getURL(requestURL, follow_redirects = false, process_as = api.NONE);
+    let display = "";
+    let message = "";
+    let status = "error";
+
+    if (response === null || response.status === 0) {
+        display = "FAIL";
+        message = "Request failed for an unknown reason - check the console (F12) if you need to know.";
+    } else {
+        if (response.redirected) {
+            display = "3xx";
+            message = `Request was redirected to ${response.url}`;
+            status = "warning";
+        } else {
+            display = `${response.status}`;
+            message = `Request succeeded (i.e. the URL points to something - the rest is your problem)`;
+            status = "success";
+        }
+    }
+
+    // Update page
+    outputDisplay.innerText = display;
+    outputDisplay.title = message;
+    outputDisplay.classList.remove("success-bg", "warning-bg", "error-bg", "hidden");
+    outputDisplay.classList.add(`${status}-bg`);
+}
+
 function register_input_callbacks() {
     // File loading changes
     document
@@ -727,6 +763,19 @@ function register_input_callbacks() {
             document.getElementById("id-input").disabled = event.target.checked;
             update_auto_id();
         });
+
+    document
+        .getElementById("image-input")
+        .addEventListener("input", (event) => {
+            event.target.classList.add("warning-border");
+            if (event.target.value === null || event.target.value.length === 0) {
+                event.target.classList.remove("warning-border");
+            }
+        });
+
+    document
+        .getElementById("image-input")
+        .addEventListener("change", check_image_URL_status);
 
     document
         .getElementById("firstNightReminder-input")

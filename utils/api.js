@@ -1,7 +1,9 @@
 const api = Object.freeze({
     UNDEFINED: 0,
-    JSON: 1,
-    YAML: 2,
+    NONE: 1,
+    STATUS: 2,
+    JSON: 3,
+    YAML: 4,
 });
 
 const script_location = document.currentScript;
@@ -34,9 +36,13 @@ async function _process_YAML(text) {
     return YAML.parse(text);
 }
 
-async function getURL(apiURL, process_as = api.UNDEFINED) {
+async function getURL(apiURL, follow_redirects = true, process_as = api.UNDEFINED) {
+    let redir_str = follow_redirects ? 'follow' : 'manual';
     try {
-        let response = await fetch(apiURL);
+        let response = await fetch(apiURL, {
+            method: 'GET',
+            redirect: redir_str,
+        });
         // Sometimes fetch spits errors, sometimes not
         if (!response.ok) {
             throw new Error(
@@ -49,13 +55,26 @@ async function getURL(apiURL, process_as = api.UNDEFINED) {
                 return await response.json();
             case api.YAML:
                 return await _process_YAML(await response.text());
+            case api.STATUS:
+                return response.status;
+            case api.NONE:
+                return response;
             case api.UNDEFINED: // Fallthrough - weeeee!
             default:
                 return await response.text();
         }
     } catch (error) {
-        console.error(error.message);
+        console.error(`Error when requesting ${apiURL}:\n${error.message}`);
         console.log("Attempting to continue anyway");
     }
     return null;
+}
+
+function confirmRequestsAllowed() {
+    let stored_answer = localStorage.getItem('api_requestsAllowed');
+    if (stored_answer === null) {
+        stored_answer = JSON.stringify(window.confirm("Allow this site to make requests to user-specified URLs? A malicious URL could track your IP address this way. (Your choice will be remembered)"));
+        localStorage.setItem('api_requestsAllowed', stored_answer);
+    }
+    return JSON.parse(stored_answer);
 }

@@ -37,20 +37,24 @@ Finishing up the conversion from React to Jekyll. I had some interesting CSS tra
     - [x] Optional fields: edition, flavor, firstNight, firstNightReminder, otherNight, otherNightReminder, reminders, remindersGlobal, setup
     - [x] Import fields into JS
     - [ ] Click-to-edit
-    - [ ] Image field and IP track warning (show status code)
+    - [x] Image field and IP track warning (show status code)
     - [ ] "Remove character" button
 - [x] "Add character" button
-- [ ] Image display from URL (this already works in the night order, shockingly - maybe not necessary?)
-- [ ] Other script metadata (author, logo, hideTitle, background, almanac, bootlegger)
+- [ ] Fixes
+    - [ ] Night order misbehaving on custom character add
+    - [ ] Night Order: re-add characters if not present in the \_meta lists
+    - [ ] Image display from URL (shows on characters after some time?)
+    - [ ] Clean up TODOs
+- [ ] Icons and default images
+- [ ] Edit author, script name
 - [ ] Stretch goals / "later me" problems
     - [ ] Loric/Fabled support
     - [ ] Recommended travellers
-    - [ ] Improve CSS
     - [ ] Export: don't include night orders if they are default
     - [ ] Data: include default image URLs
-    - [ ] Night Order: re-add characters if not present in the \_meta lists
     - [ ] Homebrew: support `jinx` and `special` attributes
     - [ ] Allow character editor to load official characters from ID, and "reset" to that character as requested
+    - [ ] Other script metadata (author, logo, hideTitle, background, almanac, bootlegger)
 
 The official script tool at script.bloodontheclocktower.com has (as far as I'm concerned) 1 shortcoming: the night order cannot be modified unless the user has already modified the night order and added it to the script JSON. And while I'm implementing a tool to do that, I might as well combine the tool with the reason I started messing with the night order at all - homebrew characters. Following [the official schema](https://github.com/ThePandemoniumInstitute/botc-release/blob/main/script-schema.json), we can apply our own validation and make our own version of bloodstar.xyz - but with the purpose of exporting characters as JSON within a script.
 

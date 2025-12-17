@@ -10,7 +10,7 @@ This also has built-in processing to convert responses into native JS objects wh
 
 ### Usage
 
-Invoke the async function `getURL` with arguments `<URL>` and optionally `<process_as>`:
+Invoke the async function `getURL` with arguments `<URL>` and optionally `<follow_redirects>` and `<process_as>`:
 
 ```
 const data = await getURL(myURL, api.YAML);
@@ -19,6 +19,8 @@ const data = await getURL(myURL, api.YAML);
 `<process_as>` may be any of:
 
 - api.UNDEFINED (default) - return resultant data as plaintext
+- api.NONE - return resultant data as JS Response object
+- api.STATUS - return response.status
 - api.JSON - parse JSON into native JS object
 - api.YAML - parse YAML into native JS object
 

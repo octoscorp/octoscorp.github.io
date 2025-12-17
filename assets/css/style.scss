@@ -5,6 +5,8 @@
 
 :root {
     --error-color: #cc4831;
+    --warning-color: #fdb953;
+    --success-color: #039a00;
     --moderate-lighter-color: #fbf4ec;
     --subtle-lighter-color: #f5ede3;
     --default-color: #ece4d8;
@@ -159,4 +161,30 @@ textarea {
 
 .textarea-label {
     padding-top: 3px;
+}
+
+.warning-border {
+    border: 2px solid var(--warning-color);
+}
+
+.success-bg {
+    background-color: var(--success-color);
+}
+
+.warning-bg {
+    background-color: var(--warning-color);
+}
+
+.error-bg {
+    background-color: var(--error-color);
+}
+
+.http-response {
+    color: var(--moderate-lighter-color);
+    border-radius: 3px;
+    padding: 3px;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    font-size: 80%;
+    line-height: 80%;
 }
