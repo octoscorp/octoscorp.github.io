@@ -26,7 +26,6 @@ async function _import_YAML_parser() {
     script_location.parentElement.insertBefore(parser_script, script_location);
     YAML_parser_loaded = true;
     // Need to delay to allow it to load
-    // TODO: add loaded event to yaml parser
     await delay(150);
 }
 

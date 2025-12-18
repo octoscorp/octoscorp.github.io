@@ -3,7 +3,6 @@
 // Requires:
 //  + utils: api.js
 
-// TODO: Abstract to a tests util
 function assert(bool, message, err_cause = null) {
     if (bool === false) {
         throw Error(message, { cause: err_cause });
@@ -190,11 +189,8 @@ function validate_homebrew_character(char) {
             );
         }
     }
-
-    // TODO: Check flavor, edition, setup, jinxes, special
 }
 
-// TODO: read char data from Projects repo; for the moment just use buddy up
 let official_characters = {};
 
 // Load data on official characters
@@ -227,7 +223,7 @@ function is_official_character(char_id) {
 }
 
 function get_official_character_object(char_id) {
-    // TODO: similar behaviour for homebrew chars
+    // For homebrew chars, use Script.get_by_id
     return official_characters[char_id];
 }
 
@@ -273,9 +269,16 @@ function get_team(char_id) {
 function get_image_URL(char_id) {
     let image = null;
 
-    // TODO: replace with switch for dusk/dawn etc
-    if (loaded_characters.hasOwnProperty(char_id)) {
-        image = loaded_characters[char_id].image;
+    switch (char_id) {
+        case "dusk":    // Weeeee!
+        case "dawn":
+        case "minioninfo":
+        case "demoninfo":
+            return `/assets/icons/${char_id}.svg`;
+        default:
+            if (loaded_characters.hasOwnProperty(char_id)) {
+                image = loaded_characters[char_id].image;
+            }
     }
 
     if (image == null) {

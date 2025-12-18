@@ -99,7 +99,6 @@ function validate_meta_object(meta) {
                 night +
                     " order must be specified as an array of ids (including dusk and dawn)",
             );
-            // TODO check for dusk/dawn
             assert(
                 meta[night].length <= 30,
                 "Customised night order cannot exceed 30 entries :shrug:.",
@@ -108,7 +107,6 @@ function validate_meta_object(meta) {
         }
     });
 
-    // TODO check for logo, hideTitle, background, almanac
     return meta_obj;
 }
 
@@ -281,8 +279,6 @@ function character_clicked(event) {
 
 function format_ability_text(original_text) {
     // Also including night reminders
-    // TODO: format for {TOKEN}
-    // TODO: format for [SETUP]
     return original_text;
 }
 
@@ -321,7 +317,6 @@ function add_char_to_page(char) {
         // Add to page
         add_to_flexgrid_container(char_box, container, (prevent_update = true));
     } else {
-        // TODO: handle loric/fabled/travellers
         console.error(
             "Sorry, " +
                 char.name +
@@ -487,7 +482,6 @@ function export_JSON() {
             meta_obj[saved_key] = loaded_script._meta[key];
         }
     }
-    // TODO: remove night order if it matches default
     output.push(meta_obj);
 
     // Add official char IDs
@@ -824,8 +818,7 @@ function night_order_modified(event) {
 
     const old_index = loaded_script._meta[night].indexOf(char_id);
     if (old_index == -1) {
-        // TODO: Raise error!
-        return;
+        throw new Error(`Character "${char_id}" not located in ${night} order:\n${loaded_script._meta}`);
     }
     // Delete
     loaded_script._meta[night].splice(old_index, 1);

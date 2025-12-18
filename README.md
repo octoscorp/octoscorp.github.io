@@ -40,25 +40,42 @@ Finishing up the conversion from React to Jekyll. I had some interesting CSS tra
     - [x] Image field and IP track warning (show status code)
     - [x] "Remove character" button
 - [x] "Add character" button
+- [ ] Ability text formatting (avoid XSS concerns of innerHTML) for {TOKEN} and [SETUP] values
 - [ ] Fixes
     - [x] Night order misbehaving on custom character add
     - [ ] Night Order: re-add characters if not present in the \_meta lists
     - [ ] Image display from URL (shows on characters after some time?)
-    - [ ] Clean up TODOs
-- [ ] Icons and default images (`<team>_default`, `warning`, `close`, `delete`)
+    - [ ] All reminders should be textareas
+    - [ ] Flavor, edition, setup validation
+    - [x] Clean up TODOs
+- [ ] Icons and default images (`<team>_default`, `warning`, `close`, `delete`, `dusk`, `dawn`, `minioninfo`, `demoninfo`)
 - [ ] Edit author, script name
 - [ ] Stretch goals / "later me" problems
+    - [ ] Utils: Create tests util
+    - [ ] Utils: Give YAML parser a "loaded" event to allow dependents to wait for it
     - [ ] Loric/Fabled support
     - [ ] Recommended travellers
     - [ ] Export: don't include night orders if they are default
     - [ ] Data: include default image URLs
     - [ ] Homebrew: support `jinx` and `special` attributes
+        - [ ] Input
+        - [ ] Validation
+        - [ ] Display (jinxes only)
     - [ ] Allow character editor to load official characters from ID, and "reset" to that character as requested
-    - [ ] Other script metadata (author, logo, hideTitle, background, almanac, bootlegger)
+    - [ ] Script metadata (logo, hideTitle, background, almanac, bootlegger)
+        - [ ] Input
+        - [ ] Validation (check night order contains dusk/dawn)
+        - [ ] Display
 
 The official script tool at script.bloodontheclocktower.com has (as far as I'm concerned) 1 shortcoming: the night order cannot be modified unless the user has already modified the night order and added it to the script JSON. And while I'm implementing a tool to do that, I might as well combine the tool with the reason I started messing with the night order at all - homebrew characters. Following [the official schema](https://github.com/ThePandemoniumInstitute/botc-release/blob/main/script-schema.json), we can apply our own validation and make our own version of bloodstar.xyz - but with the purpose of exporting characters as JSON within a script.
 
 ## Planned Projects
+
+### Blog
+
+Turn this into a functional blog.
+
+Format the posts page to allow users to refine by tags. Also format individual post page to link back to it.
 
 ### BotC Almanac
 
