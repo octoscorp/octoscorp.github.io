@@ -41,12 +41,12 @@ Finishing up the conversion from React to Jekyll. I had some interesting CSS tra
     - [x] "Remove character" button
 - [x] "Add character" button
 - [ ] Ability text formatting (avoid XSS concerns of innerHTML) for {TOKEN} and [SETUP] values
-- [ ] Fixes
+- [x] Fixes
     - [x] Night order misbehaving on custom character add
     - [ ] Night Order: re-add characters if not present in the \_meta lists
     - [ ] Image display from URL (shows on characters after some time?)
-    - [ ] All reminders should be textareas
-    - [ ] Flavor, edition, setup validation
+    - [x] All reminders should be textareas
+    - [x] Flavor, edition, setup validation
     - [x] Clean up TODOs
 - [ ] Icons and default images (`<team>_default`, `warning`, `close`, `delete`, `dusk`, `dawn`, `minioninfo`, `demoninfo`)
 - [ ] Edit author, script name

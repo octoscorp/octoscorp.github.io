@@ -169,14 +169,15 @@ include_styles: ["botc-script.css"]
           </div>
           <label for="setup-input">Affects Setup:</label>
           <input type="checkbox" id="setup-input" name="setup" value="true" />
-          <label for="firstNightReminder-input">First Night:</label>
-          <input
-            type="text"
+          <label for="firstNightReminder-input" class="textarea-label">First Night:</label>
+          <textarea
             id="firstNightReminder-input"
             name="firstNightReminder"
             placeholder="First Night reminder"
+            cols="60"
+            rows="3"
             maxlength="500"
-            minlength="0" />
+            minlength="0"></textarea>
           <label for="firstNight-input" class="label-small hidden">
             Priority:
           </label>
@@ -187,14 +188,15 @@ include_styles: ["botc-script.css"]
             class="hidden"
             value="0"
             min="0" />
-          <label for="otherNightReminder-input">Other Nights:</label>
-          <input
-            type="text"
+          <label for="otherNightReminder-input" class="textarea-label">Other Nights:</label>
+          <textarea
             id="otherNightReminder-input"
             name="otherNightReminder"
             placeholder="Other Night reminder"
+            cols="60"
+            rows="3"
             maxlength="500"
-            minlength="0" />
+            minlength="0"></textarea>
           <label for="otherNight-input" class="label-small hidden">
             Priority:
           </label>
@@ -205,25 +207,27 @@ include_styles: ["botc-script.css"]
             class="hidden"
             value="0"
             min="0" />
-          <label for="reminders-input-container">Reminders:</label>
+          <label for="reminders-input-container" class="textarea-label">Reminders:</label>
           <div id="reminders-input-container" class="multiple-input-column">
-            <input
+            <textarea
               id="reminders-input-first"
-              type="text"
               name="reminders"
+              cols="60"
+              rows="3"
               maxlength="500"
-              minlength="0" />
+              minlength="0"></textarea>
           </div>
-          <label for="globalReminders-input-container">Global Reminders:</label>
+          <label for="globalReminders-input-container" class="textarea-label">Global Reminders:</label>
           <div
             id="globalReminders-input-container"
             class="multiple-input-column">
-            <input
+            <textarea
               id="globalReminders-input-first"
-              type="text"
               name="globalReminders"
+              cols="60"
+              rows="3"
               maxlength="500"
-              minlength="0" />
+              minlength="0"></textarea>
           </div>
         </div>
         <!-- optional-char-attributes -->

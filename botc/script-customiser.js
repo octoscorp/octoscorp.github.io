@@ -644,7 +644,7 @@ function match_night_priority_to_reminder(event) {
 function update_number_reminders(event) {
     const container = event.target.parentElement;
     const type = container.id.split("-", 2)[0];
-    let reminder_inputs = container.querySelectorAll("input");
+    let reminder_inputs = container.querySelectorAll("textarea");
     let empty = [];
 
     for (input of reminder_inputs) {
@@ -655,9 +655,10 @@ function update_number_reminders(event) {
 
     if (empty.length === 0) {
         // Simple case - add an input
-        let new_input = document.createElement("input");
-        new_input.type = "text";
+        let new_input = document.createElement("textarea");
         new_input.name = type;
+        new_input.cols = "60";
+        new_input.rows = "3";
         new_input.maxlength = "500";
         new_input.minlength = "0";
         container.appendChild(new_input);

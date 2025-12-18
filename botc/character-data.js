@@ -104,11 +104,6 @@ function validate_homebrew_character(char) {
     );
 
     assert(
-        char.hasOwnProperty("ability"),
-        'Characters must have an "ability" field.',
-        (err_cause = { name: "ability" }),
-    );
-    assert(
         char.ability.length > 0,
         "Char ability cannot be empty.",
         (err_cause = { name: "ability" }),
@@ -118,6 +113,31 @@ function validate_homebrew_character(char) {
         "Char name cannot exceed 250 chars.",
         (err_cause = { name: "ability" }),
     );
+
+    // Remainder are optional
+    if (char.edition !== null) {
+        assert(
+            char.edition.length <= 50,
+            "Char edition cannot exceed 50 characters.",
+            (err_cause = { name: "edition" })
+        );
+    }
+
+    if (char.flavor !== null) {
+        assert(
+            char.flavor.length <= 500,
+            "Char flavor cannot exceed 500 characters.",
+            (err_cause = { name: "flavor" })
+        );
+    }
+
+    if (char.setup !== null) {
+        assert(
+            typeof char.setup == "boolean",
+            "Char setup must be a boolean value.",
+            (err_cause = { name: "setup" })
+        );
+    }
 
     nights.forEach((night) => {
         if (char[night] !== null) {
