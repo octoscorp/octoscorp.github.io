@@ -40,7 +40,7 @@ Finishing up the conversion from React to Jekyll. I had some interesting CSS tra
     - [x] Image field and IP track warning (show status code)
     - [x] "Remove character" button
 - [x] "Add character" button
-- [ ] Ability text formatting (avoid XSS concerns of innerHTML) for {TOKEN} and [SETUP] values
+- [x] Ability text formatting (avoid XSS concerns of innerHTML) for {TOKEN} and [SETUP] values
 - [x] Fixes
     - [x] Night order misbehaving on custom character add
     - [ ] Night Order: re-add characters if not present in the \_meta lists

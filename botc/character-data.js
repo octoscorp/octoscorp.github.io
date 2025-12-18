@@ -1,17 +1,7 @@
 // OK so I'm lazy, conveniently I know a programmer who left this data lying in a YAML file somewhere...
 
 // Requires:
-//  + utils: api.js
-
-function assert(bool, message, err_cause = null) {
-    if (bool === false) {
-        throw Error(message, { cause: err_cause });
-    }
-}
-
-function is_alphanumeric(string) {
-    return /^[A-Za-z0-9]*$/i.test(string);
-}
+//  + utils: api.js, tests.js
 
 // Including whether the category shows on the default script page
 const char_types = {
@@ -332,4 +322,13 @@ function char_name_to_id(char_name) {
         }
     }
     return generated_id.toLowerCase();
+}
+
+function format_ability_text(original_text) {
+    let output = escape_html(original_text);
+    output = output.replaceAll("{", "<span class='bold'>");
+    output = output.replaceAll("[", "<span class='bold'>[");
+    output = output.replaceAll("]", "]</span>");
+    output = output.replaceAll("}", "</span>");
+    return output;
 }

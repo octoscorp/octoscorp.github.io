@@ -291,11 +291,6 @@ function character_clicked(event) {
         .setAttribute("data-orig-char-id", char_id);
 }
 
-function format_ability_text(original_text) {
-    // Also including night reminders
-    return original_text;
-}
-
 function add_char_to_page(char) {
     console.debug("Examining " + char.name);
 
@@ -323,7 +318,7 @@ function add_char_to_page(char) {
 
         let char_ability = document.createElement("p");
         char_ability.classList.add("character-ability");
-        char_ability.innerText = format_ability_text(char.ability);
+        char_ability.innerHTML = format_ability_text(char.ability);
         char_text.appendChild(char_ability);
 
         char_box.appendChild(char_text);
@@ -365,7 +360,7 @@ function add_night_reminder_to_page(night, night_id) {
 
     let char_message = document.createElement("p");
     char_message.classList.add("night-reminder-message");
-    char_message.innerText = format_ability_text(
+    char_message.innerHTML = format_ability_text(
         get_night_reminder(night_id, night),
     );
     reminder_text.appendChild(char_message);

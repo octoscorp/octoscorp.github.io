@@ -14,6 +14,8 @@
     --moderate-darker-color: #a89d8b;
     --theme-blue: #5b7f98;
     --theme-red: #7c334f;
+    --sans-serif-font:
+        TradeGothicLT, "Noto Sans", "DejaVu Sans", Helvetica, Arial, sans-serif;
 }
 
 // Fixes to the defaults to allow a wider central column
@@ -187,4 +189,8 @@ textarea {
     font-weight: bold;
     font-size: 80%;
     line-height: 80%;
+}
+
+.bold {
+    font-weight: bold;
 }

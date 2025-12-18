@@ -1,4 +1,4 @@
-.script-customiser {
+:root {
     --serif-font: SortsMillGoudy, Georgia, Times, serif;
 }
 
@@ -42,7 +42,7 @@
 
 #night-order-container .night-label {
     color: var(--moderate-darker-color);
-    font-family: var(--serif-font);
+    font-family: var(--sans-serif-font);
     font-size: large;
 }
 
@@ -64,10 +64,12 @@
 
 .night-reminder-message {
     margin: -3px 0px;
+    font-family: var(--sans-serif-font);
+    font-size: 80%;
 }
 
 .character-name {
-    font-family: var(--serif-font);
+    font-family: var(--serif-font) !important;
     font-weight: bold;
 }
 
@@ -87,11 +89,12 @@
 .character-text {
     text-align: left;
     font-size: 105%;
+    font-family: var(--sans-serif-font);
 }
 
 .character-ability {
     margin: 0px;
-    font-size: 85%;
+    font-size: 80%;
     overflow: hidden;
     /* Legacy (webkit does the work) */
     line-clamp: 2;
