@@ -9,7 +9,16 @@ const nights = ["firstNight", "otherNight"];
 const array_keys = ["reminders", "globalReminders"];
 const int_keys = ["firstNight", "otherNight"];
 const bool_keys = ["setup"];
-const string_inputs = ["name", "id", "ability", "edition", "flavor", "image", "firstNightReminder", "otherNightReminder"];
+const string_inputs = [
+    "name",
+    "id",
+    "ability",
+    "edition",
+    "flavor",
+    "image",
+    "firstNightReminder",
+    "otherNightReminder",
+];
 
 class ScriptMetaData {
     // Doesn't like being called name
@@ -228,8 +237,8 @@ function set_modal_data(char) {
                 continue;
             }
             input.value = char[key];
-            input.dispatchEvent(new Event("change", {bubbles: true}));
-            input.dispatchEvent(new Event("input", {bubbles: true}));
+            input.dispatchEvent(new Event("change", { bubbles: true }));
+            input.dispatchEvent(new Event("input", { bubbles: true }));
         }
     } else {
         // Set defaults
@@ -241,9 +250,13 @@ function set_modal_data(char) {
         }
         document.getElementById("team-input").value = "townsfolk";
         document.getElementById("setup-input").checked = false;
-        const reminders_input = document.getElementById("reminders-input-first");
+        const reminders_input = document.getElementById(
+            "reminders-input-first",
+        );
         reminders_input.value = null;
-        const remindersGlobal_input = document.getElementById("globalReminders-input-first");
+        const remindersGlobal_input = document.getElementById(
+            "globalReminders-input-first",
+        );
         remindersGlobal_input.value = null;
 
         // Let them know changes have occurred
@@ -252,18 +265,19 @@ function set_modal_data(char) {
             if (input === null) {
                 continue;
             }
-            input.dispatchEvent(new Event("change", {bubbles: true}));
-            input.dispatchEvent(new Event("input", {bubbles: true}));
+            input.dispatchEvent(new Event("change", { bubbles: true }));
+            input.dispatchEvent(new Event("input", { bubbles: true }));
         }
         [reminders_input, remindersGlobal_input].forEach((input) => {
-            input.dispatchEvent(new Event("change", {bubbles: true}));
-            input.dispatchEvent(new Event("input", {bubbles: true}));
+            input.dispatchEvent(new Event("change", { bubbles: true }));
+            input.dispatchEvent(new Event("input", { bubbles: true }));
         });
     }
 }
 
 function character_clicked(event) {
-    const char_id = event.target.closest('.character-box')
+    const char_id = event.target
+        .closest(".character-box")
         .getAttribute("data-char-id");
 
     let char = loaded_script.get_by_id(char_id);
@@ -679,29 +693,34 @@ function update_number_reminders(event) {
     for (let i = 0; i < reminder_inputs.length - 1; i++) {
         let input = reminder_inputs[i];
         if (input.value === null || input.value === "") {
-            input.value = reminder_inputs[i+1].value;
-            reminder_inputs[i+1].value = null;
+            input.value = reminder_inputs[i + 1].value;
+            reminder_inputs[i + 1].value = null;
         }
     }
 }
 
 async function check_image_URL_status() {
     const requestURL = document.getElementById("image-input").value;
-    const outputDisplay = document.getElementById("image-input-response-label")
+    const outputDisplay = document.getElementById("image-input-response-label");
 
     if (requestURL === null || requestURL === "" || !confirmRequestsAllowed()) {
         outputDisplay.classList.add("hidden");
         return;
     }
 
-    let response = await getURL(requestURL, follow_redirects = false, process_as = api.NONE);
+    let response = await getURL(
+        requestURL,
+        (follow_redirects = false),
+        (process_as = api.NONE),
+    );
     let display = "";
     let message = "";
     let status = "error";
 
     if (response === null || response.status === 0) {
         display = "FAIL";
-        message = "Request failed for an unknown reason - check the console (F12) if you need to know.";
+        message =
+            "Request failed for an unknown reason - check the console (F12) if you need to know.";
     } else {
         if (response.redirected) {
             display = "3xx";
@@ -717,7 +736,12 @@ async function check_image_URL_status() {
     // Update page
     outputDisplay.innerText = display;
     outputDisplay.title = message;
-    outputDisplay.classList.remove("success-bg", "warning-bg", "error-bg", "hidden");
+    outputDisplay.classList.remove(
+        "success-bg",
+        "warning-bg",
+        "error-bg",
+        "hidden",
+    );
     outputDisplay.classList.add(`${status}-bg`);
 }
 
@@ -725,7 +749,13 @@ function delete_character() {
     const char_id = document.getElementById("id-input").value;
     const char_name = document.getElementById("name-input").value;
 
-    if (char_id === null || char_id === "" || !confirm(`Are you sure you wish to delete "${char_name}"? This cannot be undone.`)) {
+    if (
+        char_id === null ||
+        char_id === "" ||
+        !confirm(
+            `Are you sure you wish to delete "${char_name}"? This cannot be undone.`,
+        )
+    ) {
         return;
     }
 
@@ -771,7 +801,10 @@ function register_input_callbacks() {
         .getElementById("image-input")
         .addEventListener("input", (event) => {
             event.target.classList.add("warning-border");
-            if (event.target.value === null || event.target.value.length === 0) {
+            if (
+                event.target.value === null ||
+                event.target.value.length === 0
+            ) {
                 event.target.classList.remove("warning-border");
             }
         });
@@ -819,7 +852,9 @@ function night_order_modified(event) {
 
     const old_index = loaded_script._meta[night].indexOf(char_id);
     if (old_index == -1) {
-        throw new Error(`Character "${char_id}" not located in ${night} order:\n${loaded_script._meta}`);
+        throw new Error(
+            `Character "${char_id}" not located in ${night} order:\n${loaded_script._meta}`,
+        );
     }
     // Delete
     loaded_script._meta[night].splice(old_index, 1);

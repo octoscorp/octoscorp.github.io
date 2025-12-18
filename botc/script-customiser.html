@@ -159,17 +159,26 @@ include_styles: ["botc-script.css"]
             placeholder="Flavourtext" />
           <label for="image-input">Image:</label>
           <div id="image-input-container">
-            <img class="icon" src="/assets/icons/warning.svg" title="A malicious URL could track your IP address via this"/>
+            <img
+              class="icon"
+              src="/assets/icons/warning.svg"
+              title="A malicious URL could track your IP address via this" />
             <input
               type="text"
               id="image-input"
               name="image"
               placeholder="Image URL" />
-            <span id="image-input-response-label" class="http-response success-bg hidden">GET</span>
+            <span
+              id="image-input-response-label"
+              class="http-response success-bg hidden">
+              GET
+            </span>
           </div>
           <label for="setup-input">Affects Setup:</label>
           <input type="checkbox" id="setup-input" name="setup" value="true" />
-          <label for="firstNightReminder-input" class="textarea-label">First Night:</label>
+          <label for="firstNightReminder-input" class="textarea-label">
+            First Night:
+          </label>
           <textarea
             id="firstNightReminder-input"
             name="firstNightReminder"
@@ -188,7 +197,9 @@ include_styles: ["botc-script.css"]
             class="hidden"
             value="0"
             min="0" />
-          <label for="otherNightReminder-input" class="textarea-label">Other Nights:</label>
+          <label for="otherNightReminder-input" class="textarea-label">
+            Other Nights:
+          </label>
           <textarea
             id="otherNightReminder-input"
             name="otherNightReminder"
@@ -207,7 +218,9 @@ include_styles: ["botc-script.css"]
             class="hidden"
             value="0"
             min="0" />
-          <label for="reminders-input-container" class="textarea-label">Reminders:</label>
+          <label for="reminders-input-container" class="textarea-label">
+            Reminders:
+          </label>
           <div id="reminders-input-container" class="multiple-input-column">
             <textarea
               id="reminders-input-first"
@@ -217,7 +230,9 @@ include_styles: ["botc-script.css"]
               maxlength="500"
               minlength="0"></textarea>
           </div>
-          <label for="globalReminders-input-container" class="textarea-label">Global Reminders:</label>
+          <label for="globalReminders-input-container" class="textarea-label">
+            Global Reminders:
+          </label>
           <div
             id="globalReminders-input-container"
             class="multiple-input-column">
@@ -235,8 +250,7 @@ include_styles: ["botc-script.css"]
         <div id="special-char-attributes" class="form-group">
           <!-- I know inline styling is hacky, but this is effectively a TODO and will be removed -->
           <span style="grid-column: span 3; text-align: center">
-            Special attributes and jinxes will be supported in a later
-            release.
+            Special attributes and jinxes will be supported in a later release.
           </span>
         </div>
         <!-- special-char-attributes -->

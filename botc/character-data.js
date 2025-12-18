@@ -119,7 +119,7 @@ function validate_homebrew_character(char) {
         assert(
             char.edition.length <= 50,
             "Char edition cannot exceed 50 characters.",
-            (err_cause = { name: "edition" })
+            (err_cause = { name: "edition" }),
         );
     }
 
@@ -127,7 +127,7 @@ function validate_homebrew_character(char) {
         assert(
             char.flavor.length <= 500,
             "Char flavor cannot exceed 500 characters.",
-            (err_cause = { name: "flavor" })
+            (err_cause = { name: "flavor" }),
         );
     }
 
@@ -135,7 +135,7 @@ function validate_homebrew_character(char) {
         assert(
             typeof char.setup == "boolean",
             "Char setup must be a boolean value.",
-            (err_cause = { name: "setup" })
+            (err_cause = { name: "setup" }),
         );
     }
 
@@ -215,7 +215,7 @@ let official_characters = {};
 
 // Load data on official characters
 window.addEventListener("load", async (event) => {
-    let data = await getURL(char_data_URL, follow_redirects = true, api.YAML);
+    let data = await getURL(char_data_URL, (follow_redirects = true), api.YAML);
     // Add to official characters data
     for (let data_team of Object.keys(data)) {
         for (let data_id of Object.keys(data[data_team])) {
@@ -290,7 +290,7 @@ function get_image_URL(char_id) {
     let image = null;
 
     switch (char_id) {
-        case "dusk":    // Weeeee!
+        case "dusk": // Weeeee!
         case "dawn":
         case "minioninfo":
         case "demoninfo":

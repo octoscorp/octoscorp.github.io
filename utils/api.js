@@ -35,11 +35,15 @@ async function _process_YAML(text) {
     return YAML.parse(text);
 }
 
-async function getURL(apiURL, follow_redirects = true, process_as = api.UNDEFINED) {
-    let redir_str = follow_redirects ? 'follow' : 'manual';
+async function getURL(
+    apiURL,
+    follow_redirects = true,
+    process_as = api.UNDEFINED,
+) {
+    let redir_str = follow_redirects ? "follow" : "manual";
     try {
         let response = await fetch(apiURL, {
-            method: 'GET',
+            method: "GET",
             redirect: redir_str,
         });
         // Sometimes fetch spits errors, sometimes not
@@ -70,10 +74,14 @@ async function getURL(apiURL, follow_redirects = true, process_as = api.UNDEFINE
 }
 
 function confirmRequestsAllowed() {
-    let stored_answer = localStorage.getItem('api_requestsAllowed');
+    let stored_answer = localStorage.getItem("api_requestsAllowed");
     if (stored_answer === null) {
-        stored_answer = JSON.stringify(window.confirm("Allow this site to make requests to user-specified URLs? A malicious URL could track your IP address this way. (Your choice will be remembered)"));
-        localStorage.setItem('api_requestsAllowed', stored_answer);
+        stored_answer = JSON.stringify(
+            window.confirm(
+                "Allow this site to make requests to user-specified URLs? A malicious URL could track your IP address this way. (Your choice will be remembered)",
+            ),
+        );
+        localStorage.setItem("api_requestsAllowed", stored_answer);
     }
     return JSON.parse(stored_answer);
 }

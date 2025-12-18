@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="39.999996mm"
+   height="40.000004mm"
+   viewBox="0 0 39.999996 40.000004"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath5">
+      <circle
+         style="fill:#0f0d23;fill-opacity:1;stroke-width:1.32291"
+         id="circle6"
+         r="19.999996"
+         cy="39.999996"
+         cx="39.175648" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath6">
+      <circle
+         style="fill:#0f0d23;fill-opacity:1;stroke-width:1.32291"
+         id="circle7"
+         r="19.999996"
+         cy="39.999996"
+         cx="39.999996" />
+    </clipPath>
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-20,-19.999999)">
+    <circle
+       style="fill:#f5ede3;fill-opacity:1;stroke-width:1.32291"
+       id="circle2"
+       r="19.999996"
+       cy="39.999996"
+       cx="39.999996" />
+    <circle
+       style="opacity:1;fill:#ffd74a;fill-opacity:1;stroke-width:0.264583"
+       id="path2"
+       cx="32.58736"
+       cy="48.628719"
+       r="12.58736"
+       clip-path="url(#clipPath6)" />
+    <path
+       style="opacity:1;fill:#ffd74a;fill-opacity:1;stroke-width:0.264583"
+       id="path4"
+       d="m 36.750429,30.038005 -0.497115,10.340497 8.263685,-6.235745 -4.934459,9.100776 10.150912,-2.032733 -8.394473,6.058534 10.027625,2.572886 -10.191858,1.816326 7.918245,6.668913 -9.970621,-2.785628 4.240559,9.444081 -7.774581,-6.835855 -0.277021,10.348732 -4.038689,-9.532156 -4.739734,9.203691 0.497115,-10.340498 -8.263685,6.235745 4.934458,-9.100776 -10.150911,2.032733 8.394473,-6.058534 -10.027625,-2.572886 10.191858,-1.816326 -7.918245,-6.668913 9.970621,2.785629 -4.240559,-9.444081 7.77458,6.835854 0.277022,-10.348732 4.038689,9.532156 z"
+       transform="translate(0.82434742)"
+       clip-path="url(#clipPath5)" />
+  </g>
+</svg>

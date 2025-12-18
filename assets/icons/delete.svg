@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="39.999996mm"
+   height="40.000004mm"
+   viewBox="0 0 39.999996 40.000004"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath12">
+      <g
+         id="g15"
+         style="display:none">
+        <rect
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke-width:0.22074"
+           id="rect13"
+           width="3"
+           height="22"
+           x="30"
+           y="34"
+           d="m 30,34 h 3 v 22 h -3 z" />
+        <rect
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke-width:0.22074"
+           id="rect14"
+           width="3"
+           height="22"
+           x="47"
+           y="34"
+           d="m 47,34 h 3 v 22 h -3 z" />
+        <rect
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke-width:0.22074"
+           id="rect15"
+           width="3"
+           height="22"
+           x="38.5"
+           y="34"
+           d="m 38.5,34 h 3 v 22 h -3 z" />
+      </g>
+      <path
+         id="lpe_path-effect15"
+         class="powerclip"
+         d="M 17.997288,24.003641 H 61.996785 V 65.000003 H 17.997288 Z M 30,34 v 22 h 3 V 34 Z m 17,0 v 22 h 3 V 34 Z m -8.5,0 v 22 h 3 V 34 Z" />
+    </clipPath>
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-20,-19.999999)">
+    <path
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke-width:0.241531"
+       d="m 25,24.512366 v 1.996707 h 30 v -1.996707 h -8.334014 c 0,0 -1.383892,-2.145931 -2.500009,-2.6 -1.282954,-0.521943 -1.931891,-0.4 -4.165977,-0.4 -2.551122,0 -3.085808,-0.108459 -4.167386,0.4 -1.097316,0.515857 -2.50001,2.6 -2.50001,2.6 z"
+       id="path9" />
+    <path
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+       d="m 22.999265,29.003641 h 33.99752 v 28.998742 c 0,1.495893 -0.501541,1.99762 -1.99762,1.99762 h -30.00039 c -1.477488,0 -2.001487,-0.455365 -2.001487,-2.001488 z"
+       id="path10"
+       clip-path="url(#clipPath12)"
+       transform="matrix(0.8235416,0,0,1,7.0607766,-1.4876329)" />
+  </g>
+</svg>

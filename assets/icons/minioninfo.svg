@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="39.999996mm"
+   height="40.000004mm"
+   viewBox="0 0 39.999996 40.000004"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath8">
+      <circle
+         style="fill:#0f0d23;fill-opacity:1;stroke-width:1.32291"
+         id="circle9"
+         r="19.999996"
+         cy="39.999996"
+         cx="39.999996" />
+    </clipPath>
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-20,-19.999999)">
+    <circle
+       style="fill:#0f0d23;fill-opacity:1;stroke-width:1.32291"
+       id="circle2"
+       r="19.999996"
+       cy="39.999996"
+       cx="39.999996" />
+    <text
+       xml:space="preserve"
+       style="font-size:40.9222px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:1;fill:#f5ede3;fill-opacity:1;stroke-width:0.264583"
+       x="23.439583"
+       y="53.469791"
+       id="text7"
+       clip-path="url(#clipPath8)"><tspan
+         id="tspan7"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:40.9222px;font-family:aakar;-inkscape-font-specification:'aakar Medium';stroke-width:0.264583"
+         x="23.439583"
+         y="53.469791">M</tspan></text>
+  </g>
+</svg>

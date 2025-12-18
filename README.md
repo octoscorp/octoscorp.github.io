@@ -48,9 +48,9 @@ Finishing up the conversion from React to Jekyll. I had some interesting CSS tra
     - [x] All reminders should be textareas
     - [x] Flavor, edition, setup validation
     - [x] Clean up TODOs
-- [ ] Icons and default images (`<team>_default`, `warning`, `close`, `delete`, `dusk`, `dawn`, `minioninfo`, `demoninfo`)
-- [ ] Edit author, script name
+- [x] Icons and default images (`<team>_default`, `warning`, `close`, `delete`, `dusk`, `dawn`, `minioninfo`, `demoninfo`)
 - [ ] Stretch goals / "later me" problems
+    - [ ] Edit author, script name
     - [ ] Utils: Create tests util
     - [ ] Utils: Give YAML parser a "loaded" event to allow dependents to wait for it
     - [ ] Loric/Fabled support
