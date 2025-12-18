@@ -3,17 +3,13 @@
 // Requires: ./character-data.js
 //  + utils: drag-and-drop.js
 
-// Could be abstracted to another file
-function assert(bool, message, err_cause = null) {
-    if (bool === false) {
-        throw Error(message, { cause: err_cause });
-    }
-}
-
 // Globals
 let loaded_script = null;
 const nights = ["firstNight", "otherNight"];
-const alpha_num = /^[A-Za-z0-9]*$/i;
+const array_keys = ["reminders", "globalReminders"];
+const int_keys = ["firstNight", "otherNight"];
+const bool_keys = ["setup"];
+const string_inputs = ["name", "id", "ability", "edition", "flavor", "image", "firstNightReminder", "otherNightReminder"];
 
 class ScriptMetaData {
     // Doesn't like being called name
@@ -33,6 +29,17 @@ class Script {
     _meta;
     official_chars = new Array();
     homebrew_chars = new Array();
+
+    get_by_id(char_id) {
+        for (let char_type of ["official_chars", "homebrew_chars"]) {
+            for (let char of this[char_type]) {
+                if (char.id === char_id) {
+                    return char;
+                }
+            }
+        }
+        return null;
+    }
 }
 
 function load_JSON_to_textarea(file_input) {
@@ -153,142 +160,6 @@ function convert_to_char_object(data_obj, data_type = "JSON") {
     return char_obj;
 }
 
-function validate_homebrew_character(char) {
-    // Check required fields are non-null
-    const required = ["id", "name", "team", "ability"];
-    console.debug(char);
-
-    for (field of required) {
-        assert(
-            char[field] !== null,
-            `Character ${field} cannot be empty.`,
-            (err_cause = { name: field }),
-        );
-    }
-
-    assert(
-        char.id.length > 0,
-        "Character ID cannot be empty.",
-        (err_cause = { name: "id" }),
-    );
-    assert(
-        char.id.length <= 50,
-        "Character ID cannot exceed 50 characters.",
-        (err_cause = "id"),
-    );
-    assert(
-        alpha_num.test(char.id),
-        "ID may only include alphanumeric characters.",
-        (err_cause = { name: "id" }),
-    );
-
-    assert(
-        char.name.length > 0,
-        "Char name cannot be empty.",
-        (err_cause = { name: "name" }),
-    );
-    assert(
-        char.name.length <= 30,
-        "Char name cannot exceed 30 chars.",
-        (err_cause = { name: "name" }),
-    );
-
-    assert(
-        char_types.hasOwnProperty(char.team),
-        "Char team must be one of: " + Object.keys(char_types),
-        (err_cause = { name: "team" }),
-    );
-
-    assert(
-        char.hasOwnProperty("ability"),
-        'Characters must have an "ability" field.',
-        (err_cause = { name: "ability" }),
-    );
-    assert(
-        char.ability.length > 0,
-        "Char ability cannot be empty.",
-        (err_cause = { name: "ability" }),
-    );
-    assert(
-        char.ability.length <= 250,
-        "Char name cannot exceed 250 chars.",
-        (err_cause = { name: "ability" }),
-    );
-
-    nights.forEach((night) => {
-        if (char[night] !== null) {
-            assert(
-                typeof char[night] === "number",
-                "Char " + night + " field must be integer",
-                (err_cause = { name: night }),
-            );
-            if (char[night] !== 0) {
-                // Wakes on this night - must have reminder!
-                assert(
-                    char[night + "Reminder"] !== null,
-                    `Char with ${night} value > 0 wakes so must have ${night}Reminder.`,
-                    (err_cause = { name: `${night}Reminder` }),
-                );
-                assert(
-                    typeof char[night + "Reminder"] === "string",
-                    "Char " + night + "Reminder must be a string.",
-                    (err_cause = { name: `${night}Reminder` }),
-                );
-                assert(
-                    char[night + "Reminder"].length > 0,
-                    `${night}Reminder cannot be empty while ${night} is > 0.`,
-                    (err_cause = { name: `${night}Reminder` }),
-                );
-                assert(
-                    char[night + "Reminder"].length <= 500,
-                    "Char " + night + "Reminder cannot exceed 500 chars.",
-                    (err_cause = { name: `${night}Reminder` }),
-                );
-            } else {
-                assert(
-                    char[night + "Reminder"] === null ||
-                        char[night + "Reminder"] === "",
-                    `Character does not wake on ${night} (priority 0) so cannot have ${night}Reminder`,
-                    (err_cause = { name: `${night}Reminder` }),
-                );
-            }
-        }
-    });
-
-    if (char.reminders !== null) {
-        assert(
-            Array.isArray(char.reminders),
-            "Char reminders must be an array.",
-            (err_cause = { name: "reminders" }),
-        );
-
-        for (let i = 0; i < char.reminders.length; i++) {
-            assert(
-                char.reminders[i].length <= 30,
-                "Character reminder token cannot exceed 30 chars.",
-                (err_cause = { name: "reminders", index: i }),
-            );
-        }
-    }
-    if (char.globalReminders !== null) {
-        assert(
-            Array.isArray(char.globalReminders),
-            "Char globalReminders must be an array.",
-            (err_cause = { name: "globalReminders" }),
-        );
-
-        for (let i = 0; i < char.globalReminders.length; i++) {
-            assert(
-                char.globalReminders[i].length <= 25,
-                "Character global reminder token cannot exceed 25 chars.",
-                (err_cause = { name: "globalReminders", index: i }),
-            );
-        }
-    }
-
-    // TODO: Check flavor, edition, setup, jinxes, special
-}
-
 function validate_script(script) {
     // Validate as a script - we already know it's valid JSON, now use the schema from:
     // https://github.com/ThePandemoniumInstitute/botc-release/blob/main/script-schema.json
@@ -350,6 +221,64 @@ function validate_script(script) {
     return script_object;
 }
 
+function set_modal_data(char) {
+    // Populate the modal's fields with the required data
+    if (char !== null) {
+        for (key of Object.keys(char)) {
+            let input = document.getElementById(`${key}-input`);
+            if (input === null) {
+                continue;
+            }
+            input.value = char[key];
+            input.dispatchEvent(new Event("change", {bubbles: true}));
+            input.dispatchEvent(new Event("input", {bubbles: true}));
+        }
+    } else {
+        // Set defaults
+        for (key of string_inputs) {
+            document.getElementById(`${key}-input`).value = null;
+        }
+        for (key of int_keys) {
+            document.getElementById(`${key}-input`).value = 0;
+        }
+        document.getElementById("team-input").value = "townsfolk";
+        document.getElementById("setup-input").checked = false;
+        const reminders_input = document.getElementById("reminders-input-first");
+        reminders_input.value = null;
+        const remindersGlobal_input = document.getElementById("globalReminders-input-first");
+        remindersGlobal_input.value = null;
+
+        // Let them know changes have occurred
+        for (key of Object.keys(new Character())) {
+            let input = document.getElementById(`${key}-input`);
+            if (input === null) {
+                continue;
+            }
+            input.dispatchEvent(new Event("change", {bubbles: true}));
+            input.dispatchEvent(new Event("input", {bubbles: true}));
+        }
+        [reminders_input, remindersGlobal_input].forEach((input) => {
+            input.dispatchEvent(new Event("change", {bubbles: true}));
+            input.dispatchEvent(new Event("input", {bubbles: true}));
+        });
+    }
+}
+
+function character_clicked(event) {
+    const char_id = event.target.closest('.character-box')
+        .getAttribute("data-char-id");
+
+    let char = loaded_script.get_by_id(char_id);
+
+    set_modal_data(char);
+    showModal("homebrew-char-modal");
+
+    // Store original ID in case it gets changed
+    document
+        .getElementById("character-submit")
+        .setAttribute("data-orig-char-id", char_id);
+}
+
 function format_ability_text(original_text) {
     // Also including night reminders
     // TODO: format for {TOKEN}
@@ -366,6 +295,7 @@ function add_char_to_page(char) {
         let char_box = document.createElement("div");
         char_box.classList.add("character-box", "click-to-homebrew");
         char_box.setAttribute("data-char-id", char.id);
+        char_box.addEventListener("click", character_clicked);
 
         let char_icon = document.createElement("img");
         char_icon.classList.add("icon", "character-icon");
@@ -600,9 +530,23 @@ function toggle_show_element(elementID, hide = false) {
 }
 
 // Functions with type as one of [homebrew, official]
-function add_to_script(char, type) {
-    // TODO: Handle duplicates (discard/overwrite options)
+function add_to_script(char, original_id, type) {
+    let to_remove = char.id;
+    let message = null;
+    if (original_id !== null && char.id !== original_id) {
+        message = `Are you sure you want to overwrite "${original_id}" with "${char.id}?"`;
+        to_remove = original_id;
+    } else if (loaded_script.get_by_id(char.id) !== null) {
+        message = `Are you sure you want to overwrite the previous "${char.id}"?`;
+    }
+    if (message !== null && !confirm(message)) {
+        return false;
+    }
+
+    // Discard return value as we don't care
+    remove_from_script(to_remove);
     loaded_script[`${type}_chars`].push(char);
+    return true;
 }
 
 function remove_from_script(char_id) {
@@ -620,6 +564,7 @@ function remove_from_script(char_id) {
 }
 
 function submit_character(event) {
+    const original_id = event.target.getAttribute("data-orig-char-id");
     const char_form = document.getElementById("character-editor-form");
     const id_input = document.getElementById("id-input");
 
@@ -638,10 +583,17 @@ function submit_character(event) {
         validate_homebrew_character(char);
         id_input.disabled = id_input_original_state;
 
-        // Load into script and update page
-        add_to_script(char, "homebrew");
+        // Load into script
+        let added = add_to_script(char, original_id, "homebrew");
+        if (!added) {
+            // Likely due to confirmation dialog failing
+            return;
+        }
+
+        // Update JS and page
         load_script(loaded_script);
         closeModal("homebrew-char-modal");
+        set_modal_data(null);
     } catch (error) {
         console.log("Validation error: " + error);
         let field_id = error.cause["name"];
@@ -674,17 +626,8 @@ function update_auto_id() {
         return;
     }
 
-    // Convert to id
-    let generated_id = "";
-    for (let char of char_name) {
-        if (alpha_num.test(char)) {
-            generated_id += char;
-        }
-    }
-    generated_id = generated_id.toLowerCase();
-
     // Apply
-    id_input.value = generated_id;
+    id_input.value = char_name_to_id(char_name);
 }
 
 function match_night_priority_to_reminder(event) {
@@ -705,24 +648,45 @@ function match_night_priority_to_reminder(event) {
 }
 
 function update_number_reminders(event) {
-    const reminder_input = event.target;
-    const container = reminder_input.parentElement;
+    const container = event.target.parentElement;
     const type = container.id.split("-", 2)[0];
+    let reminder_inputs = container.querySelectorAll("input");
+    let empty = [];
 
-    if (reminder_input.value === null || reminder_input.value === "") {
-        // Don't remove last item
-        if (reminder_input.id !== null) {
-            return;
+    for (input of reminder_inputs) {
+        if (input.value === null || input.value === "") {
+            empty.push(input);
         }
-        reminder_input.remove();
-    } else {
+    }
+
+    if (empty.length === 0) {
+        // Simple case - add an input
         let new_input = document.createElement("input");
         new_input.type = "text";
-        new_input.name = type + "[]";
+        new_input.name = type;
         new_input.maxlength = "500";
         new_input.minlength = "0";
         container.appendChild(new_input);
         new_input.addEventListener("change", update_number_reminders);
+        return;
+    }
+
+    if (empty.length > 1) {
+        // Remove unnecessary empties (avoid the first empty in case it's the first child)
+        for (let i = 1; i < empty.length; i++) {
+            empty[i].remove();
+        }
+        // Update list
+        reminder_inputs = container.querySelectorAll("input");
+    }
+
+    // Bubble up values to make sure the empty input is last
+    for (let i = 0; i < reminder_inputs.length - 1; i++) {
+        let input = reminder_inputs[i];
+        if (input.value === null || input.value === "") {
+            input.value = reminder_inputs[i+1].value;
+            reminder_inputs[i+1].value = null;
+        }
     }
 }
 

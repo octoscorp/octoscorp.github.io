@@ -3,6 +3,17 @@
 // Requires:
 //  + utils: api.js
 
+// TODO: Abstract to a tests util
+function assert(bool, message, err_cause = null) {
+    if (bool === false) {
+        throw Error(message, { cause: err_cause });
+    }
+}
+
+function is_alphanumeric(string) {
+    return /^[A-Za-z0-9]*$/i.test(string);
+}
+
 // Including whether the category shows on the default script page
 const char_types = {
     townsfolk: true,
@@ -45,6 +56,142 @@ class Character {
         }
         return output;
     }
+}
+
+function validate_homebrew_character(char) {
+    // Check required fields are non-null
+    const required = ["id", "name", "team", "ability"];
+    console.debug(char);
+
+    for (field of required) {
+        assert(
+            char[field] !== null,
+            `Character ${field} cannot be empty.`,
+            (err_cause = { name: field }),
+        );
+    }
+
+    assert(
+        char.id.length > 0,
+        "Character ID cannot be empty.",
+        (err_cause = { name: "id" }),
+    );
+    assert(
+        char.id.length <= 50,
+        "Character ID cannot exceed 50 characters.",
+        (err_cause = "id"),
+    );
+    assert(
+        is_alphanumeric(char.id),
+        "ID may only include alphanumeric characters.",
+        (err_cause = { name: "id" }),
+    );
+
+    assert(
+        char.name.length > 0,
+        "Char name cannot be empty.",
+        (err_cause = { name: "name" }),
+    );
+    assert(
+        char.name.length <= 30,
+        "Char name cannot exceed 30 chars.",
+        (err_cause = { name: "name" }),
+    );
+
+    assert(
+        char_types.hasOwnProperty(char.team),
+        "Char team must be one of: " + Object.keys(char_types),
+        (err_cause = { name: "team" }),
+    );
+
+    assert(
+        char.hasOwnProperty("ability"),
+        'Characters must have an "ability" field.',
+        (err_cause = { name: "ability" }),
+    );
+    assert(
+        char.ability.length > 0,
+        "Char ability cannot be empty.",
+        (err_cause = { name: "ability" }),
+    );
+    assert(
+        char.ability.length <= 250,
+        "Char name cannot exceed 250 chars.",
+        (err_cause = { name: "ability" }),
+    );
+
+    nights.forEach((night) => {
+        if (char[night] !== null) {
+            assert(
+                typeof char[night] === "number",
+                "Char " + night + " field must be integer",
+                (err_cause = { name: night }),
+            );
+            if (char[night] !== 0) {
+                // Wakes on this night - must have reminder!
+                assert(
+                    char[night + "Reminder"] !== null,
+                    `Char with ${night} value > 0 wakes so must have ${night}Reminder.`,
+                    (err_cause = { name: `${night}Reminder` }),
+                );
+                assert(
+                    typeof char[night + "Reminder"] === "string",
+                    "Char " + night + "Reminder must be a string.",
+                    (err_cause = { name: `${night}Reminder` }),
+                );
+                assert(
+                    char[night + "Reminder"].length > 0,
+                    `${night}Reminder cannot be empty while ${night} is > 0.`,
+                    (err_cause = { name: `${night}Reminder` }),
+                );
+                assert(
+                    char[night + "Reminder"].length <= 500,
+                    "Char " + night + "Reminder cannot exceed 500 chars.",
+                    (err_cause = { name: `${night}Reminder` }),
+                );
+            } else {
+                assert(
+                    char[night + "Reminder"] === null ||
+                        char[night + "Reminder"] === "",
+                    `Character does not wake on ${night} (priority 0) so cannot have ${night}Reminder`,
+                    (err_cause = { name: `${night}Reminder` }),
+                );
+            }
+        }
+    });
+
+    if (char.reminders !== null) {
+        assert(
+            Array.isArray(char.reminders),
+            "Char reminders must be an array.",
+            (err_cause = { name: "reminders" }),
+        );
+
+        for (let i = 0; i < char.reminders.length; i++) {
+            assert(
+                char.reminders[i].length <= 30,
+                "Character reminder token cannot exceed 30 chars.",
+                (err_cause = { name: "reminders", index: i }),
+            );
+        }
+    }
+    if (char.globalReminders !== null) {
+        assert(
+            Array.isArray(char.globalReminders),
+            "Char globalReminders must be an array.",
+            (err_cause = { name: "globalReminders" }),
+        );
+
+        for (let i = 0; i < char.globalReminders.length; i++) {
+            assert(
+                char.globalReminders[i].length <= 25,
+                "Character global reminder token cannot exceed 25 chars.",
+                (err_cause = { name: "globalReminders", index: i }),
+            );
+        }
+    }
+
+    // TODO: Check flavor, edition, setup, jinxes, special
 }
 
 // TODO: read char data from Projects repo; for the moment just use buddy up
@@ -119,6 +266,10 @@ function get_display_name(char_id) {
     }
 }
 
+function get_team(char_id) {
+    return loaded_characters[char_id].team;
+}
+
 function get_image_URL(char_id) {
     let image = null;
 
@@ -128,7 +279,7 @@ function get_image_URL(char_id) {
     }
 
     if (image == null) {
-        return "/assets/icons/rss.svg";
+        return `/assets/icons/${get_team(char_id)}_default.svg`;
     }
     return image;
 }
@@ -144,7 +295,18 @@ function get_night_reminder(night_id, night) {
         case "demoninfo":
             return "If there are 7 or more players, wake the Demon: Show the {THESE ARE YOUR MINIONS} token. Point to all Minions. Show the {THESE CHARACTERS ARE NOT IN PLAY} token. Show 3 not-in-play good character tokens.";
         default:
-            console.debug("Searching for display name for " + night_id);
+            console.debug("Searching for night reminder for " + night_id);
             return loaded_characters[night_id][night + "Reminder"];
     }
+}
+
+function char_name_to_id(char_name) {
+    // Convert to id
+    let generated_id = "";
+    for (let char of char_name) {
+        if (is_alphanumeric(char)) {
+            generated_id += char;
+        }
+    }
+    return generated_id.toLowerCase();
 }

@@ -32,11 +32,11 @@ Finishing up the conversion from React to Jekyll. I had some interesting CSS tra
         - [x] Should handle visual elements, then hand off to a callback function with the moved element and new index
 - [x] Full JSON script exporting
     - [x] Export night order as valid script JSON
-- [ ] Custom character creation modal
+- [x] Custom character creation modal
     - [x] Required fields: ID, Name, Team, Ability
     - [x] Optional fields: edition, flavor, firstNight, firstNightReminder, otherNight, otherNightReminder, reminders, remindersGlobal, setup
     - [x] Import fields into JS
-    - [ ] Click-to-edit
+    - [x] Click-to-edit
     - [x] Image field and IP track warning (show status code)
     - [x] "Remove character" button
 - [x] "Add character" button
@@ -45,7 +45,7 @@ Finishing up the conversion from React to Jekyll. I had some interesting CSS tra
     - [ ] Night Order: re-add characters if not present in the \_meta lists
     - [ ] Image display from URL (shows on characters after some time?)
     - [ ] Clean up TODOs
-- [ ] Icons and default images
+- [ ] Icons and default images (`<team>_default`, `warning`, `close`, `delete`)
 - [ ] Edit author, script name
 - [ ] Stretch goals / "later me" problems
     - [ ] Loric/Fabled support
