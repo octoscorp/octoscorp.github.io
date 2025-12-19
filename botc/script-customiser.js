@@ -371,35 +371,59 @@ function add_night_reminder_to_page(night, night_id) {
     container.appendChild(reminder_box);
 }
 
+function get_default_night_order(night) {
+    let order = new Array();
+    // Determine from character priorities
+    for (const char of loaded_script.official_chars) {
+        if (char[night] !== 0 && char[night] !== null) {
+            order.push(char.id);
+        }
+    }
+    for (const char of loaded_script.homebrew_chars) {
+        if (char[night] !== 0 && char[night] !== null) {
+            order.push(char.id);
+        }
+    }
+    order.push("dawn");
+    if (night === "firstNight") {
+        order.push("minioninfo", "demoninfo");
+    }
+    order.sort((a, b) => {
+        // Return negative to indicate that a goes before b
+        return get_night_priority(a, night) - get_night_priority(b, night);
+    });
+    // Always goes at the front
+    order.unshift("dusk");
+
+    return order;
+}
+
 function fill_night_order(night) {
     let order = loaded_script._meta[night];
+    let default_order = get_default_night_order(night);
     if (order === null) {
-        order = new Array();
-        // Determine from character priorities
-        for (const char of loaded_script.official_chars) {
-            if (char[night] !== 0 && char[night] !== null) {
-                order.push(char.id);
-            }
-        }
-        for (const char of loaded_script.homebrew_chars) {
-            if (char[night] !== 0 && char[night] !== null) {
-                order.push(char.id);
-            }
-        }
-        order.push("dawn");
-        if (night === "firstNight") {
-            order.push("minioninfo", "demoninfo");
-        }
-        order.sort((a, b) => {
-            // Return negative to indicate that a goes before b
-            return get_night_priority(a, night) - get_night_priority(b, night);
-        });
-        // Always goes at the front
-        order.unshift("dusk");
-
-        // Add to meta object
-        loaded_script._meta[night] = order;
+        order = default_order;
     }
+
+    // Make sure all default order entries are added
+    if (order.length !== default_order.length) {
+        // Append before dawn
+        let dawn_set = [];
+        while (dawn_set[-1] !== "dawn") {
+            dawn_set.push(order.pop());
+        }
+        for (reminder of default_order) {
+            if (!order.includes(reminder)) {
+                order.push(reminder);
+            }
+        }
+        while(dawn_set.length > 0) {
+            order.push(dawn_set.pop());
+        }
+    }
+
+    // Update meta object
+    loaded_script._meta[night] = order;
 
     // Fill the page
     order.forEach((night_id) => {
