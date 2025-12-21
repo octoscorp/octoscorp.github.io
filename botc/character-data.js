@@ -239,6 +239,7 @@ function get_official_character_object(char_id) {
 
 function load_homebrew_character(char_obj) {
     loaded_characters[char_obj.id] = char_obj;
+    console.debug(`Adding ${char_obj.id} gives:\n${loaded_characters}`);
 }
 
 function get_night_priority(char_id, night) {
@@ -273,6 +274,7 @@ function get_display_name(char_id) {
 }
 
 function get_team(char_id) {
+    console.debug(`Getting team of ${char_id}`);
     return loaded_characters[char_id].team;
 }
 

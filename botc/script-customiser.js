@@ -468,8 +468,8 @@ function load_script(script) {
     // Fill in chars
     script.official_chars.forEach(add_char_to_page);
     script.homebrew_chars.forEach((char) => {
-        add_char_to_page(char);
         load_homebrew_character(char);
+        add_char_to_page(char);
     });
 
     // Update char display
