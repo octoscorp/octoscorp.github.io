@@ -1,0 +1,4 @@
+Kia ora folks, welcome to the site. This is a combination blog/portfolio, hosted on GitHub Pages (largely because it's free). It's built with Jekyll.
+Feel free to start looking around at the homepage (/), or investigate the code (GitHub links in the top left and the footer).
+
+Some pages link to a tech demo. This will be a JS client-only implementation - please raise an issue if you locate a problem.

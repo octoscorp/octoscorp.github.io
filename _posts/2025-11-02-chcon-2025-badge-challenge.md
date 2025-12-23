@@ -5,23 +5,27 @@ date: 2025-11-02 22:57:39 +1300
 tags: conference technical hacking
 ---
 
-About the badge challenge for Christchurch Hacker Con (CHCon) 2025 [1].
+This year I had the fortune to attend CHCon, so here's the tale of the badge CTF.
 
-Big shout out to NZ courier systems for holding the badge components until the day of the conference, causing everyone to end up with a blank badge for the first day.
+This year's [[1]][chcon] badges were designed and built by Jeremy Stott (stoggi) [[2]][stuggi], who worked frantically overnight to complete them all - a customs delay caused some components to arrive on *the day of* the conference. The badge itself was composed of a circuit board, with an attached ESP32-C and two LED strips.
 
-Much more serious thanks to Jeremy and all the others who worked frantically to get all the badges assembled and put together for such a fun challenge!
+(There would be a photo of the badge here if my camera was at all worthwhile - for the moment, you can check out https://sinclairstudios.net/chcon-2025-badge-challenge).
 
-<details><summary>Click here for excruciating detail on the badge challenge. Warning: <b>here be spoilers</b>!</summary>
-<h3> What are we dealing with? </h3>
-<h4> What can we see? </h4>
+# Here be Spoilers
+
+The remainder of this post is going to give away most of the secrets of the badge. If you want the chance to work out how the puzzles work for yourself, borrow a badge from your nearest CHCon attendee and have a hack before reading further. It's ok, I'll wait.
+
+<hr />
+
+## What can we see?
 
 Visual inspection of the badge reveals a limited amount to my untrained eye:
 
-- A USB-C port
-- Some rows of pretty lights that turn on when plugged in to USB-C
-- 2 tactile switches, hidden between the PCB and the main badge
-- A microcontroller marked `ESP32-CR`:
-- Smaller chips with a bunch of nerd letters that will end up being irrelevant.
+* A USB-C port
+* Two rows of RGB LEDs that turn on when plugged in to USB-C
+* 2 tactile switches, hidden between the PCB and the main badge
+* A microcontroller marked `ESP32-CR`:
+* Smaller chips with a bunch of nerd letters that will end up being irrelevant.
 
 From plugging it in, we can identify that the USB-C device is self-identifying as a JTAG header and has added a new device:
 
@@ -34,19 +38,19 @@ ttyACM0
 ...
 ```
 
-<h4> What does any of that mean? </h4>
-<h5> JTAG </h5>
+<details class="details-aside"><summary>For those not fluent in nerd</summary>
 
-I'm familiar with what a JTAG header is - it's a debug interface that once I work out what I'm doing will give me a console to communicate with the device.
+* **Microcontroller** - Searching for `ESP32-C` tells us that this Wi-Fi/Bluetooth SoC from Espressif [[3,4]][esp-doc] - this matches the JTAG advertisement, so far so good. Thanks to the nature of the console connection I won't end up needing this information - but it does prepare me for this device hosting a WiFi network.
+* **JTAG** - A debug interface for communicating with and testing a Printed Circuit Board. In this case, if I can figure out how to use it I'll find a console to communicate with the device.
 
-<h5> Microcontroller </h5>
+</details>
 
-Searching for `ESP32-C` tells me that I'm dealing with a Wi-Fi/Bluetooth SoC from Espressif [2,3] - this matches the JTAG advertisement, so far so good. Thanks to the nature of the console connection I won't end up needing this information - but it does prepare me for this device hosting a WiFi network.
+## Tangent 1: BUTTONS!
 
-<h5> BUTTONS! </h5>
-Using a trusty butter knife, I discovered what the buttons do: one button restarts the device, and the other one changes the brightness level of the LEDs. This sounds like a nice feature - I found them to be a little brighter than I'd hoped. Unfortunately, this turned out to be the minimum setting, and the maximum setting is a viable replacement for my office light.
+Clearly, we've got to press these to find out what they do. Using a trusty butter knife, we can discover one button restarts the device, and the other one changes the brightness level of the LEDs. This sounds like a nice feature - I found them to be a little brighter than I'd hoped. Unfortunately, this turned out to be the minimum setting, and the maximum setting is a viable replacement for my office light.
 
-<h3> Getting a terminal </h3>
+## Getting a terminal
+
 This can go one of two ways - we configure the JTAG header and do special JTAG communication using a tool called OpenOCD, or it's already happy for us to connect directly to it.
 
 My preferred tool for serial connections is Minicom, so let's see what happens when we try and connect to the new device:
@@ -72,8 +76,9 @@ Well that was easy. Restarting the connection to see what's going on, we don't g
 - No failed-login timeout
 - No obvious difference in console output between any basic response (including `passwordle`)
 
-<h4> Overcomplicating things </h4>
-Passwordle is an odd prompt to receive - I was expecting this prompt to behave like Wordle. A quick google search reveals there's an online game that does this - maybe the device wants today's answer?
+### Tangent 2: Overcomplicating things
+
+Passwordle is an odd prompt to receive - I was expecting this prompt to behave like Wordle, showing some form of output in response to the password. A quick google search reveals there's an online game that does this - maybe the device wants today's answer?
 
 ```
 ⬜🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
@@ -92,16 +97,15 @@ Passwordle is an odd prompt to receive - I was expecting this prompt to behave l
  5 @ B K A ) H 8 B 5 + X
 ```
 
-So, we take our answer over to the device, and naturally we get: `Incorrect! Try again.`
+So, we take our answer over to the device, and naturally we get: `Incorrect! Try again.` After a double-check, it's not being put in wrong. Clearly it's not accessing this site for a value - which makes sense in hindsight, as so far it hasn't been granted internet access.
 
-Did I put this in wrong? Clearly it's not accessing this site for a value. Thankfully, I quickly worked out what was going on:
+### Turn it over, dummy!
 
-<h4> Turn it over, dummy! </h4>
-Something possessed me to flip the badge from its face-down position. Grinning back at me was something I should have expected:
+It's now relevant to mention that the badge was lying face-down on my desk. After this initial failure, something possessed me to flip the badge from its face-down position. Grinning back at me was something I should have expected:
 
 ⬜⬜⬜⬜⬜⬜🟧⬜⬜⬜⬜⬜
 
-With 12 lights along the top - one orange, and 11 white - we're back on the right track. We've demonstrated I have a rough understanding of wordle - time to do it again.
+Well, that explains how we get feedback on our attempts. Solving our second passwordle of the day:
 
 ```
 ⬜🟧⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
@@ -153,8 +157,8 @@ Type 'help' for available commands
 
 Well, lesson learnt - we'll keep the LEDs face-up from now on.
 
-<h3> Using the terminal </h3>
-<h4> What can we do? </h4>
+## Using the terminal
+### What can we do?
 It tells us to run `help`, so we do:
 
 ```
@@ -189,9 +193,9 @@ Password: ************
 ✗ Error: Incorrect password
 ```
 
-The login password isn't the su password (it was worth a shot), and we're not currently root. Despite that, we have a bit of leeway - we can start a Wifi AP, a Minecraft server, and mess with the LEDs (which I am absolutely going to do later).
+The su password isn't just the login password (it was worth a shot), and we're not currently root. Despite that, we have a bit of leeway - we can start a Wifi AP, a Minecraft server, and mess with the LEDs (which I am absolutely going to do later).
 
-I don't imagine minecraft supports connection via JTAG (much as that would be funny), so presumably the next steps here are to start the server and AP to connect to it. We can see that both are currently stopped:
+I don't imagine Minecraft supports connection via JTAG (much as that would be funny), so presumably the next steps here are to start the server and AP to connect to it. We can see that both are currently stopped:
 
 ```
 $ minecraft
@@ -217,7 +221,7 @@ $ wifi start
 
 This leaves LED control as one of our only abilities - time to see how we can abuse that.
 
-#### LEDs
+### LEDs
 
 Firstly, we're told that there's a handful of pre-programmed modes:
 
@@ -243,9 +247,9 @@ Available modes:
 
 Of these, we'll note the minecraft tie-in for later - but the rest are less exciting than the ability to program our own.
 
-<details><summary>Click here for pattern help description</summary>
+<details class="details-aside"><summary>Pattern help description</summary>
 
-```
+{% highlight shell %}
 $ pattern help
 
 === Pattern Programming Guide ===
@@ -348,13 +352,13 @@ Tip: NOT can be done with: PUSH 255, XOR
   # Result: LEDs 0,6 ON (bits 0,6 of 'A' are 1)
 
 Ready to create? Type 'pattern new' to start!
-```
+{% endhighlight %}
 
 </details>
 
-Well that's convenient. The pattern help tells us we only have to memory-overflow into the stack - I was worried this part would be too technical for me. Much as the other parts are exciting, I chose to get right to reading the stack - before I write buggy LED code that wipes it out.
+Conveniently, the pattern help tells us we only have to memory-overflow into the stack - I was worried this part would be too technical for me. Much as the other parts are exciting, I chose to get right to reading the stack - before I write buggy LED code that wipes it out.
 
-We can use Example 4 pretty heavily here - this is all copied from example 4, without the part that pushed a letter onto the stack first:
+We can use Example 4 pretty heavily here - the below snippet is directly copied from example 4, with the only difference being that in the example, they add a letter to the stack first.
 
 ```
 # Adapted for existing stack state: [stk_bottom, ..., stk_top]
@@ -373,9 +377,9 @@ SET_PIXEL       # Either 255,255,255 or 0,0,0 [...]
 Using `pattern run` to apply this until the stack is empty keeps giving us the same value over and over, so the stack must be getting reset with each run. While this means we actually can't break the stack with a mistake, it does require adding a loop to the program:
 
 ```
-# I'm guessing the stack gets reset on each frame?
-COUNTER
-POPN
+# Assuming the stack gets reset on each frame
+COUNTER         # Push current counter (0-15, 1Hz)
+POPN            # Pop that many +1 from the stack
 # <code from above>
 ```
 
@@ -409,7 +413,7 @@ And this succeeds. Watching the LEDs, we cycle through the below patterns at 1/s
 01010011
 ```
 
-The more astute among you may notice that this I've reversed the binary - this is because we can expect to look for ASCII, in which characters primarily start with 011 or 010.
+The more astute among you may have noticed that the binary is reversed from the LEDs - this is because we can expect to look for ASCII, in which characters primarily start with 011 or 010.
 
 This translates to a reasonable string, but reversed. We know that we're reading from the top of the stack (the last thing added) first, so we should be trying this backwards from how it was output - the way that reads as a normal string. Sure enough:
 
@@ -420,7 +424,7 @@ Password: ***********
 You are now root
 ```
 
-<h3> The Minecraft Server </h3>
+## The Minecraft Server
 `help` isn't giving us anything new, so we'll see what we can accomplish using the minecraft server now that we have permissions for it.
 
 ```
@@ -477,24 +481,31 @@ Triggering software reset NOW
 
 Thankfully, this is avoidable by using "Direct Connect" instead of adding it as a server.
 
-Connecting via the vanilla connection just didn't want to play nice for some reason. Noticing the line above about a websocket connection, I installed the WSMC mod [4] to connect via websockets - et voila!
+Connecting via the vanilla connection just didn't want to play nice for some reason. Noticing the line above about a websocket connection, I installed the WSMC mod [[5]][wsmc] to connect via websockets - et voila!
 
-<img src='../media/chcon25_world_screenshot.png' alt='An image showing a vertical minecraft map within a small area. The build is detailed and somewhat like a maze to hide levers within it.' />
+(An image of the minecraft world will go here)
 
-We spawn into a world with a small level in it. Based on the led pattern `lever` (which is automatically entered when the server starts), it's a pretty good guess that we're looking for levers. Sure enough, immediately on finding and flicking one, an LED on the badge lit up.
+We spawn into a world with a small level in it. Based on the led pattern `lever` (which is automatically entered when the server starts), it's a pretty good guess that we're looking for levers. Sure enough, immediately on finding and flicking one, an LED on the badge lights up.
 
-The remainder of the challenge is just a matter of running around the map, flicking all the levers to light up all the LEDs. It's certainly fun, but doesn't add much to the writeup.
+The remainder of the challenge was just a matter of running around the map, flicking all the levers to light up all the LEDs. It's certainly fun, but without listing the locations of the levers I don't have much to write on it. On reaching the bottom of this world, we see our reward:
 
-<img src='../media/chcon25_end_screenshot.png' alt='An image showing a minecraft sign which reads: "Congratulations on finishing the ChCon 2025 Badge Challenge!"' />
+<img src='/assets/images/chcon-25/end-screenshot.png' alt='An image showing a minecraft sign which reads: "Congratulations on finishing the ChCon 2025 Badge Challenge!"' />
 
-</details>
+# References and ~~External~~ Spooky Links
 
-## References and Spooky (External) Links
+[1] - [ChCON 2025][chcon]
 
-[1] https://2025.chcon.nz/
+[2] - [Stuggi's GitHub][stuggi]
 
-[2] https://docs.espressif.com/projects/esp-packaging/en/latest/esp32s3/01-marking/index_chip.html
+[3] - [Espressif ESP32 documentation][esp-doc]
 
-[3] https://documentation.espressif.com/esp32-c3_datasheet_en.pdf
+[4] - [Espressif ESP32 datasheet][esp-data]
 
-[4] https://github.com/deathcap/wsmc
+[5] - [WSMC mod][wsmc]
+
+
+[chcon]: https://2025.chcon.nz/ "CHCon 25"
+[stuggi]: https://github.com/stuggi
+[esp-doc]: https://docs.espressif.com/projects/esp-packaging/en/latest/esp32s3/01-marking/index_chip.html
+[esp-data]: https://documentation.espressif.com/esp32-c3_datasheet_en.pdf
+[wsmc]: https://github.com/deathcap/wsmc

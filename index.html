@@ -1,3 +1,28 @@
 ---
 layout: wide
+title: Posts
+include_scripts:
+  [
+    "/posts_list.js"
+  ]
 ---
+
+<a href="/feed.xml" style="float: right" download>
+  <img src="/assets/icons/rss.svg" class="icon" /> RSS Feed
+</a>
+
+<hr class="subtle" />
+<div id="post-preview-container">
+{% for post in site.posts %}
+<div class="post-preview-card">
+  <a href="{{ post.url }}">
+    <div class="post-preview-bg">
+      <div class="post-preview-excerpt fade-out">{{ post.excerpt }}</div>
+    </div>
+    <span class="post-preview-title">{{ post.title }}</span>
+  </a>
+</div>
+<!-- post-preview-card -->
+{% endfor %}
+</div>
+<!-- post-preview-container -->

@@ -31,5 +31,10 @@
   <body>
     <a id="forkme_banner" href="{{ site.github.repository_url }}">View on GitHub</a>
     {{ content }}
+    {% if page.include_scripts %}
+      {% for include_script in page.include_scripts %}
+        <script type="text/javascript" src="{{ include_script }}"></script>
+      {% endfor %}
+    {% endif %}
   </body>
 </html>

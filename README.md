@@ -40,12 +40,14 @@ The official script tool at script.bloodontheclocktower.com has (as far as I'm c
 Turn this into a functional blog.
 
 - [ ] Posts page
-    - [ ] Determine whether this needs to be separate from the home page
+    - [x] Determine whether this needs to be separate from the home page - home page is now posts.
+    - [x] Write site conversion post
     - [ ] Write BotC post
-    - [ ] Display posts as cards
+    - [x] Display posts as cards
+    - [ ] Default image generation from ID (https://gist.github.com/blixt/f17b47c62508be59987b)
     - [ ] Refine by tags
     - [ ] Store preferences in localStorage
-        - [ ] Is filtered RSS feed possible?
+        - [x] ~~Is filtered RSS feed possible?~~ Not server-side, anyone after this can find a way to implement itself
     - [ ] Pagination
 - [ ] Post page
     - [ ] Display tags
