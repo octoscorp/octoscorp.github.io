@@ -215,10 +215,16 @@ textarea {
         border: 1px solid var(--subtle-darker-color);
 
         & .post-preview-bg {
-            background-image: url("/assets/images/post-preview-default.png");
+            background-color: var(--moderate-lighter-color);
             background-size: cover;
             height: 100px;
             border-radius: 5px;
+            // Don't blur my images!!
+            image-rendering: crisp-edges;
+            image-rendering: -moz-crisp-edges;          /* Firefox */
+            image-rendering: -o-crisp-edges;            /* Opera */
+            image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming)*/
+            -ms-interpolation-mode: nearest-neighbor;   /* IE (non-standard property) */
         }
 
         & .post-preview-excerpt {
@@ -228,9 +234,12 @@ textarea {
             border-radius: inherit;
             // Styling
             font-style: italic;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--moderate-lighter-color);
             opacity: 100;
-            transition: opacity 0.3s ease-in-out;
-            background-color: RGBA(from var(--theme-red) r g b / 0.32);
+            transition: opacity 0.5s ease-in-out;
+            background-color: RGBA(from var(--theme-red) r g b / 0.7);
             /* Overflow with ellipsis */
             overflow: hidden;
             line-clamp: 3;

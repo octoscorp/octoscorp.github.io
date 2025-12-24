@@ -3,7 +3,8 @@ layout: wide
 title: Posts
 include_scripts:
   [
-    "/posts_list.js"
+    "/posts_list.js",
+    "/utils/image-generator.js",
   ]
 ---
 
@@ -14,7 +15,7 @@ include_scripts:
 <hr class="subtle" />
 <div id="post-preview-container">
 {% for post in site.posts %}
-<div class="post-preview-card">
+<div class="post-preview-card" data-post-id="{{ post.id }}">
   <a href="{{ post.url }}">
     <div class="post-preview-bg">
       <div class="post-preview-excerpt fade-out">{{ post.excerpt }}</div>
