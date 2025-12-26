@@ -221,10 +221,10 @@ textarea {
             border-radius: 5px;
             // Don't blur my images!!
             image-rendering: crisp-edges;
-            image-rendering: -moz-crisp-edges;          /* Firefox */
-            image-rendering: -o-crisp-edges;            /* Opera */
+            image-rendering: -moz-crisp-edges; /* Firefox */
+            image-rendering: -o-crisp-edges; /* Opera */
             image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming)*/
-            -ms-interpolation-mode: nearest-neighbor;   /* IE (non-standard property) */
+            -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
         }
 
         & .post-preview-excerpt {
@@ -254,12 +254,14 @@ textarea {
             color: var(--text-color);
         }
 
-        & a:link, a:visited {
+        & a:link,
+        a:visited {
             text-decoration: none;
             color: var(--text-color);
         }
 
-        & a:hover, a:active {
+        & a:hover,
+        a:active {
             text-decoration: underline;
             color: var(--link-color);
         }

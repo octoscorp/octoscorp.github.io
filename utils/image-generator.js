@@ -5,24 +5,23 @@
  */
 
 function Random(seed) {
-  this._seed = seed % 2147483647;
-  if (this._seed <= 0) this._seed += 2147483646;
+    this._seed = seed % 2147483647;
+    if (this._seed <= 0) this._seed += 2147483646;
 }
 
 /**
  * Returns a pseudo-random value between 1 and 2^32 - 2.
  */
 Random.prototype.next = function () {
-  return this._seed = this._seed * 16807 % 2147483647;
+    return (this._seed = (this._seed * 16807) % 2147483647);
 };
-
 
 /**
  * Returns a pseudo-random floating point number in range [0, 1).
  */
 Random.prototype.nextFloat = function (opt_minOrMax, opt_max) {
-  // We know that result of next() will be 1 to 2147483646 (inclusive).
-  return (this.next() - 1) / 2147483646;
+    // We know that result of next() will be 1 to 2147483646 (inclusive).
+    return (this.next() - 1) / 2147483646;
 };
 
 function seed_from_var(variable) {
@@ -36,7 +35,7 @@ function seed_from_var(variable) {
                 output = (output + uint8array[i]) % Number.MAX_SAFE_INTEGER;
             }
             break;
-        case "number":  // Weeee
+        case "number": // Weeee
         default:
             output = variable % Number.MAX_SAFE_INTEGER;
     }
@@ -44,7 +43,12 @@ function seed_from_var(variable) {
     return output;
 }
 
-function create_image(seed_data, pixels_x = 0, pixels_y = 0, pixel_callback = null) {
+function create_image(
+    seed_data,
+    pixels_x = 0,
+    pixels_y = 0,
+    pixel_callback = null,
+) {
     const prng = new Random(seed_from_var(seed_data));
 
     let buffer_size = pixels_x * pixels_y;
@@ -58,16 +62,20 @@ function create_image(seed_data, pixels_x = 0, pixels_y = 0, pixel_callback = nu
             channel_vals = pixel_callback(channel_vals);
         }
         for (j = 0; j < 4; j++) {
-            view.setUint8(4*i + j, channel_vals[j], false);
+            view.setUint8(4 * i + j, channel_vals[j], false);
         }
     }
 
-    let image = new ImageData(new Uint8ClampedArray(image_buffer), pixels_x, pixels_y);
-    const canvas = document.createElement('canvas');
+    let image = new ImageData(
+        new Uint8ClampedArray(image_buffer),
+        pixels_x,
+        pixels_y,
+    );
+    const canvas = document.createElement("canvas");
     canvas.width = image.width;
     canvas.height = image.height;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     ctx.putImageData(image, 0, 0);
     return canvas.toDataURL("image/png");
 }

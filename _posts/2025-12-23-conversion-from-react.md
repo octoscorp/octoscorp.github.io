@@ -16,11 +16,12 @@ React is a JavaScript framework which defines HTML-like "components" and the way
 Jekyll is a compilation framework for creating **static** website content [[2]][jekyll]. The basic use case is to specify content simply in Markdown and have it compiled into HTML according to a site theme. It has the benefit of being easier to work with at a code level, as it isn't filled with dynamic cleverness. Jekyll is based in Ruby, but most code we'll run through it is HTML/CSS/JS/Markdown.
 
 Both have their benefits and drawbacks in the general use case. However, we know a bit more about my specific use case:
-* This site is hosted with GitHub Pages - so there's limited opportunity to make use of dynamic features (it's intended for static sites)
-* Jekyll is natively supported by GitHub Pages, but React was being compiled to a suitable level of support too.
-* The use case of this site is as a combination blog and portfolio. The blog content is static, but portfolio content should provide a technical demo where possible.
-* Writing these demos in native JS is a more natural way to implement them, and is a better reflection of the way I want them to operate - they should mostly stand alone on the client.
-* The killer: React suppresses native JS events, meaning that a JS page *must* be built according to React's framework to be usable.
+
+- This site is hosted with GitHub Pages - so there's limited opportunity to make use of dynamic features (it's intended for static sites)
+- Jekyll is natively supported by GitHub Pages, but React was being compiled to a suitable level of support too.
+- The use case of this site is as a combination blog and portfolio. The blog content is static, but portfolio content should provide a technical demo where possible.
+- Writing these demos in native JS is a more natural way to implement them, and is a better reflection of the way I want them to operate - they should mostly stand alone on the client.
+- The killer: React suppresses native JS events, meaning that a JS page _must_ be built according to React's framework to be usable.
 
 # Changing over
 
@@ -39,9 +40,10 @@ The page theme has now been updated to Merlot [[6]][merlot] - with some custom m
 ## Adding workflows
 
 Using GitHub actions, I then set up the following workflow jobs on a push to `main`:
-* Lint files using Prettier. This is a bit temperamental about Jekyll's syntax being overlaid on HTML, so some files have been ignored after the initial run.
-* Compile the site using Jekyll
-* Deploy the compilation result to GH Pages. If either of the other jobs fail, this will not run. It also will only run if the commit message contains `#deploy` or a manual workflow run overrides this.
+
+- Lint files using Prettier. This is a bit temperamental about Jekyll's syntax being overlaid on HTML, so some files have been ignored after the initial run.
+- Compile the site using Jekyll
+- Deploy the compilation result to GH Pages. If either of the other jobs fail, this will not run. It also will only run if the commit message contains `#deploy` or a manual workflow run overrides this.
 
 # References
 
@@ -56,7 +58,6 @@ Using GitHub actions, I then set up the following workflow jobs on a push to `ma
 [5] - [GitHub Pages documentation on Jekyll setup][gh-pages-jekyll]
 
 [6] - [Merlot theme][merlot]
-
 
 [react]: https://react.dev
 [jekyll]: https://jekyllrb.com

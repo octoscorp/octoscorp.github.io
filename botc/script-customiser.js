@@ -417,7 +417,7 @@ function fill_night_order(night) {
                 order.push(reminder);
             }
         }
-        while(dawn_set.length > 0) {
+        while (dawn_set.length > 0) {
             order.push(dawn_set.pop());
         }
     }

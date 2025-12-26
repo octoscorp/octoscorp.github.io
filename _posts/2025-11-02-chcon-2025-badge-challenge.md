@@ -7,7 +7,7 @@ tags: conference technical hacking
 
 This year I had the fortune to attend CHCon, so here's the tale of the badge CTF.
 
-This year's [[1]][chcon] badges were designed and built by Jeremy Stott (stoggi) [[2]][stuggi], who worked frantically overnight to complete them all - a customs delay caused some components to arrive on *the day of* the conference. The badge itself was composed of a circuit board, with an attached ESP32-C and two LED strips.
+This year's [[1]][chcon] badges were designed and built by Jeremy Stott (stoggi) [[2]][stuggi], who worked frantically overnight to complete them all - a customs delay caused some components to arrive on _the day of_ the conference. The badge itself was composed of a circuit board, with an attached ESP32-C and two LED strips.
 
 (There would be a photo of the badge here if my camera was at all worthwhile - for the moment, you can check out https://sinclairstudios.net/chcon-2025-badge-challenge).
 
@@ -21,11 +21,11 @@ The remainder of this post is going to give away most of the secrets of the badg
 
 Visual inspection of the badge reveals a limited amount to my untrained eye:
 
-* A USB-C port
-* Two rows of RGB LEDs that turn on when plugged in to USB-C
-* 2 tactile switches, hidden between the PCB and the main badge
-* A microcontroller marked `ESP32-CR`:
-* Smaller chips with a bunch of nerd letters that will end up being irrelevant.
+- A USB-C port
+- Two rows of RGB LEDs that turn on when plugged in to USB-C
+- 2 tactile switches, hidden between the PCB and the main badge
+- A microcontroller marked `ESP32-CR`:
+- Smaller chips with a bunch of nerd letters that will end up being irrelevant.
 
 From plugging it in, we can identify that the USB-C device is self-identifying as a JTAG header and has added a new device:
 
@@ -40,8 +40,8 @@ ttyACM0
 
 <details class="details-aside"><summary>For those not fluent in nerd</summary>
 
-* **Microcontroller** - Searching for `ESP32-C` tells us that this Wi-Fi/Bluetooth SoC from Espressif [[3,4]][esp-doc] - this matches the JTAG advertisement, so far so good. Thanks to the nature of the console connection I won't end up needing this information - but it does prepare me for this device hosting a WiFi network.
-* **JTAG** - A debug interface for communicating with and testing a Printed Circuit Board. In this case, if I can figure out how to use it I'll find a console to communicate with the device.
+- **Microcontroller** - Searching for `ESP32-C` tells us that this Wi-Fi/Bluetooth SoC from Espressif [[3,4]][esp-doc] - this matches the JTAG advertisement, so far so good. Thanks to the nature of the console connection I won't end up needing this information - but it does prepare me for this device hosting a WiFi network.
+- **JTAG** - A debug interface for communicating with and testing a Printed Circuit Board. In this case, if I can figure out how to use it I'll find a console to communicate with the device.
 
 </details>
 
@@ -158,7 +158,9 @@ Type 'help' for available commands
 Well, lesson learnt - we'll keep the LEDs face-up from now on.
 
 ## Using the terminal
+
 ### What can we do?
+
 It tells us to run `help`, so we do:
 
 ```
@@ -249,6 +251,7 @@ Of these, we'll note the minecraft tie-in for later - but the rest are less exci
 
 <details class="details-aside"><summary>Pattern help description</summary>
 
+<!-- prettier-ignore-start -->
 {% highlight shell %}
 $ pattern help
 
@@ -353,6 +356,7 @@ Tip: NOT can be done with: PUSH 255, XOR
 
 Ready to create? Type 'pattern new' to start!
 {% endhighlight %}
+<!-- prettier-ignore-end -->
 
 </details>
 
@@ -425,6 +429,7 @@ You are now root
 ```
 
 ## The Minecraft Server
+
 `help` isn't giving us anything new, so we'll see what we can accomplish using the minecraft server now that we have permissions for it.
 
 ```
@@ -502,7 +507,6 @@ The remainder of the challenge was just a matter of running around the map, flic
 [4] - [Espressif ESP32 datasheet][esp-data]
 
 [5] - [WSMC mod][wsmc]
-
 
 [chcon]: https://2025.chcon.nz/ "CHCon 25"
 [stuggi]: https://github.com/stuggi

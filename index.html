@@ -1,11 +1,7 @@
 ---
 layout: wide
 title: Posts
-include_scripts:
-  [
-    "/posts_list.js",
-    "/utils/image-generator.js",
-  ]
+include_scripts: ["/posts_list.js", "/utils/image-generator.js"]
 ---
 
 <a href="/feed.xml" style="float: right" download>
@@ -14,16 +10,16 @@ include_scripts:
 
 <hr class="subtle" />
 <div id="post-preview-container">
-{% for post in site.posts %}
-<div class="post-preview-card" data-post-id="{{ post.id }}">
-  <a href="{{ post.url }}">
-    <div class="post-preview-bg">
-      <div class="post-preview-excerpt fade-out">{{ post.excerpt }}</div>
-    </div>
-    <span class="post-preview-title">{{ post.title }}</span>
-  </a>
-</div>
-<!-- post-preview-card -->
-{% endfor %}
+  {% for post in site.posts %}
+  <div class="post-preview-card" data-post-id="{{ post.id }}">
+    <a href="{{ post.url }}">
+      <div class="post-preview-bg">
+        <div class="post-preview-excerpt fade-out">{{ post.excerpt }}</div>
+      </div>
+      <span class="post-preview-title">{{ post.title }}</span>
+    </a>
+  </div>
+  <!-- post-preview-card -->
+  {% endfor %}
 </div>
 <!-- post-preview-container -->
