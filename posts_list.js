@@ -1,7 +1,8 @@
 let current_color = null;
 
 window.addEventListener("load", (load_event) => {
-    document.querySelectorAll(".post-preview-card").forEach((card) => {
+    const posts = document.querySelectorAll(".post-preview-card");
+    posts.forEach((card) => {
         card.addEventListener("mouseenter", (event) => {
             let card = event.target.closest(".post-preview-card");
             card.querySelector(".post-preview-excerpt").classList.remove(

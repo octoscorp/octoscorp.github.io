@@ -48,10 +48,10 @@ Turn this into a functional blog.
     - [ ] Refine by tags
     - [ ] Store preferences in localStorage
         - [x] ~~Is filtered RSS feed possible?~~ Not server-side, anyone after this can find a way to implement itself
-    - [ ] Pagination
-- [ ] Post page
-    - [ ] Display tags
-    - [ ] Link back to posts page
+    - [x] ~~Pagination~~ Decided this is unnecessary since the page will load all posts anyway. May become more relevant with more posts, but filtering by tags is the expected workaround
+- [x] Post page
+    - [x] ~~Display tags~~ These now link back to the posts page, with GET parameters ready to be acted on when tag filtering is implemented
+    - [x] Link back to posts page
 
 ## Planned Projects
 

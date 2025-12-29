@@ -267,3 +267,34 @@ textarea {
         }
     }
 }
+
+.top-nav-bar {
+    display: flex;
+    flex-direction: row;
+}
+
+.post-tag-container {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 3px;
+    flex-grow: 1;
+    margin-top: -5px;
+
+    .post-tag {
+        background-color: var(--theme-blue);
+        border-radius: 5px;
+        color: var(--default-color);
+        padding: 0 5px;
+        font-size: 80%;
+
+        &:hover {
+            background-color: var(--theme-red);
+        }
+
+        a {
+            color: var(--default-color);
+            display: block;
+            line-height: 28px;
+        }
+    }
+}
