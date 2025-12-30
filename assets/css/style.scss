@@ -84,6 +84,22 @@
     border: none;
 }
 
+.page-nav-link {
+    .icon, span {
+        vertical-align: middle;
+    }
+    span {
+        display: inline-block;
+        line-height: 10px;
+        margin-top: 5px;
+    }
+
+    &:hover, &:active {
+        text-decoration: none;
+        color: var(--theme-red);
+    }
+}
+
 hr.subtle {
     border: 2px dotted var(--subtle-darker-color);
     height: 0px;
@@ -235,11 +251,12 @@ textarea {
             // Styling
             font-style: italic;
             font-weight: bold;
+            padding: 0 2px;
             text-decoration: none;
             color: var(--moderate-lighter-color);
             opacity: 100;
-            transition: opacity 0.5s ease-in-out;
-            background-color: RGBA(from var(--theme-red) r g b / 0.7);
+            transition: opacity 0.3s ease-out;
+            background-color: RGBA(from var(--theme-red) r g b / 0.9);
             /* Overflow with ellipsis */
             overflow: hidden;
             line-clamp: 3;
@@ -279,22 +296,38 @@ textarea {
     gap: 3px;
     flex-grow: 1;
     margin-top: -5px;
+}
 
-    .post-tag {
-        background-color: var(--theme-blue);
-        border-radius: 5px;
+.post-tag {
+    background-color: var(--theme-blue);
+    border-radius: 5px;
+    color: var(--default-color);
+    padding: 0 5px;
+    font-size: 80%;
+    transition: background-color 0.3s ease-out;
+
+    &:hover {
+        background-color: var(--theme-red);
+    }
+
+    a {
         color: var(--default-color);
-        padding: 0 5px;
-        font-size: 80%;
+        display: block;
+        line-height: 28px;
+    }
+}
+
+.filter-container {
+    display: flex;
+    gap: 3px;
+    flex-grow: 1;
+    margin-top: -5px;
+
+    .filter-selected {
+        background-color: var(--theme-red);
 
         &:hover {
-            background-color: var(--theme-red);
-        }
-
-        a {
-            color: var(--default-color);
-            display: block;
-            line-height: 28px;
+            background-color: var(--theme-blue);
         }
     }
 }

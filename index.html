@@ -4,14 +4,16 @@ title: Posts
 include_scripts: ["/posts_list.js", "/utils/image-generator.js"]
 ---
 
-<a href="/feed.xml" style="float: right" download>
-  <img src="/assets/icons/rss.svg" class="icon" /> RSS Feed
-</a>
+<div id="filter-controls">
+  <span>Filter posts by tag:</span>
+  <div id="tag-filter-container" class="filter-container">
+  </div>
+</div>
 
 <hr class="subtle" />
 <div id="post-preview-container">
   {% for post in site.posts %}
-  <div class="post-preview-card" data-post-id="{{ post.id }}">
+  <div class="post-preview-card" data-post-id="{{ post.id }}" data-post-tags="{% for tag in post.tags %}{{ tag }},{% endfor %}">
     <a href="{{ post.url }}">
       <div class="post-preview-bg">
         <div class="post-preview-excerpt fade-out">{{ post.excerpt }}</div>
@@ -23,3 +25,9 @@ include_scripts: ["/posts_list.js", "/utils/image-generator.js"]
   {% endfor %}
 </div>
 <!-- post-preview-container -->
+
+<hr class="subtle" />
+
+<a href="/feed.xml" class="page-nav-link" download>
+  <img src="/assets/icons/rss.svg" class="icon" /> <span>RSS Feed</span>
+</a>

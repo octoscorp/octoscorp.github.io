@@ -44,14 +44,15 @@ Turn this into a functional blog.
     - [x] Write site conversion post
     - [ ] Write BotC post
     - [x] Display posts as cards
-    - [ ] Default image generation from ID (https://gist.github.com/blixt/f17b47c62508be59987b)
-    - [ ] Refine by tags
-    - [ ] Store preferences in localStorage
+    - [x] Default image generation from ID (https://gist.github.com/blixt/f17b47c62508be59987b)
+    - [x] Refine by tags
+    - [x] Store preferences in localStorage
         - [x] ~~Is filtered RSS feed possible?~~ Not server-side, anyone after this can find a way to implement itself
     - [x] ~~Pagination~~ Decided this is unnecessary since the page will load all posts anyway. May become more relevant with more posts, but filtering by tags is the expected workaround
 - [x] Post page
     - [x] ~~Display tags~~ These now link back to the posts page, with GET parameters ready to be acted on when tag filtering is implemented
     - [x] Link back to posts page
+- [ ] Make external links use target=_blank (and ideally noreferrer too)
 
 ## Planned Projects
 
