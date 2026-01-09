@@ -4,3 +4,4 @@ _layouts/narrow.html
 _layouts/wide.html
 styles/defaults.css
 utils/yaml.js
+.github/ISSUE_TEMPLATE/**

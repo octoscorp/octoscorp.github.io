@@ -40,7 +40,10 @@ function set_post_visibility(post, visible = true) {
 }
 
 function save_user_preference() {
-    localStorage.setItem("filter_preference", JSON.stringify(Array.from(current_search_params.entries())));
+    localStorage.setItem(
+        "filter_preference",
+        JSON.stringify(Array.from(current_search_params.entries())),
+    );
 }
 
 function load_user_preference() {
@@ -84,7 +87,7 @@ function filter_from_url(initial = false) {
     save_user_preference();
 }
 
-function tag_filter_clicked (event) {
+function tag_filter_clicked(event) {
     let tag = event.target.innerText;
     const tag_string = current_search_params.get("tags");
     let tags = tag_string === null ? [] : tag_string.split(",");
@@ -162,7 +165,7 @@ document.addEventListener("DOMContentLoaded", (load_event) => {
 
     // Initial filtering
     setup_filter_controls();
-    filter_from_url(initial = true);
+    filter_from_url((initial = true));
 });
 
 function pixel_thresholding(channel_values) {

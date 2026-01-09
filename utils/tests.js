@@ -20,7 +20,7 @@ const escape_substitutions = {
 function escape_html(string) {
     let output = string;
     for (banned of Object.keys(escape_substitutions)) {
-        output = output.replaceAll(key, escape_substitutions[key]);
+        output = output.replaceAll(banned, escape_substitutions[banned]);
     }
     return output;
 }

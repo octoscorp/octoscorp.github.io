@@ -85,7 +85,8 @@
 }
 
 .page-nav-link {
-    .icon, span {
+    .icon,
+    span {
         vertical-align: middle;
     }
     span {
@@ -94,7 +95,8 @@
         margin-top: 5px;
     }
 
-    &:hover, &:active {
+    &:hover,
+    &:active {
         text-decoration: none;
         color: var(--theme-red);
     }
@@ -106,6 +108,39 @@ hr.subtle {
     margin: 5px auto;
     width: 70%;
     background: none;
+}
+
+a.no-underline {
+    text-decoration: none;
+    &:hover,
+    &:link,
+    &:visited,
+    &:active {
+        text-decoration: none;
+    }
+}
+
+img {
+    display: block;
+    margin: 0px auto;
+}
+
+button,
+input[type="file"]::file-selector-button {
+    background-color: var(--default-color);
+    border: 1px solid var(--moderate-darker-color);
+    border-radius: 3px;
+    min-height: 24px;
+
+    &:hover {
+        background-color: var(--subtle-darker-color);
+    }
+}
+
+button .icon,
+button span {
+    display: inline;
+    vertical-align: middle;
 }
 
 /* Applied to body when modal is showing */
@@ -148,6 +183,21 @@ hr.subtle {
 
 .modal-active {
     display: block;
+}
+
+.modal-close-button {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    padding: 0;
+    line-height: 0;
+    border: 0;
+    border-radius: 0;
+    background-color: inherit;
+
+    &:hover {
+        background-color: var(--subtle-darker-color);
+    }
 }
 
 input,

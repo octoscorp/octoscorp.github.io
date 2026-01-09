@@ -7,8 +7,10 @@ layout: default
   <header>
     <div class="ribbon-outer">
       <div class="ribbon-inner">
-        <h1>{{ page.title | default: site.title }}</h1>
-        <h2>{{ page.description | default: site.description }}</h2>
+        <a class="no-underline" href="/">
+          <h1>{{ page.title | default: site.title }}</h1>
+          <h2>{{ page.description | default: site.description }}</h2>
+        </a>
       </div>
       <span class="left-tail"></span>
       <span class="right-tail"></span>

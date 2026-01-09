@@ -15,11 +15,23 @@ Finishing up the conversion from React to Jekyll. I had some interesting CSS tra
 
 ### Add BotC Script tool
 
+- [ ] Road to MVP - fixes
+    - [ ] Issues deleting character
+    - [ ] Saving edited character occasionally took a long delay?
+    - [ ] Create/Edit Modal
+        - [x] Move close button to top right
+        - [x] Button icon behaviour
+        - [x] Default button styling
+        - [ ] Night priority overwrites to 1 weirdly
+        - [ ] Loading from character data (setup doesn't - is this because it's not in data?)
+    - [ ] Allow access to script editing page without importing
+    - [ ] Load correct images (seems to load last in list)
+    - [x] Write how-to page
 - [ ] Stretch goals / "later me" problems
     - [ ] Allow character editor to load official characters from ID, and "reset" to that character as requested
     - [ ] Edit author, script name
     - [ ] Export: don't include night orders if they are default
-    - [ ] Data: include default image URLs
+    - [x] Data: include default image URLs
     - [ ] Homebrew: support `jinx` and `special` attributes
         - [ ] Display (jinxes only)
         - [ ] Validation
@@ -52,7 +64,7 @@ Turn this into a functional blog.
 - [x] Post page
     - [x] ~~Display tags~~ These now link back to the posts page, with GET parameters ready to be acted on when tag filtering is implemented
     - [x] Link back to posts page
-- [ ] Make external links use target=_blank (and ideally noreferrer too)
+- [ ] Make external links use target=\_blank (and ideally noreferrer too)
 
 ## Planned Projects
 

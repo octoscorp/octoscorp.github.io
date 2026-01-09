@@ -1,20 +1,21 @@
 ---
 layout: narrow
 ---
+
 <div class="top-nav-bar">
-<a class="page-nav-link" href="/">← Home</a>
-<div class="post-tag-container">
-  {% for tag in page.tags %}
+  <a class="page-nav-link" href="/">← Home</a>
+  <div class="post-tag-container">
+    {% for tag in page.tags %}
     <div class="post-tag">
       <a href="/?tags={{ tag }}">{{ tag }}</a>
     </div>
-  {% endfor %}
-</div>
-<!-- post-tag-container -->
+    {% endfor %}
+  </div>
+  <!-- post-tag-container -->
 </div>
 <!-- top-nav-bar -->
 
-<hr class="subtle"/>
+<hr class="subtle" />
 
 {{ content }}
 
