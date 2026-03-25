@@ -1,0 +1,13 @@
+#game-area {
+    display: grid;
+    --cell-size: 20px;
+    margin: 0px auto;
+}
+
+.minesweeper-cell {
+    min-width: var(--cell-size);
+    min-height: var(--cell-size);
+    display: block;
+    border: 1px solid gray;
+    box-sizing: border-box;
+}
