@@ -39,10 +39,10 @@ The official script tool at script.bloodontheclocktower.com has (as far as I'm c
 
 Turn this into a functional blog.
 
-- [ ] Posts page
+- [x] Posts page
     - [x] Determine whether this needs to be separate from the home page - home page is now posts.
     - [x] Write site conversion post
-    - [ ] Write BotC post
+    - [x] Write BotC post
     - [x] Display posts as cards
     - [x] Default image generation from ID (https://gist.github.com/blixt/f17b47c62508be59987b)
     - [x] Refine by tags
@@ -80,6 +80,17 @@ Informative links:
 
 - GitHub REST API https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api?apiVersion=2022-11-28&tool=javascript
 - Octokit (interaction tool) https://github.com/octokit/authentication-strategies.js/#readme
+
+### Minesweeper Variants
+
+- Impossible to lose - when a mine is clicked, it's moved to an unrevealed square and numbers are updated.
+    - Edge case - if new location is adjacent to revealed square, the revealed square needs to be updated.
+    - Win condition still based on mine/revealed count
+- Boomdandy - the first time a mine is clicked, the game reduces to a 4x4 with 4 mines, and the player has 10 seconds to complete it.
+    - Potentially provide more information?
+- SlimeSweeper - sticky mines, e.g. clicking beside them drags them to the next click location
+- ☭
+    - There's not even an idea here, I just want to use it
 
 ## Running Locally
 

@@ -1,13 +1,43 @@
+#minesweeper-wrapper {
+    margin: auto;
+    border: 1px solid gray;
+    width: 320px;
+    --cell-size: 20px;
+}
+
+#controls-box {
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+}
+
+.minesweeper-display {
+    color: #ff0000;
+    background-color: #333;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: large;
+    max-width: 50px;
+    letter-spacing: 5px;
+    display: grid;
+    place-items: center;
+    padding: 3px 0 0 5px;
+}
+
 #game-area {
     display: grid;
-    --cell-size: 20px;
     margin: 0px auto;
 }
 
 .minesweeper-cell {
     min-width: var(--cell-size);
     min-height: var(--cell-size);
-    display: block;
     border: 1px solid gray;
     box-sizing: border-box;
+    user-select: none;
+    font-family: Helvetica, sans-serif;
+    /* Make text behave (under-line space) */
+    line-height: 0;
+    display: grid;
+    place-items: center;
+    padding-top: 3px;
 }
