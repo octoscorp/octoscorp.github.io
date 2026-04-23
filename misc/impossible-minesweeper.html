@@ -4,15 +4,22 @@ title: "Minesweeper: Impossible Edition"
 include_scripts: ["impossible-minesweeper.js"]
 include_styles: ["minesweeper.css"]
 ---
+
 <div id="minesweeper-wrapper">
-<div id="controls-box">
+  <div id="controls-box">
     <div id="mine-count" class="minesweeper-display">000</div>
     <div id="button-container">
-        <button id="minesweeper-button" class="minesweeper-main-button" onclick="initialiseGame()">Go!</button>
+      <button
+        id="minesweeper-button"
+        class="minesweeper-main-button"
+        onclick="initialiseGame()">
+        Go!
+      </button>
     </div>
     <div id="timer-display" class="minesweeper-display">000</div>
-</div><!-- controls-box -->
-<div id="game-area">
-
-</div><!-- game-area -->
-</div><!-- minesweeper-wrapper -->
+  </div>
+  <!-- controls-box -->
+  <div id="game-area"></div>
+  <!-- game-area -->
+</div>
+<!-- minesweeper-wrapper -->

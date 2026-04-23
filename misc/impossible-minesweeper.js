@@ -1,4 +1,4 @@
-const num_squares = {x: 16, y: 16};
+const num_squares = { x: 16, y: 16 };
 const num_mines = 40;
 
 const FLAG = "⚑";
@@ -24,8 +24,7 @@ class Cell {
     }
 
     equals(cell) {
-        return this.x === cell.x &&
-               this.y === cell.y;
+        return this.x === cell.x && this.y === cell.y;
     }
 
     display(value) {
@@ -33,14 +32,16 @@ class Cell {
     }
 
     addClass(className) {
-        document.getElementById(`cell_${this.x}_${this.y}`).classList.add(className);
+        document
+            .getElementById(`cell_${this.x}_${this.y}`)
+            .classList.add(className);
     }
 
     getNeighbours() {
         let output = [];
-        let x = {min: this.x, max: this.x};
-        let y = {min: this.y, max: this.y};
-    
+        let x = { min: this.x, max: this.x };
+        let y = { min: this.y, max: this.y };
+
         if (this.x > 0) {
             x.min -= 1;
         }
@@ -83,8 +84,8 @@ class Field {
         }
 
         // Update with mines
-        locations.forEach(element => {
-            this.mine_at[element.x + (num_squares.x * element.y)] = true;
+        locations.forEach((element) => {
+            this.mine_at[element.x + num_squares.x * element.y] = true;
         });
     }
 
@@ -97,19 +98,19 @@ class Field {
     }
 
     has_mine(cell) {
-        return this.mine_at[cell.x + (num_squares.x * cell.y)];
+        return this.mine_at[cell.x + num_squares.x * cell.y];
     }
 
     has_flag(cell) {
-        return this.flag_at[cell.x + (num_squares.x * cell.y)];
+        return this.flag_at[cell.x + num_squares.x * cell.y];
     }
 
     is_revealed(cell) {
-        return this.revealed[cell.x + (num_squares.x * cell.y)];
+        return this.revealed[cell.x + num_squares.x * cell.y];
     }
 
     reveal(cell) {
-        this.revealed[cell.x + (num_squares.x * cell.y)] = true;
+        this.revealed[cell.x + num_squares.x * cell.y] = true;
         this.total_revealed += 1;
         cell.addClass("minesweeper-cell-revealed");
     }
@@ -118,7 +119,7 @@ class Field {
         if (this.is_revealed(cell)) {
             return false;
         }
-        let index = cell.x + (num_squares.x * cell.y);
+        let index = cell.x + num_squares.x * cell.y;
         this.flag_at[index] = !this.flag_at[index];
         this.flags_placed += this.flag_at[index] ? 1 : -1;
         updateMineCount(num_mines - this.flags_placed);
@@ -129,12 +130,14 @@ class Field {
         // Lazily written, includes current cell
         // - Safeguard by not running this where there is a mine
         let output = 0;
-        
-        cell.getNeighbours().forEach(neighbour => {
-            // This check could be done nicer with a method pointer, somehow 
+
+        cell.getNeighbours().forEach((neighbour) => {
+            // This check could be done nicer with a method pointer, somehow
             //  it only takes a shallow copy and throws an error though.
-            if (type == "mine" && this.has_mine(neighbour) ||
-                type == "flag" && this.has_flag(neighbour)) {
+            if (
+                (type == "mine" && this.has_mine(neighbour)) ||
+                (type == "flag" && this.has_flag(neighbour))
+            ) {
                 output += 1;
             }
         });
@@ -169,7 +172,7 @@ function initialiseGame() {
     for (let i = 0; i < num_squares.x; i++) {
         for (let j = 0; j < num_squares.y; j++) {
             let cell = document.createElement("div");
-            cell.id = `cell_${i}_${j}`
+            cell.id = `cell_${i}_${j}`;
             cell.classList.add("minesweeper-cell");
             cell.innerText = UNREVEALED;
 
@@ -195,7 +198,9 @@ function initialiseGame() {
                 }
             });
             // Stop the menu showing up
-            cell.addEventListener("contextmenu", (e) => {e.preventDefault();});
+            cell.addEventListener("contextmenu", (e) => {
+                e.preventDefault();
+            });
         }
     }
 
@@ -244,7 +249,7 @@ function placeMines(cell) {
 function timerStep() {
     let disp = document.getElementById("timer-display");
     let val = parseInt(disp.innerText) + 1;
-    disp.innerText = String(val).padStart(3, "0")
+    disp.innerText = String(val).padStart(3, "0");
 }
 
 function timerReset() {
@@ -283,7 +288,7 @@ function revealCell(cell) {
     cell.display(num);
     mine_field.reveal(cell);
     if (num === EMPTY) {
-        cell.getNeighbours().forEach(neighbour => {
+        cell.getNeighbours().forEach((neighbour) => {
             if (mine_field.has_flag(neighbour)) {
                 toggleFlag(neighbour);
             }
@@ -299,11 +304,14 @@ function revealCell(cell) {
 }
 
 function chord(cell) {
-    if (!mine_field.is_revealed(cell) || 
-        mine_field.num_adjacent(cell, "mine") !== mine_field.num_adjacent(cell, "flag")) {
+    if (
+        !mine_field.is_revealed(cell) ||
+        mine_field.num_adjacent(cell, "mine") !==
+            mine_field.num_adjacent(cell, "flag")
+    ) {
         return;
     }
-    cell.getNeighbours().forEach(neighbour => {
+    cell.getNeighbours().forEach((neighbour) => {
         if (mine_field.has_flag(neighbour)) {
             return;
         }
@@ -316,7 +324,10 @@ function processCellClick(clicked) {
         return;
     }
 
-    let cell = new Cell(parseInt(clicked.dataset.x), parseInt(clicked.dataset.y));
+    let cell = new Cell(
+        parseInt(clicked.dataset.x),
+        parseInt(clicked.dataset.y),
+    );
 
     if (mine_field === null) {
         placeMines(cell);
@@ -359,7 +370,7 @@ function gameOver(won) {
             if (mine_field.has_mine(cell)) {
                 cell.display(MINE);
                 if (won) {
-                    cell.display(FLAG)
+                    cell.display(FLAG);
                 }
             }
         }
