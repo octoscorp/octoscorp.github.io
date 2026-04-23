@@ -2,12 +2,22 @@
     margin: auto;
     border: 1px solid gray;
     width: 320px;
-    --cell-size: 20px;
+    --cell-size: 24px;
+    --unrevealed-color: #f6eee4;
 }
 
 #controls-box {
     display: grid;
     grid-template-columns: 1fr 5fr 1fr;
+}
+
+.minesweeper-main-button {
+    font-size: large;
+    padding: 3px;
+    margin: 2px;
+    border-radius: 0;
+    border: 0;
+    box-shadow: inset 2px 2px 2px 0 var(--subtle-darker-color), inset -2px -2px 2px 0 var(--text-color);
 }
 
 .minesweeper-display {
@@ -35,9 +45,14 @@
     box-sizing: border-box;
     user-select: none;
     font-family: Helvetica, sans-serif;
+    background-color: var(--unrevealed-color);
     /* Make text behave (under-line space) */
     line-height: 0;
     display: grid;
     place-items: center;
     padding-top: 3px;
+}
+
+.minesweeper-cell-revealed {
+    background-color: var(--default-color) !important;
 }

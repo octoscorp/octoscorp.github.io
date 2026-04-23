@@ -4,6 +4,7 @@ const num_mines = 40;
 const FLAG = "⚑";
 const MINE = "✸";
 const UNREVEALED = " ";
+const EMPTY = "·";
 const FACES = {
     happy: "🙂",
     cool: "😎",
@@ -11,6 +12,10 @@ const FACES = {
 };
 
 let mine_field = null;
+let game_active = false;
+
+let lmb_down = false;
+let rmb_down = false;
 
 class Cell {
     constructor(x, y) {
@@ -25,6 +30,10 @@ class Cell {
 
     display(value) {
         document.getElementById(`cell_${this.x}_${this.y}`).innerText = value;
+    }
+
+    addClass(className) {
+        document.getElementById(`cell_${this.x}_${this.y}`).classList.add(className);
     }
 
     getNeighbours() {
@@ -102,6 +111,7 @@ class Field {
     reveal(cell) {
         this.revealed[cell.x + (num_squares.x * cell.y)] = true;
         this.total_revealed += 1;
+        cell.addClass("minesweeper-cell-revealed");
     }
 
     toggle_flag(cell) {
@@ -115,13 +125,16 @@ class Field {
         return true;
     }
 
-    num_adjacent(cell) {
+    num_adjacent(cell, type) {
         // Lazily written, includes current cell
         // - Safeguard by not running this where there is a mine
         let output = 0;
         
         cell.getNeighbours().forEach(neighbour => {
-            if (this.has_mine(neighbour)) {
+            // This check could be done nicer with a method pointer, somehow 
+            //  it only takes a shallow copy and throws an error though.
+            if (type == "mine" && this.has_mine(neighbour) ||
+                type == "flag" && this.has_flag(neighbour)) {
                 output += 1;
             }
         });
@@ -140,6 +153,11 @@ function initialiseGame() {
 
     // Clear any existing content
     area.innerHTML = "";
+    timerReset();
+    if (mine_field !== null) {
+        mine_field.timer_stop();
+        mine_field = null;
+    }
 
     // Format area
     area.style.gridTemplateColumns = `repeat(${num_squares.y}, var(--cell-size))`;
@@ -161,16 +179,27 @@ function initialiseGame() {
             area.appendChild(cell);
 
             // Attach JS behaviour to cell
-            cell.addEventListener("click", (e) => {
-                // Event embeds some button data, do we really care?
-                processCellClick(e.target, "left");
+            cell.addEventListener("mousedown", (e) => {
+                if (e.button == 0) {
+                    lmb_down = true;
+                } else if (e.button == 2) {
+                    rmb_down = true;
+                }
+                processCellClick(e.target);
             });
-            cell.addEventListener("contextmenu", (e) => {
-                e.preventDefault();
-                processCellClick(e.target, "right");
+            cell.addEventListener("mouseup", (e) => {
+                if (e.button == 0) {
+                    lmb_down = false;
+                } else if (e.button == 2) {
+                    rmb_down = false;
+                }
             });
+            // Stop the menu showing up
+            cell.addEventListener("contextmenu", (e) => {e.preventDefault();});
         }
     }
+
+    game_active = true;
 }
 
 function updateButton(face) {
@@ -179,7 +208,12 @@ function updateButton(face) {
 
 function updateMineCount(count) {
     let mine_counter = document.getElementById("mine-count");
-    mine_counter.innerText = String(count).padStart(3, "0");
+    if (count < 0) {
+        // Prevent "0-1" nonsense for negative numbers
+        mine_counter.innerText = `-${String(-count).padStart(2, "0")}`;
+    } else {
+        mine_counter.innerText = String(count).padStart(3, "0");
+    }
 }
 
 // cell is the one location where mine placement is disallowed
@@ -213,6 +247,11 @@ function timerStep() {
     disp.innerText = String(val).padStart(3, "0")
 }
 
+function timerReset() {
+    let disp = document.getElementById("timer-display");
+    disp.innerText = "000";
+}
+
 function toggleFlag(cell) {
     let success = mine_field.toggle_flag(cell);
     if (!success) {
@@ -230,32 +269,53 @@ function clickOn(cell) {
     if (mine_field.has_flag(cell)) {
         return;
     }
-    if (mine_field.has_mine(cell)) {
-        mineClicked();
-        return;
-    }
-    
+
     // Update cell
     revealCell(cell);
-
-    checkVictory();
 }
 
 function revealCell(cell) {
     if (mine_field.is_revealed(cell)) {
         return;
     }
-    let num = mine_field.num_adjacent(cell);
+    let num = mine_field.num_adjacent(cell, "mine");
+    num = num === 0 ? EMPTY : num;
     cell.display(num);
     mine_field.reveal(cell);
-    if (num === 0) {
+    if (num === EMPTY) {
         cell.getNeighbours().forEach(neighbour => {
+            if (mine_field.has_flag(neighbour)) {
+                toggleFlag(neighbour);
+            }
             revealCell(neighbour);
         });
     }
+
+    if (mine_field.has_mine(cell)) {
+        mineClicked();
+        return;
+    }
+    checkVictory();
 }
 
-function processCellClick(clicked, type) {
+function chord(cell) {
+    if (!mine_field.is_revealed(cell) || 
+        mine_field.num_adjacent(cell, "mine") !== mine_field.num_adjacent(cell, "flag")) {
+        return;
+    }
+    cell.getNeighbours().forEach(neighbour => {
+        if (mine_field.has_flag(neighbour)) {
+            return;
+        }
+        revealCell(neighbour);
+    });
+}
+
+function processCellClick(clicked) {
+    if (!game_active) {
+        return;
+    }
+
     let cell = new Cell(parseInt(clicked.dataset.x), parseInt(clicked.dataset.y));
 
     if (mine_field === null) {
@@ -263,15 +323,12 @@ function processCellClick(clicked, type) {
     }
 
     // Handle L/R click
-    switch (type) {
-        case "left":
-            clickOn(cell);
-            break;
-        case "right":
-            toggleFlag(cell);
-            break;
-        default:
-            return;
+    if (lmb_down && rmb_down) {
+        chord(cell);
+    } else if (lmb_down) {
+        clickOn(cell);
+    } else if (rmb_down) {
+        toggleFlag(cell);
     }
 }
 
@@ -289,6 +346,7 @@ function checkVictory() {
 function gameOver(won) {
     mine_field.timer_stop();
     // Prevent further cell-clicking
+    game_active = false;
     // Reveal un-flagged mines and incorrect flags
     for (let i = 0; i < num_squares.x; i++) {
         for (let j = 0; j < num_squares.y; j++) {
