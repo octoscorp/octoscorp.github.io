@@ -30,7 +30,7 @@ async function _import_YAML_parser() {
     while (window.YAML == undefined && counter < 1500) {
         counter++;
         await delay(20);
-    };
+    }
 }
 
 async function _process_YAML(text) {
