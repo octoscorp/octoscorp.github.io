@@ -161,6 +161,7 @@ include_styles: ["botc-script.css"]
           <label for="image-input">Image:</label>
           <div id="image-input-container">
             <img
+              id="image-url-warning"
               class="icon"
               src="/assets/icons/warning.svg"
               title="A malicious URL could track your IP address via this" />
@@ -170,7 +171,6 @@ include_styles: ["botc-script.css"]
               name="image"
               placeholder="Image URL" />
             <span
-              id="image-input-response-label"
               class="http-response success-bg hidden">
               GET
             </span>

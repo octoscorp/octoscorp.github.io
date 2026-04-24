@@ -228,6 +228,17 @@ function validate_script(script) {
     return script_object;
 }
 
+function fill_expanding_inputs(char) {
+    // Those that create a new input when a new item is added
+    // Images
+    let current_image_input = document.getElementById("image-input");
+    // if (Array.isArray(char.image)) {
+    //     for (let i = 1; i < char.image.length; i++) {
+    //         char.image[i];
+    //     }
+    // }
+}
+
 function set_modal_data(char) {
     // Populate the modal's fields with the required data
     if (char !== null) {
@@ -237,9 +248,13 @@ function set_modal_data(char) {
                 continue;
             }
             input.value = char[key];
+            if (Array.isArray(char[key])) {
+                input.value = char[key][0];
+            }
             input.dispatchEvent(new Event("change", { bubbles: true }));
             input.dispatchEvent(new Event("input", { bubbles: true }));
         }
+        fill_expanding_inputs(char);
     } else {
         // Set defaults
         for (key of string_inputs) {
@@ -721,9 +736,65 @@ function update_number_reminders(event) {
     }
 }
 
-async function check_image_URL_status() {
-    const requestURL = document.getElementById("image-input").value;
-    const outputDisplay = document.getElementById("image-input-response-label");
+function update_number_images(event) {
+    const container = event.target.parentElement;
+    const warning_icon = document.getElementById("image-url-warning");
+    let image_inputs = container.querySelectorAll("input");
+    let empty = [];
+
+    for (input of image_inputs) {
+        if (input.value === null || input.value === "") {
+            // Noting that this triples the numbers used in array length calcs
+            empty.push(input.previousSibling, input, input.nextElementSibling);
+        }
+    }
+
+    if (empty.length === 0) {
+        // Simple case - add an input
+        if (empty.length >= 9) {
+            return;
+        }
+        let new_icon = warning_icon.cloneNode();
+        container.appendChild(new_icon);
+
+        let new_input = document.createElement("input");
+        new_input.type = "text";
+        new_input.name = "image";
+        new_input.placeholder = "Additional Image URL";
+        container.appendChild(new_input);
+        new_input.addEventListener("input", image_input_handle_input);
+        new_input.addEventListener("change", image_input_handle_change);
+
+        let new_status = document.createElement("span");
+        new_status.classList.add("http-response", "success-bg", "hidden");
+        new_status.innerText = "GET";
+        container.appendChild(new_status);
+
+        return;
+    }
+
+    if (empty.length > 3) {
+        // Remove unnecessary empties (avoid the first set in case it's the first child)
+        for (let i = 4; i < empty.length; i++) {
+            empty[i].remove();
+        }
+        // Update list
+        image_inputs = container.querySelectorAll("input");
+    }
+
+    // Bubble up values to make sure the empty input is last
+    for (let i = 0; i < image_inputs.length - 1; i++) {
+        let input = image_inputs[i];
+        if (input.value === null || input.value === "") {
+            input.value = image_inputs[i + 1].value;
+            image_inputs[i + 1].value = null;
+        }
+    }
+}
+
+async function check_image_URL_status(input_element) {
+    const requestURL = input_element.value;
+    const outputDisplay = input_element.nextElementSibling;
 
     if (requestURL === null || requestURL === "" || !confirmRequestsAllowed()) {
         outputDisplay.classList.add("hidden");
@@ -742,7 +813,7 @@ async function check_image_URL_status() {
     if (response === null || response.status === 0) {
         display = "FAIL";
         message =
-            "Request failed for an unknown reason - check the console (F12) if you need to know.";
+            "Request failed for unknown reason (it may just be hidden to scripts).";
     } else {
         if (response.redirected) {
             display = "3xx";
@@ -786,6 +857,21 @@ function delete_character() {
     closeModal("homebrew-char-modal");
 }
 
+function image_input_handle_input(event) {
+    event.target.classList.add("warning-border");
+    if (
+        event.target.value === null ||
+        event.target.value.length === 0
+    ) {
+        event.target.classList.remove("warning-border");
+    }
+}
+
+function image_input_handle_change(event) {
+    update_number_images(event);
+    check_image_URL_status(event.target);
+}
+
 function register_input_callbacks() {
     // File loading changes
     document
@@ -821,19 +907,11 @@ function register_input_callbacks() {
 
     document
         .getElementById("image-input")
-        .addEventListener("input", (event) => {
-            event.target.classList.add("warning-border");
-            if (
-                event.target.value === null ||
-                event.target.value.length === 0
-            ) {
-                event.target.classList.remove("warning-border");
-            }
-        });
+        .addEventListener("input", image_input_handle_input);
 
     document
         .getElementById("image-input")
-        .addEventListener("change", check_image_URL_status);
+        .addEventListener("change", image_input_handle_change);
 
     document
         .getElementById("firstNightReminder-input")

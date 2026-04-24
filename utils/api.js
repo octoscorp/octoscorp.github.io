@@ -45,8 +45,9 @@ async function getURL(
     process_as = api.UNDEFINED,
 ) {
     let redir_str = follow_redirects ? "follow" : "manual";
+    let response;
     try {
-        let response = await fetch(apiURL, {
+        response = await fetch(apiURL, {
             method: "GET",
             redirect: redir_str,
         });
