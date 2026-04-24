@@ -489,12 +489,15 @@ function submit_json() {
     let json_err = document.querySelectorAll(
         '[data-input-error-for="json-input"]',
     )[0];
+    let script_data;
+    let script_object;
     try {
-        if (json_input.value.length === 0) {
-            throw SyntaxError("No JSON to parse!");
+        if (json_input.value.length !== 0) {
+            script_data = JSON.parse(json_input.value);
+            script_object = validate_script(script_data);
+        } else {
+            script_object = new Script();
         }
-        let script_data = JSON.parse(json_input.value);
-        let script_object = validate_script(script_data);
         load_script(script_object);
     } catch (error) {
         console.error(error);

@@ -296,6 +296,9 @@ function get_image_URL(char_id) {
     if (image == null) {
         return `/assets/icons/${get_team(char_id)}_default.svg`;
     }
+    if (Array.isArray(image)) {
+        return image[0];
+    }
     return image;
 }
 

@@ -159,8 +159,13 @@ document.addEventListener("DOMContentLoaded", (load_event) => {
             10,
             (pixel_callback = pixel_thresholding),
         );
+
+        // Where an assigned image would be
+        let assigned_location =
+            `/assets/images/${post_id.replaceAll('/', '_').substring(1)}.png`;
+
         card.querySelector(".post-preview-bg").style.backgroundImage =
-            `url(/assets/images/${post_id}.png), url(${gen_url}), url(/assets/images/post-preview-default.png)`;
+            `url(${assigned_location}), url(${gen_url}), url(/assets/images/post-preview-default.png)`;
     });
 
     // Initial filtering

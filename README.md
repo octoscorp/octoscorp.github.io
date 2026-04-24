@@ -14,6 +14,11 @@ A page for my own website, using the Jekyll framework and hosted on GitHub pages
 Finishing up the conversion from React to Jekyll. I had some interesting CSS transitions on my old site, and I'm sure that the new site would benefit from either the principles or the transitions themselves.
 
 ### Add BotC Script tool
+- [ ] Multiple image support
+- [ ] Allow character editor to load official characters from ID, and "reset" to that character as requested
+- [ ] Edit author, script name
+- [ ] Export: don't include night orders if they are default
+- [ ] Rework image display to account for transparent space in the standard designs
 
 - [ ] Road to MVP - fixes
     - [ ] Issues deleting character
@@ -28,22 +33,16 @@ Finishing up the conversion from React to Jekyll. I had some interesting CSS tra
     - [ ] Load correct images (seems to load last in list)
     - [x] Write how-to page
 - [ ] Stretch goals / "later me" problems
-    - [ ] Allow character editor to load official characters from ID, and "reset" to that character as requested
-    - [ ] Edit author, script name
-    - [ ] Export: don't include night orders if they are default
-    - [x] Data: include default image URLs
+    - [ ] Script metadata (logo, hideTitle, background, almanac, bootlegger)
+        - [ ] Display
+        - [ ] Validation (check night order contains dusk/dawn)
+        - [ ] Input
     - [ ] Homebrew: support `jinx` and `special` attributes
         - [ ] Display (jinxes only)
         - [ ] Validation
         - [ ] Input
     - [ ] Loric/Fabled support
-    - [ ] Recommended travellers
-    - [ ] Utils: Give YAML parser a "loaded" event to allow dependents to wait for it
-    - [ ] Script metadata (logo, hideTitle, background, almanac, bootlegger)
-        - [ ] Display
-        - [ ] Validation (check night order contains dusk/dawn)
-        - [ ] Input
-    - [ ] Utils: Create tests util
+    - [ ] Recommended travellers support
 
 The official script tool at script.bloodontheclocktower.com has (as far as I'm concerned) 1 shortcoming: the night order cannot be modified unless the user has already modified the night order and added it to the script JSON. And while I'm implementing a tool to do that, I might as well combine the tool with the reason I started messing with the night order at all - homebrew characters. Following [the official schema](https://github.com/ThePandemoniumInstitute/botc-release/blob/main/script-schema.json), we can apply our own validation and make our own version of bloodstar.xyz - but with the purpose of exporting characters as JSON within a script.
 

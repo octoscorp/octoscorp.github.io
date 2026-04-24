@@ -25,8 +25,12 @@ async function _import_YAML_parser() {
     parser_script.src = "/utils/yaml.js";
     script_location.parentElement.insertBefore(parser_script, script_location);
     YAML_parser_loaded = true;
-    // Need to delay to allow it to load
-    await delay(150);
+    // Usually takes a few fractions of a second to resolve loading
+    let counter = 0;
+    while (window.YAML == undefined && counter < 1500) {
+        counter++;
+        await delay(20);
+    };
 }
 
 async function _process_YAML(text) {
