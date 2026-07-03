@@ -35,7 +35,10 @@ class ScriptMetaData {
 
 class Script {
     // Instance of ScriptMetaData
-    _meta;
+    _meta = {
+        "script_name": "Untitled Script",
+        "author": "Anon",
+    };
     official_chars = new Array();
     homebrew_chars = new Array();
 
@@ -71,9 +74,13 @@ function load_JSON_to_textarea(file_input) {
 }
 
 function validate_meta_object(meta) {
-    // Already checked for existence of id and name, and we know id == _meta
+    // Already checked for existence of id and we know id == _meta
     let meta_obj = new ScriptMetaData();
 
+    assert(
+        meta.hasOwnProperty("name"),
+        '_meta entry must have a "name" field.',
+    );
     assert(
         meta["name"].length <= 50,
         "Script name cannot exceed 50 characters",
@@ -123,12 +130,26 @@ function convert_to_char_object(data_obj, data_type = "JSON") {
     let char_obj = new Character();
     switch (data_type) {
         case "JSON":
-            // Expect compliant object
-            for (key of Object.keys(char_obj)) {
-                if (data_obj.hasOwnProperty(key)) {
+            let keys = Object.keys(data_obj);
+
+            // Generally expect compliant object
+            for (key of keys) {
+                if (char_obj.hasOwnProperty(key)) {
                     char_obj[key] = data_obj[key];
                 }
             }
+
+            // Allow object with just "id", as some tools construct this
+            if (keys.length === 1 && keys[0] === "id") {
+                // The same tools can also include '_' characters in IDs
+                let id = data_obj[keys[0]];
+                assert(
+                    is_official_character(id),
+                    "Did not recognise " + id + " as an official character ID",
+                );
+                char_obj = get_official_character_object(id);
+            }
+
             break;
         case "FORM":
             // Assumes name="key" is set on the form
@@ -203,10 +224,6 @@ function validate_script(script) {
                     element.hasOwnProperty("id"),
                     'Object entries must have an "id" field.',
                 );
-                assert(
-                    element.hasOwnProperty("name"),
-                    'Object entries must have a "name" field.',
-                );
                 if (element["id"] == "_meta") {
                     script_object._meta = validate_meta_object(element);
                 } else {
@@ -225,23 +242,54 @@ function validate_script(script) {
                 );
         }
     });
+    // Possible to get here without a _meta
+    if (script_object._meta === undefined || script_object._meta === null) {
+        script_object._meta = new ScriptMetaData();
+        script_object._meta["name"] = "Script Name";
+        script_object._meta["author"] = "Author";
+    }
     return script_object;
+}
+
+function clear_expanding_inputs() {
+    // Images
+    let image_inputs = document.querySelectorAll('input[name="image"]');
+    const first_image_input = document.getElementById("image-input");
+    image_inputs.forEach((input) => {
+        input.value = "";
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    // Reminders
+    // let reminder_inputs = document.getElementById("reminders-input-container")
+    //     .querySelectorAll("textarea");
+    // reminder_inputs = reminder_inputs.concat(document
+    //     .getElementById("globalReminders-input-container")
+    //     .querySelectorAll("textarea"));
+    // for 
 }
 
 function fill_expanding_inputs(char) {
     // Those that create a new input when a new item is added
     // Images
     let current_image_input = document.getElementById("image-input");
-    // if (Array.isArray(char.image)) {
-    //     for (let i = 1; i < char.image.length; i++) {
-    //         char.image[i];
-    //     }
-    // }
+    if (Array.isArray(char.image)) {
+        for (let i = 1; i < char.image.length; i++) {
+            let inputs = current_image_input.parentElement
+                .querySelectorAll("input");
+            current_image_input = inputs[inputs.length - 1];
+            current_image_input.value = char.image[i];
+            // JS changes don't trigger these natively
+            current_image_input.dispatchEvent(new Event("change", { bubbles: true }));
+            current_image_input.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+    }
 }
 
 function set_modal_data(char) {
     // Populate the modal's fields with the required data
     if (char !== null) {
+        clear_expanding_inputs();
         for (key of Object.keys(char)) {
             let input = document.getElementById(`${key}-input`);
             if (input === null) {
@@ -416,7 +464,8 @@ function get_default_night_order(night) {
 function fill_night_order(night) {
     let order = loaded_script._meta[night];
     let default_order = get_default_night_order(night);
-    if (order === null) {
+    if (order === undefined || order === null ||
+        (Array.isArray(order) && order.length == 0)) {
         order = default_order;
     }
 
@@ -424,8 +473,8 @@ function fill_night_order(night) {
     if (order.length !== default_order.length) {
         // Append before dawn
         let dawn_set = [];
-        while (dawn_set[-1] !== "dawn") {
-            dawn_set.push(order.pop());
+        while (dawn_set[dawn_set.length - 1] !== "dawn") {
+            dawn_set.push(order.shift());
         }
         for (reminder of default_order) {
             if (!order.includes(reminder)) {
