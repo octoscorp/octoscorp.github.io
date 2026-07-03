@@ -161,8 +161,7 @@ document.addEventListener("DOMContentLoaded", (load_event) => {
         );
 
         // Where an assigned image would be
-        let assigned_location =
-            `/assets/images/${post_id.replaceAll('/', '_').substring(1)}.png`;
+        let assigned_location = `/assets/images/${post_id.replaceAll("/", "_").substring(1)}.png`;
 
         card.querySelector(".post-preview-bg").style.backgroundImage =
             `url(${assigned_location}), url(${gen_url}), url(/assets/images/post-preview-default.png)`;

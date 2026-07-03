@@ -14,6 +14,7 @@ A page for my own website, using the Jekyll framework and hosted on GitHub pages
 Finishing up the conversion from React to Jekyll. I had some interesting CSS transitions on my old site, and I'm sure that the new site would benefit from either the principles or the transitions themselves.
 
 ### Add BotC Script tool
+
 - [ ] Multiple image support
 - [ ] Allow character editor to load official characters from ID, and "reset" to that character as requested
 - [ ] Edit author, script name
@@ -135,4 +136,12 @@ gem install jekyll bundler
 ```
 bundle install
 bundle exec jekyll serve
+```
+
+### Local Prettifying
+
+Note the `.` on the end, for some reason is required to make it properly behave.
+
+```
+npx prettier --write **/*.{js,md,html,css,scss,yaml} .
 ```

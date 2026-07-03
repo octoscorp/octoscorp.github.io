@@ -36,8 +36,8 @@ class ScriptMetaData {
 class Script {
     // Instance of ScriptMetaData
     _meta = {
-        "script_name": "Untitled Script",
-        "author": "Anon",
+        script_name: "Untitled Script",
+        author: "Anon",
     };
     official_chars = new Array();
     homebrew_chars = new Array();
@@ -266,7 +266,7 @@ function clear_expanding_inputs() {
     // reminder_inputs = reminder_inputs.concat(document
     //     .getElementById("globalReminders-input-container")
     //     .querySelectorAll("textarea"));
-    // for 
+    // for
 }
 
 function fill_expanding_inputs(char) {
@@ -275,13 +275,17 @@ function fill_expanding_inputs(char) {
     let current_image_input = document.getElementById("image-input");
     if (Array.isArray(char.image)) {
         for (let i = 1; i < char.image.length; i++) {
-            let inputs = current_image_input.parentElement
-                .querySelectorAll("input");
+            let inputs =
+                current_image_input.parentElement.querySelectorAll("input");
             current_image_input = inputs[inputs.length - 1];
             current_image_input.value = char.image[i];
             // JS changes don't trigger these natively
-            current_image_input.dispatchEvent(new Event("change", { bubbles: true }));
-            current_image_input.dispatchEvent(new Event("input", { bubbles: true }));
+            current_image_input.dispatchEvent(
+                new Event("change", { bubbles: true }),
+            );
+            current_image_input.dispatchEvent(
+                new Event("input", { bubbles: true }),
+            );
         }
     }
 }
@@ -464,8 +468,11 @@ function get_default_night_order(night) {
 function fill_night_order(night) {
     let order = loaded_script._meta[night];
     let default_order = get_default_night_order(night);
-    if (order === undefined || order === null ||
-        (Array.isArray(order) && order.length == 0)) {
+    if (
+        order === undefined ||
+        order === null ||
+        (Array.isArray(order) && order.length == 0)
+    ) {
         order = default_order;
     }
 
@@ -908,10 +915,7 @@ function delete_character() {
 
 function image_input_handle_input(event) {
     event.target.classList.add("warning-border");
-    if (
-        event.target.value === null ||
-        event.target.value.length === 0
-    ) {
+    if (event.target.value === null || event.target.value.length === 0) {
         event.target.classList.remove("warning-border");
     }
 }
