@@ -1,0 +1,12 @@
+#parliament-area {
+    --ACT-color: #FDE401;
+    --GRN-color: #098137;
+    --LAB-color: #D82A20;
+    --TPM-color: #B2001A;
+    --NAT-color: #00529F;
+    --NZF-color: #000000;
+    --OPP-color: #00EDE1;
+    --seat-size: 16px;
+
+    background-color: #CCC;
+}

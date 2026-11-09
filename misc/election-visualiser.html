@@ -1,0 +1,35 @@
+---
+layout: js-enabled
+title: "NZ Election Visualiser"
+include_scripts: ["election-data.js", "election-visualiser.js"]
+include_styles: ["parliament.css"]
+---
+
+<div id="election-visualiser-wrapper">
+  <div id="controls-box">
+    <label for="elections">Choose an election result:</label>
+    <select name="elections" id="elections">
+        <option value="2026 Preliminary">2026 Election (Preliminary)</option>
+        <option value="2023 Election">2023 Election</option>
+        <option value="2020 Election">2020 Election</option>
+    </select>
+    <br />
+    Or, choose a poll:<br />
+    <label for="poll_years">Year:</label>
+    <select name="poll_years" id="poll_years">
+        <option value="-1">--</option>
+        <option value="2026">2026</option>
+    </select>
+    <label for="polls">Choose a poll:</label>
+    <select name="polls" id="polls">
+        <option value="-1">--</option>
+    </select>
+    <!-- Go button -->
+  </div>
+  <!-- controls-box -->
+  <h2 id="result-name">Result Name</h2>
+  <canvas id="parliament-area" width="400" height="370">
+  </canvas>
+  <!-- parliament-area -->
+</div>
+<!-- minesweeper-wrapper -->

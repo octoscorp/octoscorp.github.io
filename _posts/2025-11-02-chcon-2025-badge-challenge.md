@@ -7,7 +7,7 @@ tags: conference technical hacking
 
 This year I had the fortune to attend CHCon, so here's the tale of the badge CTF.
 
-This year's [[1]][chcon] badges were designed and built by Jeremy Stott (stoggi) [[2]][stuggi], who worked frantically overnight to complete them all - a customs delay caused some components to arrive on _the day of_ the conference. The badge itself was composed of a circuit board, with an attached ESP32-C and two LED strips.
+This year's [[1]][chcon] badges were designed and built by Jeremy Stott (stuggi) [[2]][stuggi], who worked frantically overnight to complete them all - a customs delay caused some components to arrive on _the day of_ the conference. The badge itself was composed of a circuit board, with an attached ESP32-C and two LED strips.
 
 (There would be a photo of the badge here if my camera was at all worthwhile - for the moment, you can check out https://sinclairstudios.net/chcon-2025-badge-challenge).
 
